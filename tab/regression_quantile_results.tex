@@ -1,29 +1,25 @@
 % adapted from https://tex.stackexchange.com/a/63592
 % and https://tex.stackexchange.com/a/196773
 % and https://tex.stackexchange.com/a/422586
+% and https://tex.stackexchange.com/a/602970
 
 \clearpage
 \onecolumn
 
 \begin{landscape}
 
-% \begin{tabular}{ccccc}
-\csvreader[
+\csvstyle{myTableStyle}{
   longtable=ccccc,
-  column count=26,
-  no head,
   table head=\hline,
-  late after line=\\\hline
-]{dat/test.csv}{
-  1=\Item,
-  2=\Percentage
+  late after line=\\\hline,
+  late after last line=\\\bottomrule,
+  head to column names,
 }
-{\Item & \Percentage}
-% \end{tabular}
 
-% late after line=\\,
-% late after last line=\\\bottomrule%,
-% before reading={\catcode`\#=12},after reading={\catcode`\#=6}
+% \string~ adapted from https://tex.stackexchange.com/a/425957
+\csvreader[myTableStyle]
+{dat/a=weak_scaling_regression_results+async_mode=3+comp_work=0+impl=proc+nproc=16_64_256+nthread=1+proc=0-255+readability=latexcsvreader+replicate=0-9+slurm_nnodes=64_256+slurm_ntasks=256+subject=inlet\string~outlet+view=summary+ext=.csv}{}%
+{\thecsvrow & \csuse{IndependentVariable}}
 
 
 \end{landscape}
