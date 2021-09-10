@@ -1,0 +1,31 @@
+\begin{figure*}
+  \centering
+
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/\metricslug/col=cpus-per-node+marker=+regression=ordinary-least-squares-regression+row=num-simels-per-cpu+transform=snapshot_diffs-groupby_exec_instance-mean+viz=facet-unsplit-regression+x=log-num-processes+y=\metricslug+ext=}
+    \caption{TODO complete ordinary regression}
+    \label{fig:regression-ols-\metricslug-complete-regression}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-mean+num-processes=16-64-256+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
+    \caption{TODO complete regression effect size}
+    \label{fig:regression-ols-\metricslug-complete-effect-size}
+  \end{subfigure}
+
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/\metricslug/col=cpus-per-node+marker=+regression=ordinary-least-squares-regression+row=num-simels-per-cpu+transform=snapshot_diffs-groupby_exec_instance-mean+viz=facet-split-regression+x=log-num-processes+y=\metricslug+ext=}
+    \caption{TODO partial regression}
+    \label{fig:regression-ols-\metricslug-partial-regression}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-mean+num-processes=64-256+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
+    \caption{TODO partial regression effect size}
+    \label{fig:regression-ols-\metricslug-partial-effect-size}
+  \end{subfigure}
+  \caption{\metricslug ~ ordinary least squares regression to estimate mean}
+  \label{fig:regression-ols-\metricslug}
+\end{figure*}
