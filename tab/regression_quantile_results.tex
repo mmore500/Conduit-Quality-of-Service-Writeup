@@ -38,8 +38,7 @@
   late after line=\\\hline,
   late after last line=\\\bottomrule,
   head to column names,
-  filter=\equal{\csuse{DependentVariable}}{Latency Simsteps Outlet},
-  % filter=\equal{\csuse{DependentVariableSlug}}{delivery-failure-rate},
+  filter=\equal{\csuse{DependentVariableSlug}}{latency-simsteps-outlet} \and \equal{\csuse{RegressionModel}}{Quantile Regression},
 }
 
 % \string~ adapted from https://tex.stackexchange.com/a/425957
