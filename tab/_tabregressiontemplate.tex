@@ -17,7 +17,7 @@
   longtable=@{\hspace{-.5\arrayrulewidth}}c@{\hspace{-.5\arrayrulewidth}}|l|l|l|l|l|l|l|l|l|l|l|l|l|l|,
   table head=\caption{
       \metricslug \regression.
-    }\label{tab:\metricslug\regression} \\
+    }\label{tab:\metricslug\regressionslug} \\
     \toprule%
     \multicolumn{1}{@{\hspace{-.5\arrayrulewidth}}l@{\hspace{-.5\arrayrulewidth}}}{} &%
     \rotcol{ Metric } &%
@@ -39,7 +39,7 @@
   late after line=\\\hline,
   late after last line=\\\bottomrule,
   head to column names,
-  filter=\equal{\csuse{DependentVariableSlug}}{\metricslug} \and \equal{\csuse{RegressionModel}}{\regression},
+  filter=\equal{\csuse{DependentVariableSlug}}{\metricslug} \and \equal{\csuse{RegressionModelSlug}}{\regressionslug},
 }
 
 % \string~ adapted from https://tex.stackexchange.com/a/425957
