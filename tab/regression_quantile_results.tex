@@ -1,10 +1,15 @@
 \newcolumntype{R}[2]{%
-    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    >{\adjustbox{%
+      angle=#1,%
+      lap=\width-(#2),%
+      fbox,%
+    }\bgroup}%
     c%
     <{\egroup}%
 }
 \newcommand*\rot{\multicolumn{1}{R{45}{1em}}}% no optional argument here, please!
 
+\newcommand\rotcol[1]{ \adjustbox{angle=45,lap=\width}{\hspace{-2ex}\rule{0.45\textwidth}{0.8pt}} \hfill \makebox[3ex]{\adjustbox{angle=45,lap=\width}{\bfseries #1}} \hfill }
 
 % adapted from https://tex.stackexchange.com/a/63592
 % and https://tex.stackexchange.com/a/196773
@@ -25,8 +30,8 @@
       TODO.
     }\label{tab:TODO} \\
     \toprule%
-    \rot{\bfseries Metric} &%
-    \rot{\bfseries Cpus Per Node} &%
+    \rotcol{ Metric } &%
+    \rotcol{ Cpus Per Node } &%
     \rot{\bfseries Num Simels Per Cpu} &%
     \rot{\bfseries Num Processes} &%
     \rot{\bfseries Absolute Effect Size} &%
