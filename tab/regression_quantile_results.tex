@@ -1,15 +1,4 @@
-\newcolumntype{R}[2]{%
-    >{\adjustbox{%
-      angle=#1,%
-      lap=\width-(#2),%
-      fbox,%
-    }\bgroup}%
-    c%
-    <{\egroup}%
-}
-\newcommand*\rot{\multicolumn{1}{R{45}{1em}}}% no optional argument here, please!
-
-\newcommand\rotcol[1]{ \adjustbox{angle=45,lap=\width}{\hspace{-2ex}\rule{0.45\textwidth}{0.8pt}} \hfill \makebox[3ex]{\adjustbox{angle=45,lap=\width}{\bfseries #1}} \hfill }
+\newcommand\rotcol[1]{ \multicolumn{1}{@{}l@{}}{} \adjustbox{angle=60,lap=\width}{\rule{0.45\textwidth}{0.8pt}} \hfill \makebox[3ex]{\adjustbox{angle=60,lap=\width}{\bfseries \hspace{1ex} #1}} \hfill }
 
 % adapted from https://tex.stackexchange.com/a/63592
 % and https://tex.stackexchange.com/a/196773
@@ -25,24 +14,25 @@
 \begin{landscape}
 
 \csvstyle{myTableStyle}{
-  longtable=|l|l|l|l|l|l|l|l|l|l|l|l|,
+  longtable=@{\hspace{-.5\arrayrulewidth}}c@{\hspace{-.5\arrayrulewidth}}|l|l|l|l|l|l|l|l|l|l|l|l|,
   table head=\caption{
       TODO.
     }\label{tab:TODO} \\
     \toprule%
+    \multicolumn{1}{@{\hspace{-.5\arrayrulewidth}}l@{\hspace{-.5\arrayrulewidth}}}{} &%
     \rotcol{ Metric } &%
     \rotcol{ Cpus Per Node } &%
-    \rot{\bfseries Num Simels Per Cpu} &%
-    \rot{\bfseries Num Processes} &%
-    \rot{\bfseries Absolute Effect Size} &%
-    \rot{\bfseries Absolute Effect Size 95\% CI Lower Bound} &%
-    \rot{\bfseries Absolute Effect Size 95\% CI Upper Bound} &%
-    \rot{\bfseries Relative Effect Size} &%
-    \rot{\bfseries Relative Effect Size 95\% CI Lower Bound} &%
-    \rot{\bfseries Relative Effect Size 95\% CI Upper Bound} &%
-    \rot{$\mathbf{n}$} & %
-    \rot{$\mathbf{p}$} %
-    \\ \midrule\endhead
+    \rotcol{ Num Simels Per Cpu} &%
+    \rotcol{ Num Processes} &%
+    \rotcol{ Absolute Effect Size} &%
+    \rotcol{ Absolute Effect Size 95\% CI Lower Bound} &%
+    \rotcol{ Absolute Effect Size 95\% CI Upper Bound} &%
+    \rotcol{ Relative Effect Size} &%
+    \rotcol{ Relative Effect Size 95\% CI Lower Bound} &%
+    \rotcol{ Relative Effect Size 95\% CI Upper Bound} &%
+    \rotcol{$\mathbf{n}$} & %
+    \rotcol{$\mathbf{p}$} %
+    \vspace{-1ex} \\ \midrule\endhead
     \bottomrule\endfoot,
   late after line=\\\hline,
   late after last line=\\\bottomrule,
@@ -55,6 +45,7 @@
 \csvreader[myTableStyle]
 {dat/a=weak_scaling_regression_results+async_mode=3+comp_work=0+impl=proc+nproc=16_64_256+nthread=1+proc=0-255+readability=latexcsvreader+replicate=0-9+slurm_nnodes=64_256+slurm_ntasks=256+subject=inlet\string~outlet+view=summary+ext=.csv}{}%
 { %
+  &%
   \csuse{DependentVariable} &%
   \csuse{CpusPerNode} &%
   \csuse{NumSimelsPerCpu} &%
@@ -68,7 +59,6 @@
   \csuse{n} &%
   \csuse{p} %
 }
-
 
 \end{landscape}
 
