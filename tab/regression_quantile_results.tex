@@ -14,13 +14,14 @@
 \begin{landscape}
 
 \csvstyle{myTableStyle}{
-  longtable=@{\hspace{-.5\arrayrulewidth}}c@{\hspace{-.5\arrayrulewidth}}|l|l|l|l|l|l|l|l|l|l|l|l|,
+  longtable=@{\hspace{-.5\arrayrulewidth}}c@{\hspace{-.5\arrayrulewidth}}|l|l|l|l|l|l|l|l|l|l|l|l|l|,
   table head=\caption{
       TODO.
     }\label{tab:TODO} \\
     \toprule%
     \multicolumn{1}{@{\hspace{-.5\arrayrulewidth}}l@{\hspace{-.5\arrayrulewidth}}}{} &%
     \rotcol{ Metric } &%
+    \rotcol{ Significant Effect Sign } &%
     \rotcol{ Cpus Per Node } &%
     \rotcol{ Num Simels Per Cpu} &%
     \rotcol{ Num Processes} &%
@@ -47,7 +48,11 @@
 { %
   &%
   \csuse{DependentVariable} &%
-  \ifnum\csuse{CpusPerNode}=4 \cellcolor{green!25} \else \cellcolor{red!25} \fi  \csuse{CpusPerNode} &%
+  \ifthenelse{\equal{\csuse{SignificantEffectSign}}{-}}{\cellcolor{red!25}}{}%
+  \ifthenelse{\equal{\csuse{SignificantEffectSign}}{+}}{\cellcolor{green!25}}{}%
+  \ifthenelse{\equal{\csuse{SignificantEffectSign}}{0}}{\cellcolor{gray!25}}{}%
+  \csuse{SignificantEffectSign} &%
+  \csuse{CpusPerNode} &%
   \csuse{NumSimelsPerCpu} &%
   \csuse{NumProcessesPrettyprint} &%
   \csuse{AbsoluteEffectSize} &%
