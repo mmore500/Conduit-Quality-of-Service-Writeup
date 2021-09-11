@@ -47,7 +47,7 @@
 { %
   &%
   \csuse{DependentVariable} &%
-  \csuse{CpusPerNode} &%
+  \ifnum\csuse{CpusPerNode}=4 \cellcolor{green!25} \else \cellcolor{red!25} \fi  \csuse{CpusPerNode} &%
   \csuse{NumSimelsPerCpu} &%
   \csuse{NumProcessesPrettyprint} &%
   \csuse{AbsoluteEffectSize} &%
