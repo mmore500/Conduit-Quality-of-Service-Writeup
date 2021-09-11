@@ -1,4 +1,4 @@
-\newcommand\rotcol[1]{ \multicolumn{1}{@{}@{}}{} \adjustbox{angle=60,lap=\width}{\rule{0.45\textwidth}{0.8pt}} \hfill \makebox[3ex]{\adjustbox{angle=60,lap=\width}{\bfseries \hspace{1ex} #1}} \hfill }
+\input{tab/_rotcolmacro.tex}
 
 % adapted from https://tex.stackexchange.com/a/63592
 % and https://tex.stackexchange.com/a/196773
@@ -14,13 +14,14 @@
 \begin{landscape}
 
 \csvstyle{myTableStyle}{
-  longtable=@{\hspace{-.5\arrayrulewidth}}c@{\hspace{-.5\arrayrulewidth}}|l|l|l|l|l|l|l|l|l|l|l|l|l|,
+  longtable=@{\hspace{-.5\arrayrulewidth}}c@{\hspace{-.5\arrayrulewidth}}|l|l|l|l|l|l|l|l|l|l|l|l|l|l|,
   table head=\caption{
-      TODO.
-    }\label{tab:TODO} \\
+      \metricslug \regression.
+    }\label{tab:\metricslug\regression} \\
     \toprule%
     \multicolumn{1}{@{\hspace{-.5\arrayrulewidth}}l@{\hspace{-.5\arrayrulewidth}}}{} &%
     \rotcol{ Metric } &%
+    \rotcol{ Statistic } &%
     \rotcol{ Significant Effect Sign } &%
     \rotcol{ Cpus Per Node } &%
     \rotcol{ Num Simels Per Cpu} &%
@@ -38,7 +39,7 @@
   late after line=\\\hline,
   late after last line=\\\bottomrule,
   head to column names,
-  filter=\equal{\csuse{DependentVariableSlug}}{latency-simsteps-outlet} \and \equal{\csuse{RegressionModel}}{Quantile Regression},
+  filter=\equal{\csuse{DependentVariableSlug}}{\metricslug} \and \equal{\csuse{RegressionModel}}{\regression},
 }
 
 % \string~ adapted from https://tex.stackexchange.com/a/425957
@@ -47,6 +48,7 @@
 { %
   &%
   \csuse{DependentVariable} &%
+  \csuse{Statistic} &%
   \ifthenelse{\equal{\csuse{SignificantEffectSign}}{-}}{\cellcolor{red!25}}{}%
   \ifthenelse{\equal{\csuse{SignificantEffectSign}}{+}}{\cellcolor{green!25}}{}%
   \ifthenelse{\equal{\csuse{SignificantEffectSign}}{0}}{\cellcolor{gray!25}}{}%
