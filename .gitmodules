@@ -1,3 +1,0 @@
-[submodule "pin/conduit"]
-  path = pin/conduit
-  url = https://github.com/mmore500/conduit.git
