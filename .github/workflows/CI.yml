@@ -31,6 +31,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
+          extra_system_packages: 'build-base'
           root_file: main.tex
           post_compile: 'make'
       - uses: JamesIves/github-pages-deploy-action@4.0.0
