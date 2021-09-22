@@ -1,0 +1,20 @@
+name: CI
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches:
+      - '**'
+  schedule:
+    - cron: '0 0 * * 0'
+jobs:
+
+  tidy:
+    name: Tidy
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0 # fetch all history for all branches and tags
+      - run: bash ./ci/test_tidy.sh
