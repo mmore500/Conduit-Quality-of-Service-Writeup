@@ -34,6 +34,7 @@ jobs:
           extra_system_packages: 'build-base'
           root_file: main.tex
           post_compile: 'make'
+      - run: ls
       - run: mkdir deploy
       - run: cp conduit-quality-of-service-writeup-draft.pdf deploy/
       - uses: JamesIves/github-pages-deploy-action@4.0.0
