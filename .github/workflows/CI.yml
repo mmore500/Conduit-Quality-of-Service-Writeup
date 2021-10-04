@@ -37,11 +37,12 @@ jobs:
       - run: ls
       - run: mkdir deploy
       - run: cp workspace-draft.pdf deploy/conduit-quality-of-service-writeup-draft.pdf
-      - uses: JamesIves/github-pages-deploy-action@4.0.0
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: deploy # The folder the action should deploy.
-          clean: true # Automatically remove deleted files from the deploy branch
+      # disabled because output file size is too large (>100mb)
+      # - uses: JamesIves/github-pages-deploy-action@4.0.0
+      #   with:
+      #     branch: gh-pages # The branch the action should deploy to.
+      #     folder: deploy # The folder the action should deploy.
+      #     clean: true # Automatically remove deleted files from the deploy branch
       - uses: actions/upload-artifact@v2
         with:
           name: PDF
