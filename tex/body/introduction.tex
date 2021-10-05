@@ -1,30 +1,33 @@
 \section{Introduction}
 
 The parallel and distributed processing capacity of high-performance computing clusters continues to grow rapidly and enable profound scientific and industrial innovations \cite{gagliardi2019international}.
-Hardware advances afford great opportunity, but also pose a serious challenge: developing approaches to effectively harness it.
+These advances in hardware capacity and economy afford great opportunity, but also pose a serious challenge: developing approaches to effectively harness it.
 As HPC systems scale, deterministic algorithms depending on global synchronization become increasingly costly \cite{gropp2013programming,dongarra2014applied}.
+Yet, the assumption of deterministic computation and communication remains near-universal within parallel algorithm design \cite{chakradhar2010best}.
+In some cases, it suffices to assume hardware anomalies occur negligibly, with any that do transpire likely to cause an (acceptably rare) runtime performance degradation, hang, or crash.
+In other cases, hardware anomalies are anticipated in software but handled in a manner guaranteed to preserve perfect algorithmic integrity, like waiting for an anticipated message, requesting a message resend or restarting from a known-good checkpoint.
 
-Best-effort computing, where data dependencies are relaxed to reduce synchronization \cite{chakradhar2010best}, can improve scalability \cite{meng2009best}.
-Evolutionary algorithms typically perform perform a search or optimization with many acceptable results using pseudo-stochastic methods.
-Algorithms with these properties can often tolerate significant perturbations, including relaxation of synchronization requirements in the underlying algorithm.
-For example, island model genetic algorithms have been shown to perform well with asynchronous migration \cite{izzo2009parallel}.
-While not the focus of this paper, the original interest that motivated development of the Conduit library stems from work exploring open-ended evolution.
-Researchers in this domain study long-term dynamics of evolutionary systems in order to understand factors that affect these systems' potential to generate ongoing novelty \cite{taylor2016open}.
-Some recent evidence suggests that the generative potential of systems devised to study open-ended evolution is --- at least in part --- meaningfully constrained by available compute resources \cite{channon2019maximum}.
-Such observations raise the question of how to design parallel and distributed open-ended evolution systems.
+However, a subset of HPC applications can tolerate fundamentally nondeterministic, asynchronous computation.
+Problems with a broad range of acceptable outputs, like optimization or search problems, make good candidates.
+Likewise, algorithms relying on pseudo-stochastic methods that tend to iron out (rather than magnify) noise also make good candidates.
+The best-effort computing approach proposes that such applications might accept flawed, nondeterministic computation in exchange for improvements to speed and scalability.
+Interest in this trade-off motivates the notion of best-effort computing, algorithm design that anticipates hardware anomalies and accepts or even harnesses, rather than corrects, their impacts on computation.
 
-The concept of indefinite scalability was developed to describe constraints distributed systems would face at the asymptote of technological (and even physical) constraints.
-Indefinite scalability theory posits that such systems would necessitate
-\begin{itemize}
-    \item asynchronous operation,
-    \item decentralized networking,
-    \item interchangeable components (i.e., no global identifiers),
-    \item and graceful degradation under hardware failure \cite{ackley2011pursue}.
-\end{itemize}
-Although bespoke experimental hardware such as Illuminato X machina has been developed to demonstrate aspects of the indefinite scalability paradigm \cite{ackley2011homeostatic}, practical contemporary work scaling up evolving systems necessitates working with commercially-available hardware.
-However, existing distributed computing frameworks for contemporary high-performance computing hardware do not explicitly expose a convenient best-effort interface.
-In our current work, we focus on asynchronous operation and decentralization.
-We leave system robustness and resistance to hardware degradation to future work.
+Best-effort approaches have been shown to improve speed \cite{chakrapani2008probabilistic}, energy efficiency \cite{bocquet2018memory}, and scalability \cite{meng2009best}.
+Theoretical exploration of constraints distributed systems will face at the asymptote of technological (and even physical) constraints, performed under the banner of ``indefinite scalability'' in \cite{ackley2011pursue}, highlights an essential role --- at large enough scales, essentially a design inevitability --- for best-effort methods.
+Specifically, this theory finds as necessary asynchronous operation and graceful degradation under hardware failure (in addition to decentralized networking and interchangeable hardware components).
+
+Bio-inspired algorithms present strong potential to benefit from best-effort communication strategies.
+For example, evolutionary algorithms commonly use pseudo-stochastic methods (i.e., selection and mutation operators) and amount to optimization or search with many acceptable results.
+Indeed, island model genetic algorithms have been shown to perform well with asynchronous migration \cite{izzo2009parallel}.
+Likewise, artificial life simulations commonly rely on a pseudo-stochastic bottom-up approach and seek to model life-as-it-could-be rather than the implications of certain mechanistic assumptions \cite{bonabeau1994we}.
+Issues of distributed and parallel computing are of special interest within the the artificial life subdomain of open-ended evolution (OEE) \cite{ackley2014indefinitely}, which studies long-term dynamics of evolutionary systems in order to understand factors that affect potential to generate ongoing novelty \cite{taylor2016open}.
+Recent evidence suggests that the generative potential of at least some model systems are --- at least in part --- meaningfully constrained by available compute resources \cite{channon2019maximum}.
+Elsewhere, there has also been some interest in best-effort communication stochastic gradient descent, commonly used in conjunction with backpropagation to train artificial neural networks \cite{niu2011hogwild,noel2014dogwild}.
+
+Much exciting work on best-effort computing has incorporated bespoke experimental hardware \cite{chippa2014scalable, ackley2011homeostatic, cho2012ersa, chakrapani2008probabilistic}.
+However, here, we focus on exploring best-effort communication among parallel and distributed elements within existing, commercially-available hardware.
+Existing software, though, do not explicitly expose a convenient best-effort communication interface.
 
 The Message Passing Interface (MPI) standard \cite{gropp1996high} represents the mainstay for high-performance computing applications.
 This standard exposes communication primitives directly to the end user.
@@ -37,3 +40,10 @@ Task-based frameworks such as Charm++ \cite{kale1993charm++}, Legion \cite{bauer
 These frameworks assume a deterministic relationship between tasks.
 In a similar vein, programming languages and extensions like Unified Parallel C (UPC) \cite{el2006upc} and Chapel \cite{chamberlain2007parallel} rely on programmers to direct execution, but equips them with powerful abstractions, such as global shared memory.
 However, Chapel's memory model explicitly forbids data races and UPC ultimately relies on a barrier model for data transfer.
+
+To bridge this software shortcoming, we employ a new software framework, the Conduit C++ Library for Best-Effort High Performance Computing \cite{moreno2021conduit}.
+The Conduit library wraps perform best-effort communication in a flexible, intuitive interface that provides uniform inter-operation of serial, parallel, and distributed modalities.
+Although Conduit currently implements distributed functionality via MPI intrinsics, in future work we are interested in exploring lower-level protocols like InfiniBand Unreliable Datagrams \cite{kashyap2006ip, koop2007high}.
+
+
+parallel and, especially, distributed contexts.
