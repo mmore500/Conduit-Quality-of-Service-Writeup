@@ -45,5 +45,54 @@ To bridge this software shortcoming, we employ a new software framework, the Con
 The Conduit library wraps perform best-effort communication in a flexible, intuitive interface that provides uniform inter-operation of serial, parallel, and distributed modalities.
 Although Conduit currently implements distributed functionality via MPI intrinsics, in future work we are interested in exploring lower-level protocols like InfiniBand Unreliable Datagrams \cite{kashyap2006ip, koop2007high}.
 
+Here, we present a set of on-hardware experiments to empirically characterize Conduit's best-effort communication model.
+First, we determine whether best-effort communication strategies can benefit performance compared to the traditional perfect communication model.
+We also tested two intermediate, partially synchronized modes: one where the processor pool completed a global barrier at predetermined, scheduled timepoints and another where global barriers occurred on a rolling basis at fixed intervals.
+\footnote{
+Our motivation for these intermediate synchronization modes was interest in the effect of clearing any potentially-unbounded accumulation of message backlogs on laggard processes.
+}
+We test across processor counts, expecting to see benefit from best-effort communication increase at higher processor counts.
+We focus on weak scaling, growing overall problem size proportional to processor count.
+Put another way, we hold problem size per processor constant.
+\footnote{
+As opposed to strong scaling, where the problem size is held fixed while processor count increases.
+}
+This approach prevents interference from shifts in processes' workload profiles in observation of the effects of scaling up processor count.
+In order to survey across workload profiles, we tested performance under both a communication-intensive graph coloring solver and a compute-intensive artificial life simulation.
+To survey across hardware configurations, we tested scaling CPU count via threading on a single node and scaling via multiprocessing with each process assigned to a distinct node.
 
-parallel and, especially, distributed contexts.
+Second, we...
+We look particularly at how both perfect and best-effort communication approaches fare as problem size increases under weak scaling.
+
+Next, we beyond just raw performance to a more holistic suite of quality of service metrics.
+Because, under the best-effort model, hardware volatility affects the outcome of computation in ways that aren't directly controlled or directed by the programmer, it is important to understand the implications of this volatility.
+
+* message latency
+* delivery clumpiness
+* delivery failure rate
+* simstep period
+
+How does variability in these change?
+How does mean versus median change?
+Is this uniform across time and across (network) space?
+
+experimental
+Conduit: In order to understand whether its good and what its implications are, we performed a set of empirical experiments.
+We are particularly interested in understanding how it scales --- the idea being that it can not only run well, but maintains stability as hopefully arbitrary numbers of computational elements are added
+
+We begin by trying to understand if there are performance benefits to best-effort communication approach.
+* benchmarking experiments: performance under weak scaling
+
+Trying to more closely characterize SOMETHING
+
+Validate and understand these quality of service metrics
+
+We perform these under the most challenging settings of the graph coloring solver --- communication intensive under multiprocessing conditions
+
+to better understand how different runtime conditions affect the an assay of quality of service metrics
+* computation versus communication
+* intranode versus internode
+* multithreading versus multiprocessing
+
+The key
+Quality of service metrics under weak scaling
