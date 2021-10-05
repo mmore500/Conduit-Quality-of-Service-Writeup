@@ -1,0 +1,26 @@
+  \begin{figure}[thpb]
+      \centering
+    \begin{subfigure}[b]{\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{chart/multithread-graph-coloring}
+     \caption{Graph coloring per-thread update rate. Higher is better.}
+         \label{fig:multithread_graph_coloring_update_rate}
+      \end{subfigure}
+      
+    \begin{subfigure}[b]{\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{chart/multithread-graph-coloring-solution-quality}      
+      \caption{Graph coloring solution conflicts. Lower is better.}
+         \label{fig:multithread_graph_coloring_solution_quality}
+    \end{subfigure}
+    
+    
+    \begin{subfigure}[b]{\linewidth}
+    \includegraphics[width=\linewidth]{chart/multithread-digital-evolution}
+    \caption{Digital evolution per-thread update rate. Higher is better.}
+         \label{fig:multithread_digital_evolution_update_rate}
+    \end{subfigure}
+
+    \caption{Multithread benchmark results. Bars represent bootstrapped 95\% confidence intervals. }
+      \label{fig:multithread_benchmarks}
+  \end{figure}

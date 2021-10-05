@@ -1,0 +1,12 @@
+\section{Conclusion}
+
+Benchmarks show that best-effort communication through Conduit enables significantly better computational performance under high thread and process counts.
+We also demonstrated how, in the case of the graph coloring benchmark, best-effort communication can help achieve tangibly better solution quality within a fixed time constraint, as well.  
+We observed the greatest relative speedup under distributed communciation-heavy workloads --- about $7.8\times$ on the graph coloring benchmark.
+Distributing the computation-heavy digital evolution benchmark workload across independent nodes yielded the strongest scaling of our benchmarks, achieving at 64 processes 92\% the update-rate of single-process execution. 
+
+In future work, we plan to further characterize the performance of the Conduit's best-effort model with respect to the digital evolution simulation, looking directly at quality of service metrics such as message latency and frequency of dropped messages.
+We are also eager to investigate how Conduit's best-effort communication model scales on much larger process counts, perhaps on the order of hundreds or thousands of cores.
+
+Development of the Conduit library stemmed from a practical need for an abstract, prepackaged interface to support our digital evolution research.
+We hope that making this library available to the community can reduce domain expertise and programmability barriers to taking advantage of the best-effort communication model to efficiently leverage burgeoning parallel and distributed computing power. 

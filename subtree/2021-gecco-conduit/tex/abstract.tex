@@ -1,0 +1,25 @@
+\begin{abstract}
+% Developing software to effectively take advantage of growth in parallel and distributed processing capacity poses significant challenges.
+% Best-effort computing models have been proposed as a strategy to overcome challenges around harnessing high performance computing at extreme scale.
+% These models relax synchronization and hardware reliability requirements, accepting nondeterminism in exchange for efficiency.
+% This trade-off, inherent to best-effort computing, is often compatible with nature-inspired computing methods.
+% Although many programming languages and frameworks aim to facilitate software development for high performance applications, existing tools do not directly provide a prepackaged best-effort interface.
+% The Conduit C++ Library aims to provide a convenient interface for best-effort inter-thread and inter-process communication.
+% Here, we describe the motivation, objectives, design, and implementation of the library.
+% Benchmarks on a communication-intensive graph coloring problem and a compute-intensive digital evolution simulation, show that Conduit's best-effort model can improve scaling efficiency and solution quality, particularly in a distributed, multi-node context.
+
+% Conduit will be useful facilitated efficient, scalable parallel and distributed implementations of natural computing algorithms.
+
+Developing software to effectively take advantage of growth in parallel and distributed processing capacity poses significant challenges.
+Traditional programming techniques allow a user to assume that execution, message passing, and memory are always kept synchronized.
+However, maintaining this consistency becomes increasingly costly at scale. 
+One proposed strategy is ``best-effort computing'', which relaxes synchronization and hardware reliability requirements, accepting nondeterminism in exchange for efficiency.
+Although many programming languages and frameworks aim to facilitate software development for high performance applications, existing tools do not directly provide a prepackaged best-effort interface.
+The Conduit C++ Library aims to provide such an interface for convenient implementation of software that uses best-effort inter-thread and inter-process communication.
+Here, we describe the motivation, objectives, design, and implementation of the library.
+Benchmarks on a communication-intensive graph coloring problem and a compute-intensive digital evolution simulation show that Conduit's best-effort model can improve scaling efficiency and solution quality, particularly in a distributed, multi-node context.
+%% Conduit will be useful facilitated efficient, scalable parallel and distributed implementations of natural computing algorithms. (this is why you care as a GP person)
+
+\end{abstract}
+
+
