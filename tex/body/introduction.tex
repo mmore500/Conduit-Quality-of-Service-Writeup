@@ -61,38 +61,31 @@ This approach prevents interference from shifts in processes' workload profiles 
 In order to survey across workload profiles, we tested performance under both a communication-intensive graph coloring solver and a compute-intensive artificial life simulation.
 To survey across hardware configurations, we tested scaling CPU count via threading on a single node and scaling via multiprocessing with each process assigned to a distinct node.
 
-Second, we...
-We look particularly at how both perfect and best-effort communication approaches fare as problem size increases under weak scaling.
+Second, we sought to more closely characterize variability in message dispatch, transmission, and delivery under the best-effort model.
+Unlike perfect communication, under the best-effort model real-time hardware volatility affects the outcome of computation.
+Thus, an understanding of the magnitude and spatiotemporal distribution of variability underpins understanding of the actual computation being performed.
+For example, consistently faster execution or lower messaging latency for some subset of processing elements might violate symmetry assumptions within a simulation.
+It is even possible to imagine reciprocal interactions between real-time best-effort dynamics and simulation state.
+In the case of a positive feedback loop, the magnitude of effects might become extreme.
+For example, in artificial life scenarios, agents' evolved strategy might selectively increase messaging traffic to encumber neighboring processing elements or perhaps --- in the case where some fraction of traffic is hostile --- even inducing an increase in overall likelihood of messages being dropped.
 
-Next, we beyond just raw performance to a more holistic suite of quality of service metrics.
-Because, under the best-effort model, hardware volatility affects the outcome of computation in ways that aren't directly controlled or directed by the programmer, it is important to understand the implications of this volatility.
+We monitor five aspects of real-time behavior, which we refer to as quality of service metrics,
+\begin{itemize}
+  \item real-time simulation update rate (``simstep period''),
+  \item simulation-time message latency,
+  \item real-time message latency,
+  \item steadiness of message inflow (``delivery clumpiness''), and
+  \item delivery failure rate.
+\end{itemize}
 
-* message latency
-* delivery clumpiness
-* delivery failure rate
-* simstep period
+In an initial set of experiments, we use the graph coloring problem to test this suite of quality of service metrics across runtime conditions expected to strongly influence them.
+We compare
+\begin{itemize}
+  \item increasing compute workload per simulation update step,
+  \item within-node versus between-node process placement, and
+  \item multithreading versus multiprocessing.
+\end{itemize}
+We perform these experiments using the graph coloring solver configured to maximize communication relative to computation (i.e., just one simulation element per CPU) in order to maximize sensitivity of quality of service to the runtime manipulations.
 
-How does variability in these change?
-How does mean versus median change?
-Is this uniform across time and across (network) space?
-
-experimental
-Conduit: In order to understand whether its good and what its implications are, we performed a set of empirical experiments.
-We are particularly interested in understanding how it scales --- the idea being that it can not only run well, but maintains stability as hopefully arbitrary numbers of computational elements are added
-
-We begin by trying to understand if there are performance benefits to best-effort communication approach.
-* benchmarking experiments: performance under weak scaling
-
-Trying to more closely characterize SOMETHING
-
-Validate and understand these quality of service metrics
-
-We perform these under the most challenging settings of the graph coloring solver --- communication intensive under multiprocessing conditions
-
-to better understand how different runtime conditions affect the an assay of quality of service metrics
-* computation versus communication
-* intranode versus internode
-* multithreading versus multiprocessing
-
-The key
-Quality of service metrics under weak scaling
+Then, to flesh out the understanding of how raw performance scales that was obtained in preceding experiments, we analyze how each quality of service metric fares under weak scaling of process count.
+This analysis would detect a scenario where raw performance remains stable under weak scaling, but quality of service (and, therefore, likely quality of computation) degrades.
