@@ -1,0 +1,97 @@
+\section{Methods}
+
+We performed two benchmarks to compare the performance of Conduit's best-effort approach to a traditional synchronous model.
+We tested our benchmarks across both a multithread, shared-memory context and a distributed, multinode context.
+In each hardware context, we assessed performance on two algorithmic contexts: a communication-intensive distributed graph coloring problem (Section \ref{sec:graph_coloring_benchmark}) and a compute-intensive digital evolution simulation (Section \ref{sec:digital_evolution_benchmark}).
+The latter benchmark --- presented in Section \ref{sec:digital_evolution_benchmark} --- grew out of the original work developing the Conduit library to support large-scale experimental systems to study open-ended evolution.
+The former benchmark --- presented in Section \ref{sec:graph_coloring_benchmark} --- complements the first by providing a clear definition of solution quality.
+Metrics to define solution quality in the open-ended digital evolution context remain a topic of active research.
+
+\subsection{ Graph Coloring Benchmark } \label{sec:graph_coloring_benchmark}
+
+The graph coloring benchmark employs a graph coloring algorithm designed for distributed WLAN channel selection \cite{leith2012wlan}.
+In this algorithm, nodes begin by randomly choosing a color.
+Each computational update, nodes test for any neighbor with the same color.
+If and only if a conflicting neighbor is detected, nodes randomly select another color.
+The probability of selecting each possible color is stored in array associated with each node.
+Before selecting a new color, the stored probability of selecting the current (conflicting) color is decreased by a multiplicative factor $b$.
+We used $b=0.1$, as suggested by Leith et al.
+Likewise, the stored probability of selecting all others is increased by a multiplicative factor.
+Regardless of whether their color changed, nodes transmit their current color to their neighbor.
+
+Our benchmarks focus on weak scalability, using a fixed problem size of 2048 graph nodes per thread or process.
+These nodes were arranged in a two-dimensional grid topology where each node had three possible colors and four neighbors.
+We implement the algorithm with a single Conduit communication layer carrying graph color as an unsigned integer.
+We used Conduit's built-in pooling feature to consolidate color information into a single MPI message between pairs of communicating processes each update. 
+We performed five replicates, each with a five second simulation runtime.
+Solution error was measured as the number of graph color conflicts remaining at the end of the benchmark. 
+
+\subsection{ Digital Evolution Benchmark } \label{sec:digital_evolution_benchmark}
+
+The digital evolution benchmark runs the DISHTINY (DIStributed Hierarchical Transitions in Individuality) artificial life framework.
+This system is designed to study major transitions in evolution, events where lower-level organisms unite to form a self-replicating entity.
+The evolution of multicellularity and eusociality exemplify such transitions. 
+Previous work with DISHTINY has explored methods for selecting traits characteristic of multicellularity such as reproductive division of labor, resource sharing within kin groups, resource investment in offspring, and adaptive apoptosis \cite{moreno2019toward}.
+
+DISHTINY simulates a fixed-size toroidal grid populated by digital cells.
+Cells can sense attributes of their immediate neighbors, can communicate with those neighbors through arbitrary message passing, and can interact with neighboring cells cooperatively through resource sharing or competitively through antagonistic competition to spawn daughter cells into limited space.
+This cell behavior is controlled by SignalGP event-driven linear genetic programs \cite{lalejini2018evolving}.
+Full details of the DISHTINY simulation are available in \cite{moreno2021exploring}.
+
+We use Conduit-based messaging channels to manage all interactions between neighboring cells.
+During a computational update, each cell advances its internal state and pushes information about its current state to neighbor cells.
+Several independent messaging layers handle disparate aspects of cell-cell interaction, including
+\begin{itemize}
+  \item Cell spawn messages, which contain arbitrary-length genomes (seeded at 100 12-byte instructions with a hard cap of 1000 instructions). These are handled every 16 updates and use Conduit's built-in aggregation support for inter-process transfer.
+  \item Resource transfer messages, consisting of a 4-byte float value. These are handled every update and use Conduit's built-in pooling support for inter-process transfer.
+  \item Cell-cell communication messages, consisting of arbitrarily many 20-byte packets dispatched by genetic program execution. These are handled every 16 updates and use Conduit's built-in aggregation support for inter-process transfer.
+  \item Environmental state messages, consisting of a 216-byte struct of data. These are handled every 8 updates and use conduit's built-in pooling support for inter-process transfer.
+  \item Multicellular kin-group size detection messages, consisting of a 16-byte bitstring. These are handled every update and use Conduit's built-in pooling support for inter-process transfer.
+\end{itemize}
+
+Implementing all cell-cell interaction via Conduit-based messaging channels allows the simulation to be parallelized down to the granularity, potentially, of individual cells.
+However, in practice, for this benchmarking we assign 3600 cells to each thread or process.
+Because all cell-cell interactions occur via Conduit-based messaging channels, logically-neighboring cells can interact fully whether or not they are located on the same thread or process (albeit with potential irregularities due to best-effort limitations). 
+An alternate approach to evolving large populations might be an island model, where Conduit-based messaging channels would be used solely to exchange genomes between otherwise independent populations \cite{bennett1999building}.
+However, we chose to instead parallelize DISHTINY as a unified spatial realm in order to enable parent-offspring interaction and leave the door open for future work with multicells that exceed the scope of an individual thread or process.
+
+\subsection{Asynchronicity Modes} \label{sec:asynchronicity_modes}
+
+\input{fig/asynchronicity_modes.tex}
+
+For both benchmarks, we compared performance across a spectrum of synchronization setting, which we term ``asynchronicity modes'' (Table \ref{tab:asynchronicity_modes}).
+Asynchronicity mode 0 represents traditional fully-synchronous methodology.
+Under this treatment, full barrier synchronization was performed between each computational update.
+Asynchronicity mode 3 represents fully asynchronous methodology.
+Under this treatment, individual threads or processes performed computational updates freely, incorporating input from other threads or processes on a fully best-effort basis.  
+
+During early development of the library, we discovered that unprocessed messages building up faster than they could be processed --- even if they were being skipped over to only get the latest message --- could degrade quality of service or even cause runtime instability.
+We opted for MPI communication primitives that could consume many backlogged messages per call and increased buffer size to address these issues, but remained interested in the possibility of partial synchronization to clear potential message backlogs.
+So, we included two partially-synchronized treatments: asynchronicity modes 1 and 2.
+
+In asynchronicity mode 1, threads and processes alternated between performing computational updates for a fixed-time duration and executing a global barrier synchronization.
+For the graph coloring benchmark, work was performed in 10ms chunks.
+For the digital evolution benchmark, which is more computationally intensive, work was performed in 100ms chunks.
+In asynchronicity mode 2, threads and processes executed global barrier synchronizations at predetermined time points.
+In both experiments, global barrier synchronization occurred on each time a second of epoch time elapsed.
+
+Finally, asynchronicity mode 4 disables all inter-thread and inter-process communication, including barrier synchronization.
+We included this mode to isolate the impact on performance of communication between threads and processes from other factors potentially affecting performance, such as cache crowding.
+In this run mode for the graph coloring benchmark, all calls to put messages into or pull messages out of ducts between processes or threads were skipped (except after the benchmark concluded, when assessing solution quality).
+Because of its larger footprint, incorporating logic into the digital evolution simulation to disable all inter-thread and inter-process messaging was impractical.
+Instead, we launched multiple instances of the simulation as fully-independent processes and measured performance of each.
+
+\subsection{Code, Data, and Reproducibility}
+
+Benchmarking experiments were performed on [redacted for double-blind review]'s High Performance Computing Center, a cluster of hundreds of heterogeneous x86 nodes linked with InfiniBand interconnects.
+For multithread experiments, benchmarks for each thread count were collected from the same node.
+For multiprocess experiments, each processes was assigned to a distinct node in order to ensure results were representative of performance in a distributed context.
+All multiprocess benchmarks recorded from the same collection of nodes.
+Hostnames are recorded for each benchmark data point.
+For an exact accounting of hardware architectures used, these hostnames can be crossreferenced with a table included with the data that summarizes the cluster's node configurations.
+
+Code for the distributed graph coloring benchmark is available at \url{https://github.com/mmore500/conduit} under \\ \texttt{demos/channel\_selection}.
+Code for the digital evolution simulation benchmark is available at \url{https://github.com/mmore500/dishtiny}.
+Exact versions of software used are recorded with each benchmark data point.
+Data is available via the Open Science Framework at \url{https://osf.io/7jkgp/} \cite{foster2017open}.
+An in-browser notebook for all reported statistics and data visualizations and is available via Binder at \url{https://mybinder.org/v2/gh/mmore500/conduit/HEAD?filepath=binder\%2F} \cite{jupyter2018binder}.

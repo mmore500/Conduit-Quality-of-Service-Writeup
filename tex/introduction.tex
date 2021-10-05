@@ -1,0 +1,39 @@
+\section{Introduction}
+
+The parallel and distributed processing capacity of high-performance computing clusters continues to grow rapidly and enable profound scientific and industrial innovations \cite{gagliardi2019international}.    
+Hardware advances afford great opportunity, but also pose a serious challenge: developing approaches to effectively harness it.
+As HPC systems scale, deterministic algorithms depending on global synchronization become increasingly costly \cite{gropp2013programming,dongarra2014applied}.
+
+Best-effort computing, where data dependencies are relaxed to reduce synchronization \cite{chakradhar2010best}, can improve scalability \cite{meng2009best}.
+Evolutionary algorithms typically perform perform a search or optimization with many acceptable results using pseudo-stochastic methods.
+Algorithms with these properties can often tolerate significant perturbations, including relaxation of synchronization requirements in the underlying algorithm.
+For example, island model genetic algorithms have been shown to perform well with asynchronous migration \cite{izzo2009parallel}.
+While not the focus of this paper, the original interest that motivated development of the Conduit library stems from work exploring open-ended evolution.
+Researchers in this domain study long-term dynamics of evolutionary systems in order to understand factors that affect these systems' potential to generate ongoing novelty \cite{taylor2016open}.
+Some recent evidence suggests that the generative potential of systems devised to study open-ended evolution is --- at least in part --- meaningfully constrained by available compute resources \cite{channon2019maximum}.
+Such observations raise the question of how to design parallel and distributed open-ended evolution systems.
+
+The concept of indefinite scalability was developed to describe constraints distributed systems would face at the asymptote of technological (and even physical) constraints.
+Indefinite scalability theory posits that such systems would necessitate
+\begin{itemize}
+    \item asynchronous operation,
+    \item decentralized networking,
+    \item interchangeable components (i.e., no global identifiers),
+    \item and graceful degradation under hardware failure \cite{ackley2011pursue}.
+\end{itemize}
+Although bespoke experimental hardware such as Illuminato X machina has been developed to demonstrate aspects of the indefinite scalability paradigm \cite{ackley2011homeostatic}, practical contemporary work scaling up evolving systems necessitates working with commercially-available hardware.
+However, existing distributed computing frameworks for contemporary high-performance computing hardware do not explicitly expose a convenient best-effort interface.
+In our current work, we focus on asynchronous operation and decentralization.
+We leave system robustness and resistance to hardware degradation to future work.
+
+The Message Passing Interface (MPI) standard \cite{gropp1996high} represents the mainstay for high-performance computing applications.
+This standard exposes communication primitives directly to the end user.
+MPI's nonblocking communication primitives, in particular, are sufficient to program distributed computations with relaxed synchronization requirements.
+Although its explicit, imperative nature enables precise control over execution, it also poses significant expense in terms of programability.
+This cost manifests in terms of programmer productivity, domain knowledge requirements, software quality, and difficulty tuning for performance due to program brittleness \cite{gu2019comparative, tang2014mpi}.
+
+In response to programmability concerns, many frameworks have arisen to offer useful parallel and distributed programming abstractions.
+Task-based frameworks such as Charm++ \cite{kale1993charm++}, Legion \cite{bauer2012legion}, Cilk \cite{blumofe1996cilk}, and Threading Building Blocks (TBB) \cite{reinders2007intel} describe the dependency relationships among computational tasks and associated data and relies on an associated runtime to automatically schedule and manage execution.
+These frameworks assume a deterministic relationship between tasks.
+In a similar vein, programming languages and extensions like Unified Parallel C (UPC) \cite{el2006upc} and Chapel \cite{chamberlain2007parallel} rely on programmers to direct execution, but equips them with powerful abstractions, such as global shared memory.
+However, Chapel's memory model explicitly forbids data races and UPC ultimately relies on a barrier model for data transfer.

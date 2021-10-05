@@ -1,0 +1,22 @@
+\section{ Implementation }
+
+Conduit's implementation has been developed around the following principles.
+
+\begin{itemize}
+    \item \textbf{overdecomposition}: Conduit provides a uniform API for intra-thread, inter-thread, and inter-process communication between agents.
+    \item \textbf{testability}: Interchangeablility of inter-thread and inter-process communication for intra-thread communication makes software more readily unit-testable.
+    \item \textbf{don't use what you don't want}: Multi-thread execution may be performed without MPI runtime.
+    \item \textbf{don't pay for what you don't use}: Intra-thread, inter-thread, and inter-process communication are explicitly handled by separate, optimized implementations. 
+    \item \textbf{modularity}: Different intra-thread, inter-thread, or inter-process implementations can be trivially interchanged for rapid prototyping and tuning.
+    \item \textbf{flexibility}: Communication primitives may trivially rearranged to form arbitrary network structures. 
+    \item \textbf{extensibility}: Users may provide communication implementations or network topologies.
+    \item \textbf{lightweight}: The core components of Conduit are built as a header-only library.
+    \item \textbf{portability}: Conduit is built using MPI and C++17 standards.
+    \item \textbf{interoperability}: Conduit is compatible with other multithread and MPI code.
+    \item \textbf{simplicity}: Conduit manages resource initialization and lifetime automatically.
+    % \item \textbf{intuitiveness}: TODO object-oriented model with a simple API and an intuitive real-world analogy.
+\end{itemize}
+
+Source code is hosted on GitHub at \url{https://github.com/mmore500/conduit}, made freely available under a MIT License.
+Documentation is hosted on ReadTheDocs at \url{https://conduit.fyi}.
+A containerized build environment for Conduit is hosted on DockerHub at \url{https://hub.docker.com/r/mmore500/conduit}.
