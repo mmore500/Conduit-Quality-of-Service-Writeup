@@ -1,0 +1,7 @@
+\subsection{Asynchronicity Modes} \label{sec:asynchronicity_modes}
+
+Finally, asynchronicity mode 4 disables all inter-thread and inter-process communication, including barrier synchronization.
+We included this mode to isolate the impact on performance of communication between threads and processes from other factors potentially affecting performance, such as cache crowding.
+In this run mode for the graph coloring benchmark, all calls to put messages into or pull messages out of ducts between processes or threads were skipped (except after the benchmark concluded, when assessing solution quality).
+Because of its larger footprint, incorporating logic into the digital evolution simulation to disable all inter-thread and inter-process messaging was impractical.
+Instead, we launched multiple instances of the simulation as fully-independent processes and measured performance of each.

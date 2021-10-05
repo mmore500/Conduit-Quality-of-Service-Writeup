@@ -1,0 +1,17 @@
+\subsection{Code, Data, and Reproducibility}
+
+Benchmarking experiments were performed on [redacted for double-blind review]'s High Performance Computing Center, a cluster of hundreds of heterogeneous x86 nodes linked with InfiniBand interconnects.
+For multithread experiments, benchmarks for each thread count were collected from the same node.
+For multiprocess experiments, each processes was assigned to a distinct node in order to ensure results were representative of performance in a distributed context.
+All multiprocess benchmarks recorded from the same collection of nodes.
+Hostnames are recorded for each benchmark data point.
+For an exact accounting of hardware architectures used, these hostnames can be crossreferenced with a table included with the data that summarizes the cluster's node configurations.
+
+Code for the distributed graph coloring benchmark is available at \url{https://github.com/mmore500/conduit} under \\ \texttt{demos/channel\_selection}.
+Code for the digital evolution simulation benchmark is available at \url{https://github.com/mmore500/dishtiny}.
+Exact versions of software used are recorded with each benchmark data point.
+Data is available via the Open Science Framework at \url{https://osf.io/7jkgp/} \cite{foster2017open}.
+An in-browser notebook for all reported statistics and data visualizations and is available via Binder at \url{https://mybinder.org/v2/gh/mmore500/conduit/HEAD?filepath=binder\%2F} \cite{jupyter2018binder}.
+
+
+Lac Nodes: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz	28 cores per node.
