@@ -1,1 +1,60 @@
 \subsection{Quality of Service: Computation vs. Communication}
+
+For this experiment, arbitrary compute work (detached from the underlying algorithm) was added to the simulation update process.
+We used a call to the \texttt{std::mt19937} random number engine as a unit of compute work.
+In microbenchmarks, we found that one work unit consumed about 35ns of walltime and 21ns of compute time.
+We performed 5 treatments, adding 0, 64, 4'096, 262'144, or 16'777'216 units of compute work to the update process.
+For each treatment, measurements were made on a pair of processes split across different nodes within the same cluster.
+
+\subsubsection{Simstep Period}
+
+Unsurprisingly, we found a direct relationship between per-update computational workload and the walltime required per computational update.
+Supplementary Figures \ref{fig:computation-vs-communication-distribution-simstep-period-inlet-ns} and \ref{fig:computation-vs-communication-distribution-simstep-period-outlet-ns} depict the distribution of walltime per computational update across snapshots.
+Once added compute work supersedes the light compute work already associated with the graph coloring algorithm update step (at around 64 work units), simstep period appears to scale in direct proportion with compute work.
+Indeed, we found a significant positive relationship between both mean and median simstep period and added compute work (Supplementary Figures \ref{fig:computation-vs-communication-regression-simstep-period-inlet-ns} and \ref{fig:computation-vs-communication-regression-simstep-period-outlet-ns}).
+Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} detail numerical results of these regressions.
+
+\subsubsection{Simstep Latency}
+
+Unsurprisingly, again, we observed a negative relationship between the number of simulation steps elapsed during message transit and added computational work.
+Put simply, longer update steps provide more time for messages to transit.
+Supplementary Figures \ref{fig:computation-vs-communication-distribution-latency-simsteps-inlet} and \ref{fig:computation-vs-communication-distribution-latency-simsteps-outlet} show the distribution of simstep latency across compute workloads.
+With no added compute work, messages take roughly between 20 and 100 simulation steps to transit.
+At maximum compute work per update, messages consistently arrive within 1 update.
+Regression analysis confirms a significant negative relationship between both mean and median log simstep latency and log added compute work (Supplementary Figures \ref{fig:computation-vs-communication-regression-latency-simsteps-inlet} and \ref{fig:computation-vs-communication-regression-latency-simsteps-outlet}).
+Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} detail numerical results of these regressions.
+
+%TODO use log latency simsteps for estimated statistics --- regressions are broken for raw input
+
+\subsubsection{Walltime Latency}
+
+Effects of log compute work on our measure of walltime latency highlight an important caveat in the interpretation of this metric.
+At 0, 64, and 4'096 work units, walltime latency measures $\approx 10^6$ ns.
+However, once simstep period exceeds at 262'144 work units ($\approx 10^7$ ns), walltime latency increases with added compute work.
+Because our computational model assumes on-demand message delivery with a communication phase only occurring once per simulation update, message transmission speed is fundamentally limited by simulation update period.
+If a message is dispatched while its recipient is busy doing computational work, the soonest it can be received will be when that recipient completes the computational phase of its update.
+In order to measure transmission time fully independent of delays due to on-demand delivery, additional instrumentation would be necessary.
+However, when this latency is greater than a few simsteps, this measure is reasonably representative of message transmission time
+
+Supplementary Figures \ref{fig:computation-vs-communication-distribution-latency-walltime-inlet-ns} and \ref{fig:computation-vs-communication-distribution-latency-walltime-outlet-ns} show the distribution of walltime latency across computational workloads.
+Supplementary Figures \ref{fig:computation-vs-communication-regression-latency-walltime-inlet-ns} and \ref{fig:computation-vs-communication-regression-latency-walltime-outlet-ns} summarize regression between walltime latency and added compute work.
+Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} detail numerical results of those regressions.
+
+\subsubsection{Delivery Clumpiness}
+
+We observed a negative relationship between computation workload and delivery clumpiness.
+At low computational intensity, we observed clumpiness greater than 0.9, meaning that only about 10\% of pull requests are laden with fresh messages.
+However, at high computational intensity clumpiness reached 0, indicating that messages arrived as a steady stream.
+Ostensibly, the reduction in clumpiness is due to increased real-time separation between dispatched messages.
+Supplementary Figure \ref{fig:computation-vs-communication-distribution-delivery-clumpiness} shows the effect of computational workload on the distribution of observed clumpinesses.
+We found a significant negative relationship between both mean and median clumpiness and computational intensity.
+Supplementary Figure \ref{fig:computation-vs-communication-regression-delivery-clumpiness} visualizes these regressions and Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} provide numerical details.
+
+\subsubsection{Delivery Failure Rate}
+
+We did not observe any delivery failures across all replicates and all compute workloads.
+So, compute workload had no observable effect on delivery reliability.
+Interestingly, as discussed in Section \ref{sec:intranode-vs-internode}, we did observe some delivery failure under intranode conditions.
+However, these experiments were conducted under internode conditions.
+Supplementary Figure \ref{fig:computation-vs-communication-distribution-delivery-failure-rate} shows the distribution of delivery failure rates across computation workloads and Supplementary Figure \ref{fig:computation-vs-communication-regression-delivery-failure-rate} shows regressions of delivery failure rate of against computational workload
+See Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} for numerical details.
