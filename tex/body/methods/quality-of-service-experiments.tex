@@ -1,48 +1,31 @@
 \subsection{Quality of Service Experiments} \label{sec:quality-of-service-experiments}
 
-real-time
-In order to
+Quality of service experiments executed the graph coloring algorithm described in Section \ref{sec:graph-coloring-benchmark}.
+In order to maximize communication intensity, only one graph vertex was assigned per cpu.
 
-Inlet vs Outlet
+Quality of service experiments were carried out on Michigan State University's High Performance Computing Center lac cluster, consisting of 28-core Intel(R) Xeon(R) CPU E5-2680 v4 \@ 2.40GHz nodes.
+Ten experimental replicates were performed for each condition surveyed.
+Slightly over five minutes of runtime was afforded to each replicate.
+Over five minutes of runtime, snapshots were taken at one minute intervals.
+The first snapshot was taken one minute after the beginning of runtime.
 
-We measure these metrics during one-second windows occurring once a minute.
-Measurements are sampled independently within each window on each processing element.
+Snapshots lasted one second, with the graph coloring algorithm running fully unhampered during the entire snapshot.
+This was accomplished by collecting and recording data via a separate thread.
+That thread collected and recorded a first tranche of snapshot data, spin waited for one second, and then recorded a second tranche.
+Because of underlying system being observed shifts during data collection (somewhat akin to photographic motion blur), some intuitive invariants --- like strictly non-negative delivery failure rates --- do not hold in some cases.
+However, the magnitude of such violations is generally minor.
+Further, because data collection procedures were consistent across treatments, statistical comparisons between treatments remain sound, even if direct interpretation of reported metrics should be taken with a grain of salt.
+
+Snapshots were performed independently for each process at each timepoint.
+So, for example, for two processes over the five minute window of a single replicate ten snapshots were collected.
+For statistical tests comparing treatments, snapshots were aggregated by replicate by either mean or median, as appropriate.
 For each quality of service statistic we estimate mean --- which captures effects of extreme-magnitude outliers --- and median --- which more closely represents typicalness --- across these window samples.
+Statistical comparisons across treatment conditions are performed via regression.
+We use ordinary least squares regression to analyze means \cite{geladi1986partial} and quantile regression to analyze medians \cite{koenker2001quantile}.
+For comparisons between dichotomous, categorical treatment conditions, one condition is coded as 0 and the other as 1.
+In the case of ordinary least squares regression, this boils down to an independent $t$-test.
+Although quantile regression on categorical predictors is not precisely equivalent to a direct test on medians between two groups (i.e., Mood's median test), there is precedent for this approach \cite{petscher2014quantile, konstantopoulos2019using}.
 
-
-1 second live measurements from another thread
-To aid consistent interpretation, all metrics are constructed such that mininimization represents desirable high quality of service.
-
-
-
-1 second live measurements from another thread
-
-\subsubsection{Latency}
-
-Simsteps and walltime.
-
-To measure simstep latency, we round counted trip messages.
-Messages between elements were tagged with a counter that.
-Between inlet and outlet node pairs
-
-\begin{itemize}
-  \item latency (simsteps)
-    - \verb|(df['Num Puts Attempted'] - 1) / df['Num Round Trip Touches Inlet']|
-  \item latency (walltime)
-    - \verb|df['Latency Simsteps Inlet'] * df['Simstep Period Inlet (s)']|
-  \item delivery clumpiness
-    - \verb|1.0 - df_snapshot_diffs['Num Pulls That Were Laden Immediately'] / df_snapshot_diffs[['Net Flux Through Duct', 'Num Pulls Attempted']].min(axis=1)|
-  \item delivery failure rate
-    - \verb|message sends attempted / messages delivered|
-  \item simstep period (walltime)
-    - \verb|df_snapshot_diffs['Inlet-Nanoseconds Elapsed'] / df_snapshot_diffs['Num Puts Attempted']|
-\end{itemize}
-
-How do we calculate each of these?
-
-Inlet vs Outlet
-
-
-We measure these metrics during one-second windows occurring once a minute.
-Measurements are sampled independently within each window on each processing element.
-For each quality of service statistic we estimate mean --- which captures effects of extreme-magnitude outliers --- and median --- which more closely represents typicalness --- across these window samples.
+Most statistics reported here can be calculated just as well in terms of incoming or outgoing messages.
+That is, most statistics can be generated via data from instrumentation attached to message ``inlets'' or data from instrumentation attached to message ``outlets'' with no obvious reason to prefer one over the other.
+Although ``inlet-'' and ``outlet-''derived statistics are nearly identical in all cases, for completeness we include both.
