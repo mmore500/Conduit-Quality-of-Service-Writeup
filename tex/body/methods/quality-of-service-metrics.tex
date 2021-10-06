@@ -19,7 +19,7 @@ We calculate the amount of wall-time elapsed per simulation update cycle (``Sims
 \frac{
   \mathrm{update\ count\ after} - \mathrm{update\ count\ before}
 }{
-  \mathrm{wall-time\ after} - \mathrm{wall-time\ before}
+  \mathrm{walltime\ after} - \mathrm{walltime\ before}
 }.
 \end{align*}
 Figure \ref{fig:quality-of-service-metric-definitions-simstep-period} compares a scenario with low simstep period to a scenario with a higher simstep period.
@@ -69,9 +69,9 @@ The only condition where messages are dropped is when a send buffer fills.
 So, we can calculate
 \begin{align*}
   \frac{
-    \mathrm{successful send odometer after} - \mathrm{successful send odometer before}
+    \mathrm{successful\ send\ odometer\ after} - \mathrm{successful\ send odometer\ before}
   }{
-    \mathrm{attempted send odometer after} - \mathrm{attempted send odometer before}
+    \mathrm{attempted\ send\ odometer\ after} - \mathrm{attempted\ send odometer\ before}
   }.
 \end{align*}
 
@@ -82,33 +82,33 @@ We refer to pull attempts that retrieve a message as ``laden.''
 That is, the extent to which independently dispatched messages arrive in bundles rather than as an even stream.
 
 If messages all arrive in independent pull attempts, then clumpiness will be zero.
-At the point where the pigeonhole principle applies ($\mathrm{num arriving messages} >= \mathrm{num pull attempts}$), clumpiness will also be zero so long as every pull attempt is laden.
+At the point where the pigeonhole principle applies ($\mathrm{num\ arriving\ messages} >= \mathrm{num\ pull\ attempts}$), clumpiness will also be zero so long as every pull attempt is laden.
 If all messages arrive during a single pull attempt, then clumpiness will approach 1.
 
 We formulate clumpiness as the compliment of steadiness.
 Steadiness, in turn, stems from three component statistics,
 \begin{align*}
-\mathrm{num laden pulls elapsed} =& \mathrm{laden pull odometer after} \\
-  &- \mathrm{laden pull odometer before} \\
-\mathrm{num messages received} =& \mathrm{message odometer after} \\
-  &- \mathrm{message odometer before} \\
-\mathrm{num pulls attempted} =& \mathrm{pull attempt odometer after} \\
-  &- \mathrm{pull attempt odometer before}
+\mathrm{num\ laden\ pulls\ elapsed} =& \mathrm{laden\ pull\ odometer\ after} \\
+  &- \mathrm{laden\ pull\ odometer\ before} \\
+\mathrm{num\ messages\ received} =& \mathrm{message\ odometer\ after} \\
+  &- \mathrm{message\ odometer\ before} \\
+\mathrm{num\ pulls\ attempted} =& \mathrm{pull\ attempt\ odometer\ after} \\
+  &- \mathrm{pull\ attempt\ odometer\ before}
 .
 \end{align*}
 
-We combine $\mathrm{num messages received}$ and $\mathrm{num pulls attempted}$ to derive,
+We combine $\mathrm{num\ messages\ received}$ and $\mathrm{num\ pulls\ attempted}$ to derive,
 \begin{align*}
-  \mathrm{num laden pull opportunities} =& \\
-   &\min\Big(\mathrm{num messages received}, \mathrm{num pulls attempted}\Big).
+  \mathrm{num\ opportunities\ for\ laden\ pulls} = \\
+   \min\Big(\mathrm{num\ messages\ received}, \mathrm{num\ pulls\ attempted}\Big).
 \end{align*}
 
 Then, to calculate steadiness,
 \begin{align*}
   \frac{
-    \mathrm{num laden pulls elapsed}
+    \mathrm{num\ laden\ pulls\ elapsed}
   }{
-    \mathrm{num laden pull opportunities}
+    \mathrm{num\ opportunities\ for\ laden\ pulls}
   }.
 \end{align*}
 
