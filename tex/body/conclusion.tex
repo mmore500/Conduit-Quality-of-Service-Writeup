@@ -1,1 +1,18 @@
 \section{Conclusion}
+
+Benchmarks in Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithread-benchmarks} show that best-effort communication through Conduit enables significantly better computational performance under high thread and process counts.
+We also demonstrated how, in the case of the graph coloring benchmark, best-effort communication can help achieve tangibly better solution quality within a fixed time constraint, as well.
+We observed the greatest relative speedup under distributed communciation-heavy workloads --- about $7.8\times$ on the graph coloring benchmark.
+Distributing the computation-heavy digital evolution benchmark workload across independent nodes yielded the strongest scaling of our benchmarks, achieving at 64 processes 92\% the update-rate of single-process execution.
+
+Weak scaling analysis of quality of service metrics in Section \ref{sec:weak-scaling} revealed that median quality of service remains stable under increasing process counts, with the sole exception of delivery failure rate under some circumstances.
+
+Development of the Conduit library stemmed from a practical need for an abstract, prepackaged interface to support our digital evolution research.
+Because real-time effects are fundamentally application-dependent and arise without any explicit in-program specification (and therefore may be unanticipated) it is important to be able to perform such profiling case-by-case in applications of best-effort communication.
+The instrumentation used in these experiments is written as wrappers around Inlets and Outlets that may be enabled via compile-time configuration switch.
+This makes data generation for quality of service analysis trivial to perform in any system built with the Conduit library.
+We hope that making this library and quality of service metrics available to the community can reduce domain expertise and programmability barriers to taking advantage of the best-effort communication model to efficiently leverage burgeoning parallel and distributed computing power.
+
+In future work, it may be of interest to design systems that monitor and proactively react to real-time quality of service conditions.
+For example, imposing a variable cost for cell-cell messaging to agents based on traffic levels or increasing per-update resource generation for agents on slow-running nodes.
+We are eager to investigate how Conduit's best-effort communication model scales on much larger process counts, perhaps on the order of hundreds or thousands of cores.
