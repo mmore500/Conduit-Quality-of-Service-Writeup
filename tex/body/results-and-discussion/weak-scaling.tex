@@ -8,16 +8,25 @@ To address these questions, we performed weak scaling experiments on 16, 64, and
 To broaden the survey, we tested scaling under four treatments from the Cartesian product of two variables: processors allocated per node and simulation elements assigned per processor.
 For the first variable, we tested scaling on allocations with each processor hosted on an independent node and allocations where each node hosted an average of four processors.
 This allowed us to examine how quality of service fared in homogeneous network conditions, where all communication between processes was inter-node, compared to heteregeneous conditions, where some inter-process communication was inter-node and some was intra-node.
-For the second variable, we tested with 2'048 simulation elements per processor (consistent with the benchmarking experiments performed in Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithreading-benchmarks}) and just one simulation element per processor, maximizing communication relative to computation.
+For the second variable, we tested with 2'048 simulation elements (``simels'') per processor (consistent with the benchmarking experiments performed in Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithreading-benchmarks}) and just one simulation element per processor, maximizing communication relative to computation.
 
 \subsubsection{Simstep Period}
 
-Supplementary Figures \ref{fig:weak-scaling-distribution-simstep-period-inlet-ns} and \ref{fig:weak-scaling-distribution-simstep-period-outlet-ns} surveys the distributions of simstep periods observed within snapshot windows.
+Supplementary Figures \ref{fig:weak-scaling-distribution-simstep-period-inlet-ns} and \ref{fig:weak-scaling-distribution-simstep-period-outlet-ns} survey the distributions of simstep periods observed within snapshot windows.
+Simstep period registers around \SI{80}{\micro\second} with one simel and around \SI{200}{\micro\second} with 2'048 simels.
+However, on heterogeneous allocations (4 cpus per node) this metric is more variable, spanning up to an order of magnitude.
+Outlier observations range up to around 10ms with 2'048 simels and up to slightly less than 100ms inlet / 4s outlet with 1 simel.
 
-ordinary least squares regression Supplementary Figures \ref{fig:weak-scaling-regression-ols-simstep-period-inlet-ns} and \ref{fig:weak-scaling-regression-ols-simstep-period-outlet-ns} Supplementary Tables \ref{tab:weak-scaling-simstep-period-inlet-ns-regression-ols} and \ref{tab:weak-scaling-simstep-period-outlet-ns-regression-ols}
+We performed an ordinary least squares (OLS) regression to test how mean simstep period changed with processor count.
+In all cases except one simel per cpu with four cpus per node, mean simstep period increased significantly with processor count from 16 to 64 to 256.
+However, from 64 to 256 processors mean simstep period only increased significantly with one simel per cpu and one cpu per node.
+Between 64 and 256 processes, mean simstep period actually decreased significantly for runs with 2'048 simels per cpu.
+Supplementary Figures \ref{fig:weak-scaling-regression-ols-simstep-period-inlet-ns} and \ref{fig:weak-scaling-regression-ols-simstep-period-outlet-ns} visualize reported OLS regressions.
+Supplementary Tables \ref{tab:weak-scaling-simstep-period-inlet-ns-regression-ols} and \ref{tab:weak-scaling-simstep-period-outlet-ns-regression-ols} provide numerical details on reported OLS regressions.
 
-quantile regression Supplementary Figures \ref{fig:weak-scaling-regression-quantile-simstep-period-inlet-ns} and \ref{fig:weak-scaling-regression-quantile-simstep-period-outlet-ns}
-Supplementary Tables \ref{tab:weak-scaling-simstep-period-inlet-ns-regression-quantile} and \ref{tab:weak-scaling-simstep-period-outlet-ns-regression-quantile}
+Median simstep period exhibited the same relationships with processor count, tested with quartile regression.
+Supplementary Figures \ref{fig:weak-scaling-regression-quantile-simstep-period-inlet-ns} and \ref{fig:weak-scaling-regression-quantile-simstep-period-outlet-ns} visualize corresponding quartile regressions.
+Supplementary Tables \ref{tab:weak-scaling-simstep-period-inlet-ns-regression-quantile} and \ref{tab:weak-scaling-simstep-period-outlet-ns-regression-quantile} report numerical details on those quartile regressions.
 
 \subsubsection{Walltime Latency}
 
