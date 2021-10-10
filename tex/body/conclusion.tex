@@ -6,6 +6,9 @@ We observed the greatest relative speedup under distributed communciation-heavy 
 Distributing the computation-heavy digital evolution benchmark workload across independent nodes yielded the strongest scaling of our benchmarks, achieving at 64 processes 92\% the update-rate of single-process execution.
 
 Weak scaling analysis of quality of service metrics in Section \ref{sec:weak-scaling} revealed that median quality of service remains stable under increasing process counts, with the sole exception of delivery failure rate under some circumstances.
+%TODO recap the quality of service descriptive experiments
+%TODO add more detailed recap of weak scaling results
+%TODO tell the implications of weak scaling results
 
 Development of the Conduit library stemmed from a practical need for an abstract, prepackaged interface to support our digital evolution research.
 Because real-time effects are fundamentally application-dependent and arise without any explicit in-program specification (and therefore may be unanticipated) it is important to be able to perform such profiling case-by-case in applications of best-effort communication.
