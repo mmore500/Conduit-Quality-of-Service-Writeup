@@ -1,5 +1,4 @@
 #!/bin/bash
-# this file cannot be marked executable for compatibility with overleaf
 
 # adapted from https://www.linsoftware.com/how-to-check-for-git-merge-conflicts-in-travis-ci/
 

@@ -1,5 +1,4 @@
 #!/bin/bash
-# this file cannot be marked executable for compatibility with overleaf
 
 SOURCE_HASH=$( find -path ./submodule -prune -false -o -type f | sort | xargs cat | sha1sum )
 

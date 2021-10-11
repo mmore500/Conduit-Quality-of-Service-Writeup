@@ -1,5 +1,4 @@
 #!/bin/bash
-# this file cannot be marked executable for compatibility with overleaf
 
 # greq -qI tests if file is binary
 # adapted from https://stackoverflow.com/a/29689345
