@@ -1,3 +1,4 @@
+\input{lib/importpath.tex}
 \input{tab/_rotcolmacro.tex}
 
 % adapted from https://tex.stackexchange.com/a/63592
@@ -48,8 +49,7 @@
 \renewcommand\filename{\detokenize{submodule/conduit-binder/binder/date=2021+project=72k5n/a=weak-scaling/outplots/a=weak_scaling_regression_results+async_mode=3+comp_work=0+impl=proc+nproc=16_64_256+nthread=1+proc=0-255+readability=latexcsvreader+replicate=0-9+slurm_nnodes=64_256+slurm_ntasks=256+subject=inlet~outlet+view=summary+ext=.csv}}
 \catcode`\%=14
 
-\csvreader[myTableStyle]
-{\filename}{}%
+\csvreader[myTableStyle]{\importpath\filename}{}%
 { %
   &%
   \csuse{DependentVariable} &%
