@@ -17,7 +17,7 @@ jobs:
         with:
           submodules: 'recursive'
           fetch-depth: 0 # fetch all history for all branches and tags
-      - run: bash ./ci/test_tidy.sh
+      - run: ./ci/test_tidy.sh
 
   deploy:
     name: Deploy

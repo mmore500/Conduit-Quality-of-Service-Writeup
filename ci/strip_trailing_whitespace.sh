@@ -1,9 +1,8 @@
 #!/bin/bash
-# this file cannot be marked executable for compatibility with overleaf
 
 # greq -qI tests if file is binary
 # adapted from https://stackoverflow.com/a/29689345
-TARGETS=$(find . -type f ! -path "./subtree/*" ! -path "./.git/*" ! -path "*/assets/*" ! -path "./node_modules/*" -exec grep -qI . {} ';' -print)
+TARGETS=$(find . -type f ! -path "./submodule/*" ! -path "./.git/*" ! -path "*/assets/*" ! -path "./node_modules/*" -exec grep -qI . {} ';' -print)
 
 for filename in ${TARGETS}
 do

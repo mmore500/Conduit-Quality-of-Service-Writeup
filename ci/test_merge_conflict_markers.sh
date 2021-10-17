@@ -1,9 +1,8 @@
 #!/bin/bash
-# this file cannot be marked executable for compatibility with overleaf
 
 # adapted from https://www.linsoftware.com/how-to-check-for-git-merge-conflicts-in-travis-ci/
 
-found_merge_markers=$(grep -EHlr --exclude=test_merge_conflict_markers.sh --exclude-dir=subtree '<<<<<<< HEAD|>>>>>>>' .)
+found_merge_markers=$(grep -EHlr --exclude=test_merge_conflict_markers.sh --exclude-dir=submodule '<<<<<<< HEAD|>>>>>>>' .)
 
 if [ -z "$found_merge_markers" ]
 then

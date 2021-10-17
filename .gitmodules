@@ -1,0 +1,9 @@
+[submodule "submodule/conduit-binder"]
+  path = submodule/conduit-binder
+  url = https://github.com/mmore500/conduit.git
+  branch = binder
+  shallow = true
+[submodule "submodule/2021-gecco-conduit"]
+  path = submodule/2021-gecco-conduit
+  url = https://github.com/mmore500/2021-gecco-conduit.git
+  shallow = true
