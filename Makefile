@@ -17,6 +17,8 @@ ${BUILD_DIR}-draft.pdf: main.tex
     -jobname=${BUILD_DIR}-draft \
     -pdflatex="pdflatex -interaction=nonstopmode" draft.tex
 
+fresh: cleaner all
+
 clean:
 	rm -f ${BUILD_DIR}.pdf
 	rm -f ${BUILD_DIR}-draft.pdf
