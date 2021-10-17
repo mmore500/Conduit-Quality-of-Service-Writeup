@@ -1,3 +1,5 @@
+\input{lib/dissertationonly.tex}
+
 \section{Introduction}
 
 The parallel and distributed processing capacity of high-performance computing (HPC) clusters continues to grow rapidly and enable profound scientific and industrial innovations \citep{gagliardi2019international}.
@@ -83,8 +85,9 @@ However, a subset of HPC applications can tolerate --- or even harness --- occas
 Various approximation algorithms or heuristics fall into this category, with notable work being done on best-effort stochastic gradient descent for artificial neural network applications \citep{dean2012large,zhao2019elastic,niu2011hogwild,noel2014dogwild}.
 Likewise, algorithms relying on pseudo-stochastic methods that tend to exploit noise (rather than destabilize due to it) also make good candidates \citep{chakrapani2008probabilistic,chakradhar2010best}.
 Real-time control systems that cannot afford to pause or retry, by necessity, fall into the best-effort category \citep{rahmati2011computing}.
-%dissertonly
+\dissertationonly{%
 For this dissertation we will, of course, focus on this latter case of systems well-suited to best-effort methods, as evolving systems already require noise to fuel variation.
+}
 
 This work distills best-effort communication from the larger issue of best-effort computing, paying it special attention and generally pretermiting the larger issue.
 Specifically, we investigate the implications of relaxing synchronization and message delivery requirements.
