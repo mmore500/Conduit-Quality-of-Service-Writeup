@@ -51,7 +51,7 @@ In fact, at large enough scales global recovery durations could conceivably exce
 The local failure, local recovery (LFLR) paradigm eschews global recovery by maintaining persistent state on a process-wise basis and providing a recovery function to initialize a step-in replacement process \citep{heroux2014toward,teranishi2014toward}.
 In practice, such an approach can require keeping running logs of all messaging traffic in order to replay them for the benefit of any potential step-in replacement \citep{chakravorty2004fault}.
 Returning once more to the double dutch analogy, LFLR would transpire as something like a handful teammates pulling a stricken teammate aside to catch them up after an amnesia attack (rather than starting the entire team's routine back at the top of the current track).
-The intervening jumpers would have to remind the stricken teammate of a previously recorded position then discreetly re-feigning some of their moves that the stricken teammate had cued off between that recorded position and the amnesia episode. 
+The intervening jumpers would have to remind the stricken teammate of a previously recorded position then discreetly re-feigning some of their moves that the stricken teammate had cued off between that recorded position and the amnesia episode.
 
 The possibility of multiple simultaneous failure (perhaps, for example, of dozens of processes resident on a single node) poses an even more difficult, although not insurmountable, challenge for LFLR that would likely necessitate even greater overhead.
 On approach involves pairing up with a remote ``buddy'' process to hang on to a process' snapshots to be carbon-copied on all of that process' messages in order to ensure an independently survivable log.
