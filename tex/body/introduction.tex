@@ -83,6 +83,7 @@ The suitability of the best-effort model varies from application to application.
 Some domains are clear cut in favor of the reliable digital machine model --- for example, due to regulatory issues \citep{dengorra2014applied}.
 However, a subset of HPC applications can tolerate --- or even harness --- occasionally flawed or even fundamentally nondeterministic computation \citep{chakradhar2010best}.
 Various approximation algorithms or heuristics fall into this category, with notable work being done on best-effort stochastic gradient descent for artificial neural network applications \citep{dean2012large,zhao2019elastic,niu2011hogwild,noel2014dogwild}.
+Best-effort, real-time computing approaches have also been used in some artificial life models \citep{ray1995proposal}.
 Likewise, algorithms relying on pseudo-stochastic methods that tend to exploit noise (rather than destabilize due to it) also make good candidates \citep{chakrapani2008probabilistic,chakradhar2010best}.
 Real-time control systems that cannot afford to pause or retry, by necessity, fall into the best-effort category \citep{rahmati2011computing}.
 \dissertationonly{%
