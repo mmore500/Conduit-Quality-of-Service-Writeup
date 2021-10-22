@@ -1,5 +1,9 @@
 \subsection{Quality of Service: Multithreading vs. Multiprocessing}
 
+This section compares best-effort quality of service under multithreading and multiprocessing schemes.
+Hardware configuration was held constant.
+The graph coloring benchmark again serves as our experimental system.
+
 Concurrency was achieved by multiprocessing in one treatment, with inter-process communication mediated via MPI calls.
 with inter-thread communication occurring via shared memory access mediated by a C++ \texttt{std::mutex}.
 Runs under both conditions used two cpus on the same node.

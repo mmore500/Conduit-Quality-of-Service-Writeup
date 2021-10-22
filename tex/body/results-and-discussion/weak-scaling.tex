@@ -1,8 +1,9 @@
 \subsection{Quality of Service: Weak Scaling} \label{sec:weak-scaling}
 
 Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithread-benchmarks} showed how best-effort communication could improve application performance, particularly when scaling up processor count.
-Performance exhibited promising properties under multiprocess scaling, with overlapping performance estimate 95\% confidence intervals for 16 and 64 processor counts on both surveyed benchmark problems.
-This section aims to flesh out understanding of how scaling processor count affects a comprehensive suite of quality of service metrics, with particular interest in which, if any, aspects of quality of service degrade for larger processing pools.
+Performance exhibited promising properties under multiprocess scaling, with overlapping performance estimate intervals for 16 and 64 processor counts on both surveyed benchmark problems.
+This section aims to flesh out how increasing processor count affects a comprehensive suite of quality of service metrics.
+Our particular interest is in which, if any, aspects of quality of service degrade under larger processing pools.
 
 To address these questions, we performed weak scaling experiments on 16, 64, and 256 processes using the graph coloring benchmark.
 To broaden the survey, we tested scaling under four treatments from the Cartesian product of two variables: processors allocated per node and simulation elements assigned per processor.

@@ -2,6 +2,8 @@
 
 \subimport{submodule/2021-gecco-conduit/}{fig/multithread_benchmarks}
 
+First, we tested how performance on the graph coloring and digital evolution benchmarks fared when increasing thread count on a single hardware nodes.
+
 Figure \ref{fig:multithread_graph_coloring_update_rate} presents per-cpu algorithm update rate for the graph coloring benchmark at 1, 4, 16, and 64 threads.
 Update rate performance decreased with increasing multithreading across all asynchronicity modes.
 This performance degradation was rather severe --- per-cpu update rate decreased by 61\% between 1 and 4 threads and by about another 75\% between 4 and 64 threads.
