@@ -83,7 +83,7 @@ Massively distributed systems are becoming inevitable, and indeed if we are to t
 The suitability of the best-effort model varies from application to application.
 Some domains are clear cut in favor of the reliable digital machine model --- for example, due to regulatory issues \citep{dengorra2014applied}.
 However, a subset of HPC applications can tolerate --- or even harness --- occasionally flawed or even fundamentally nondeterministic computation \citep{chakradhar2010best}.
-Various approximation algorithms or heuristics fall into this category, with notable work being done on best-effort stochastic gradient descent for artificial neural network applications \citep{dean2012large,zhao2019elastic,niu2011hogwild,noel2014dogwild}.
+Various approximation algorithms or heuristics fall into this category, with notable work being done on best-effort stochastic gradient descent for artificial neural network applications \citep{dean2012large,zhao2019elastic,niu2011hogwild,noel2014dogwild,rhodes2020real}.
 Best-effort, real-time computing approaches have also been used in some artificial life models \citep{ray1995proposal}.
 Likewise, algorithms relying on pseudo-stochastic methods that tend to exploit noise (rather than destabilize due to it) also make good candidates \citep{chakrapani2008probabilistic,chakradhar2010best}.
 Real-time control systems that cannot afford to pause or retry, by necessity, fall into the best-effort category \citep{rahmati2011computing}.
@@ -110,7 +110,7 @@ Although perfect reproducibility and observability have uniquely enabled digital
 Issues of distributed and parallel computing are of special interest within the the artificial life subdomain of open-ended evolution (OEE) \citep{ackley2014indefinitely}, which studies long-term dynamics of evolutionary systems in order to understand factors that affect potential to generate ongoing novelty \citep{taylor2016open}.
 Recent evidence suggests that the generative potential of at least some model systems are --- at least in part --- meaningfully constrained by available compute resources \citep{channon2019maximum}.
 
-Much exciting work on best-effort computing has incorporated bespoke experimental hardware \citep{chippa2014scalable, ackley2011homeostatic, cho2012ersa, chakrapani2008probabilistic}.
+Much exciting work on best-effort computing has incorporated bespoke experimental hardware \citep{chippa2014scalable, ackley2011homeostatic, cho2012ersa, chakrapani2008probabilistic, rhodes2020real}.
 However, here, we focus on exploring best-effort communication among parallel and distributed elements within existing, commercially-available hardware.
 Existing software libraries, though, do not explicitly expose a convenient best-effort communication interface for such work.
 As such, best-effort approaches remain rare in production software and efforts to study best-effort communication must make use of a combination of limited existing support and the development of new software tools.
