@@ -5,13 +5,13 @@
 
 The parallel and distributed processing capacity of high-performance computing (HPC) clusters continues to grow rapidly and enable profound scientific and industrial innovations \citep{gagliardi2019international}.
 These advances in hardware capacity and economy afford great opportunity, but also pose a serious challenge: developing approaches to effectively harness it.
-As HPC systems scale, it becomes increasingly difficult to write software that makes efficient use of available hardware and also provides reproducibile results (or even near-perfectly reproducible results --- i.e., up to effects from floating point non-transitivity) consistent with models of computation as being performed a reliable digital machine \citep{heroux2014toward}.
+As HPC systems scale, it becomes increasingly difficult to write software that makes efficient use of available hardware and also provides reproducible results (or even near-perfectly reproducible results --- i.e., up to effects from floating point non-transitivity) consistent with models of computation as being performed a reliable digital machine \citep{heroux2014toward}.
 
 The bulk synchronous parallel (BSP) model, which is prevalent among HPC applications \citep{dongarra2014applied}, illustrates the challenge.
 This model segments fragments of computation into sequential global supersteps, with fragments at superstep $i$ depending only on data from strictly preceding fragments $<i$, often just $i-1$.
 Computational fragments are assigned across a pool of available processing components.
 The BSP model assumes perfectly reliable messaging: all dispatched messages between computational fragments are faithfully delivered.
-In practice, realizing this assumption introduces overhead costs: secondary acknowledgement messages to confirm delivery and mechanisms to dispatch potential resends as the need arises.
+In practice, realizing this assumption introduces overhead costs: secondary acknowledgment messages to confirm delivery and mechanisms to dispatch potential resends as the need arises.
 Global synchronization occurs between supersteps, with computational fragments held until their preceding superstep has completed \citep{valiant1990bridging}.
 This ensures that computational fragments will have at hand every single expected input, including those required from fragments located on other processing elements, before proceeding.
 So, supersteps only turn over once the entire pool of processing components have completed their work for that superstep.
@@ -20,7 +20,7 @@ In a game of double dutch with several jumpers, this would be like slowing the t
 
 Heterogeneous computational fragments, with some quick to process and others much slower, would result in poor efficiency under a naive approach where each processing element handled just one fragment.
 Some processing elements with easy tasks would finish early then idle while more difficult tasks carry on.
-To counteract such load imbalances, programmers can allow for ``parllel slack'' by ensuring computational fragments greatly outnumber processing elements or even performing dynamic load balancing at runtime \citep{valiant1990bridging}.
+To counteract such load imbalances, programmers can allow for ``parallel slack'' by ensuring computational fragments greatly outnumber processing elements or even performing dynamic load balancing at runtime \citep{valiant1990bridging}.
 
 Unfortunately, hardware factors on the underlying processing elements ensure that inherent global superstep jitter will persist: memory access time varies due to cache effects, message delivery time varies due to network conditions, extra processing due to error detection and recovery, delays due to unfavorable process scheduilng by the operating system, etc. \citep{dongarra2014applied}.
 Power management concerns on future machines will likely introduce even more variability \citep{gropp2013programming}.
@@ -30,9 +30,9 @@ The global synchronization operations underpinning the BSP model further hinder 
 Irrespective of time to complete computational fragments within a superstep, the cost of performing a global synchronization operation increases with processor count \citep{dongarra2014applied}.
 
 Efforts to recover scalability by relaxing superstep synchronization fall under two banners.
-The first approach, termed ``Relaxed Bulk-Synchronous Programming'' (rBSP), hides latency by performing collective operations asynchronously, essentialy allowing useful computation to be performed at the same time as synchronization primitives for a single superstep percolate through the collective \citep{heroux2014toward}.
+The first approach, termed ``Relaxed Bulk-Synchronous Programming'' (rBSP), hides latency by performing collective operations asynchronously, essentially allowing useful computation to be performed at the same time as synchronization primitives for a single superstep percolate through the collective \citep{heroux2014toward}.
 So, the time cost required to perform that synchronization can be discounted, up to the time taken up by computational work at one superstep.
-Likewise, individual processes experiencing heavier workloads or performance degradation due to hardware factors can fall behind by up to a single superstep without slowing the entire colelctive.
+Likewise, individual processes experiencing heavier workloads or performance degradation due to hardware factors can fall behind by up to a single superstep without slowing the entire collective.
 However, this approach cannot mask synchronization costs or cumulative performance degradation exceeding a single superstep's duration.
 The second approach, termed relaxed barrier synchronization, forgoes global synchronization entirely \citep{kim1998relaxed}.
 Instead, computational fragments at superstep $i$ only wait on expected inputs from the subset of superstep $i-1$ fragments that they directly interact with.
@@ -48,7 +48,7 @@ With our double-dutch analogy, we could think of this something like a team coac
 In addition to concerns over efficiency, resiliency poses another existential problem to massive HPC systems.
 In small scales, it can suffice to assume that such failures occur negligibly, with any that do transpire likely to cause an (acceptably rare) global interruption or failure.
 At large scales, however, software crashes and hardware failures become the rule rather than the exception \citep{dongarra2014applied} --- running a simulation to completion could even require so many retries as to be practically infeasible.
-A typical contemporary approach to imporove resiliency is checkpointing: the sytem periodically records global state then, when a failure arises, progress is rolled back to the most recent global known-good state and runtime restarts \citep{hursey2007design}.
+A typical contemporary approach to improve resiliency is checkpointing: the system periodically records global state then, when a failure arises, progress is rolled back to the most recent global known-good state and runtime restarts \citep{hursey2007design}.
 Global checkpoint-based recovery is expensive, especially at scale due to overhead associated with regularly recording global state, losing progress since the most recent checkpoint, and actually performing a global teardown and restart procedure.
 In fact, at large enough scales global recovery durations could conceivably exceed mean time between failures, making any forward simulation progress all but impossible \citep{dongorra2014applied}.
 The local failure, local recovery (LFLR) paradigm eschews global recovery by maintaining persistent state on a process-wise basis and providing a recovery function to initialize a step-in replacement process \citep{heroux2014toward,teranishi2014toward}.
@@ -58,27 +58,27 @@ The intervening jumpers would have to remind the stricken teammate of a previous
 
 The possibility of multiple simultaneous failure (perhaps, for example, of dozens of processes resident on a single node) poses an even more difficult, although not insurmountable, challenge for LFLR that would likely necessitate even greater overhead.
 On approach involves pairing up with a remote ``buddy'' process to hang on to a process' snapshots to be carbon-copied on all of that process' messages in order to ensure an independently survivable log.
-Unfortunately, this could potentialy forwarding all messaging traffic between simulation elements coresident on the focal process to its buddy, dragging inter-node communication into some otherwise trivial simulation operations \citep{chakravorty2007fault}.
+Unfortunately, this could potentially forwarding all messaging traffic between simulation elements coresident on the focal process to its buddy, dragging inter-node communication into some otherwise trivial simulation operations \citep{chakravorty2007fault}.
 Efforts to ensure resiliency beyond single-node failures currently appear unnecessary \citep[p. 12]{ni2016mitigation}.
 Even though LFLR saves the cost of global spin-down and spin-up, all processes will potentially have to wait for work lost since the last checkpoint to be recompleted, although in some cases this could be helped along by tapping idle hardware to take over delinquent work from the failed process and help catch it up \citep{dongarra2014applied}.
 
-Still more insidious to the reliable digital machine model, though, are soft errors --- events where corruption of data in memory occurs, usually do to environmental interferience (i.e., ``cosmic rays'') \citep{karnik2004characterization}.
+Still more insidious to the reliable digital machine model, though, are soft errors --- events where corruption of data in memory occurs, usually do to environmental interference (i.e., ``cosmic rays'') \citep{karnik2004characterization}.
 Further miniaturization and voltage reduction, which are assumed as a likely vehicle for continuing advances in hardware efficiency and performance, could conceivably  worsen susceptibility to such errors \citep{dongarra2014applied,kajmakovic2020challenges}.
 What makes soft errors so dangerous is their potential indetectability.
 Unlike typical hardware or software failures, which explicitly result in an explicit, observable outcome (i.e., an error code, an exception, or even just a crash), soft errors can transpire silently and lead to incorrect computational results without leaving anyone the wiser.
-Luckily, soft errors they occur rarely enough to be largely negelcted in most single-processor applications (except the most safety-critical settings); however, at scale soft errors occur at a non-trivial rate
+Luckily, soft errors they occur rarely enough to be largely neglected in most single-processor applications (except the most safety-critical settings); however, at scale soft errors occur at a non-trivial rate
 \citep{sridharan2015memory,scoles2018cosmic}.
 Redundancy (be it duplicated hardware components or error correction codes) can reduce the rate of uncorrected (or at least undetected) soft errors, although at a non-trivial cost \citep{vankeirsbilck2015soft,sridharan2015memory}.
 In some application domains with symmetries or conservation principles the rate of soft errors (or, at least, silent soft errors) could be also reduced through so-called ``skeptical'' assertions at runtime \citep{dongorra2014applied}, although this too comes at a cost.
 
-Even if soft errors can be effectively eradicated --- or at least suppressed to a point of inconsequentiality --- the nondeterministic mechanics of fault recovery and dynamic task scheduling could conceivably make guaranteeing bitwise reprodicibility at exascale effectively impossible, or at least an unreasonable engineering choice \citep{dongarra2014applied}.
+Even if soft errors can be effectively eradicated --- or at least suppressed to a point of inconsequentiality --- the nondeterministic mechanics of fault recovery and dynamic task scheduling could conceivably make guaranteeing bitwise reproducibility at exascale effectively impossible, or at least an unreasonable engineering choice \citep{dongarra2014applied}.
 However, the assumption of the reliable digital machine model results remains near-universal within parallel and distributed algorithm design \citep{chakradhar2010best}.
-Be it costly or simply a practical impossibility, the worsening burden of synchronization, fault recovery, and error correction begs the question of whether it is viable to maintain, or even to strive to maintain, the reliabile digital machine model at scale.
+Be it costly or simply a practical impossibility, the worsening burden of synchronization, fault recovery, and error correction begs the question of whether it is viable to maintain, or even to strive to maintain, the reliable digital machine model at scale.
 Indeed, software and hardware that relaxes guarantees of correctness and determinism --- a so-called ``best-effort model'' --- have been shown to improve speed \citep{chakrapani2008probabilistic}, energy efficiency \citep{chakrapani2008probabilistic,bocquet2018memory}, and scalability \citep{meng2009best}.
 As technology advances, computing is becoming more distributed and we are colliding with physical limits for speed and reliability.
 %Theoretical exploration of constraints distributed systems will face at the asymptote of technological (and even physical) constraints, performed under the banner of ``indefinite scalability'' in \citep{ackley2011pursue}, highlights an essential role --- at large enough scales, essentially a design inevitability --- for best-effort methods.
 %Specifically, this theory finds as necessary asynchronous operation and graceful degradation under hardware failure (in addition to decentralized networking and interchangeable hardware components).
-Massively distributed systems are becominging inevitable, and indeed if we are to truly achieve ``indefinite scalability'' \citep{ackley2011pursue} we must shift from guaranteed acuracy to best-effort methods that operate asynchronously and degrade gracefully under hardware failue.
+Massively distributed systems are becoming inevitable, and indeed if we are to truly achieve ``indefinite scalability'' \citep{ackley2011pursue} we must shift from guaranteed accuracy to best-effort methods that operate asynchronously and degrade gracefully under hardware failure.
 
 The suitability of the best-effort model varies from application to application.
 Some domains are clear cut in favor of the reliable digital machine model --- for example, due to regulatory issues \citep{dengorra2014applied}.
@@ -97,8 +97,8 @@ Under this model, the runtime strives to minimize message latency and loss, but 
 Instead, processes continue their compute work unimpeded and incorporate communication from collaborating processes as it happens to become available.
 We still assume that messages, if and when they are delivered, retain contentual integrity.
 We see best-effort communication as a particularly fruitful target for investigation.
-Firstly, synchronization constitutes the root cause of many contemporary quotidien scaling bottlenecks, well below the mark of thousands or millions of cores where runtime failures and soft errors become critical coniderations.
-Secondly, a best-effort approach  challenges of heterogenous, varying (i.e., due to power management), and generally lower communication bandwidth (relative to compute) expected on future HPC hardware \citep{gropp2013programming, acun2014parallel}.
+Firstly, synchronization constitutes the root cause of many contemporary quotidien scaling bottlenecks, well below the mark of thousands or millions of cores where runtime failures and soft errors become critical considerations.
+Secondly, a best-effort approach  challenges of heterogeneous, varying (i.e., due to power management), and generally lower communication bandwidth (relative to compute) expected on future HPC hardware \citep{gropp2013programming, acun2014parallel}.
 A best-effort communication model presents the possibility of runtime adaptation to effectively utilize available resources given the particular ratio of compute and communication capability at any one moment in any one rack.
 
 Complex biological organisms exhibit characteristic best-effort properties: trillions of cells interact asynchronously while overcoming all but the most extreme failures in a noisy world.
@@ -118,7 +118,7 @@ As such, best-effort approaches remain rare in production software and efforts t
 The Message Passing Interface (MPI) standard \citep{gropp1996high} represents the mainstay for high-performance computing applications.
 This standard exposes communication primitives directly to the end user.
 MPI's nonblocking communication primitives, in particular, are sufficient to program distributed computations with relaxed synchronization requirements.
-Although its explicit, the imperative nature of the MPI protocols enables precise control over execution; unfortunately it also poses significant expense in terms of programability.
+Although its explicit, the imperative nature of the MPI protocols enables precise control over execution; unfortunately it also poses significant expense in terms of programmability.
 This cost manifests in terms of reduced programmer productivity and software quality, while increasing domain knowledge requirements and the effort required to tune for performance due to program brittleness \citep{gu2019comparative, tang2014mpi}.
 
 In response to programmability concerns, many frameworks have arisen to offer useful parallel and distributed programming abstractions.
@@ -133,7 +133,7 @@ Although Conduit currently implements distributed functionality via MPI intrinsi
 
 Here, we present a set of on-hardware experiments to empirically characterize Conduit's best-effort communication model.
 First, we determine whether best-effort communication strategies can benefit performance compared to the traditional perfect communication model.
-We also tested two intermediate, partially synchronized modes: one where the processor pool completed a global barrier (i.e., they aligned at a sychronization point) at predetermined, rigidly scheduled timepoints and another where global barriers occurred on a rolling basis spaced out by fixed-length delays from the end of the last synchronization.%
+We also tested two intermediate, partially synchronized modes: one where the processor pool completed a global barrier (i.e., they aligned at a synchronization point) at predetermined, rigidly scheduled timepoints and another where global barriers occurred on a rolling basis spaced out by fixed-length delays from the end of the last synchronization.%
 \footnote{
 Our motivation for these intermediate synchronization modes was interest in the effect of clearing any potentially-unbounded accumulation of message backlogs on laggard processes.
 }
@@ -176,5 +176,5 @@ We compare
 \end{itemize}
 We perform these experiments using a graph coloring solver configured to maximize communication relative to computation (i.e., just one simulation element per CPU) in order to maximize sensitivity of quality of service to the runtime manipulations.
 
-Finally, we extend our understanding of performace scaling from the preceding experiments by analyzing how each quality of service metric fares as problem size and processor count grow together, a ``weak scaling'' experiment.
-This analysis would detect a scenario where raw performance remains stable under weak scaling, but quality of service (and, therefore, potentialy quality of computation) degrades.
+Finally, we extend our understanding of performance scaling from the preceding experiments by analyzing how each quality of service metric fares as problem size and processor count grow together, a ``weak scaling'' experiment.
+This analysis would detect a scenario where raw performance remains stable under weak scaling, but quality of service (and, therefore, potentially quality of computation) degrades.
