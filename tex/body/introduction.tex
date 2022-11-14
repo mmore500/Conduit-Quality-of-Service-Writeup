@@ -66,10 +66,10 @@ Still more insidious to the reliable digital machine model, though, are soft err
 Further miniaturization and voltage reduction, which are assumed as a likely vehicle for continuing advances in hardware efficiency and performance, could conceivably  worsen susceptibility to such errors \citep{dongarra2014applied,kajmakovic2020challenges}.
 What makes soft errors so dangerous is their potential indetectability.
 Unlike typical hardware or software failures, which explicitly result in an explicit, observable outcome (i.e., an error code, an exception, or even just a crash), soft errors can transpire silently and lead to incorrect computational results without leaving anyone the wiser.
-Luckily, soft errors they occur rarely enough to be largely neglected in most single-processor applications (except the most safety-critical settings); however, at scale soft errors occur at a non-trivial rate
+Luckily, soft errors occur rarely enough to be largely neglected in most single-processor applications (except the most safety-critical settings); however, at scale soft errors occur at a non-trivial rate
 \citep{sridharan2015memory,scoles2018cosmic}.
 Redundancy (be it duplicated hardware components or error correction codes) can reduce the rate of uncorrected (or at least undetected) soft errors, although at a non-trivial cost \citep{vankeirsbilck2015soft,sridharan2015memory}.
-In some application domains with symmetries or conservation principles the rate of soft errors (or, at least, silent soft errors) could be also reduced through so-called ``skeptical'' assertions at runtime \citep{dongorra2014applied}, although this too comes at a cost.
+In some application domains with symmetries or conservation principles, the rate of soft errors (or, at least, silent soft errors) could be also reduced through so-called ``skeptical'' assertions at runtime \citep{dongorra2014applied}, although this too comes at a cost.
 
 Even if soft errors can be effectively eradicated --- or at least suppressed to a point of inconsequentiality --- the nondeterministic mechanics of fault recovery and dynamic task scheduling could conceivably make guaranteeing bitwise reproducibility at exascale effectively impossible, or at least an unreasonable engineering choice \citep{dongarra2014applied}.
 However, the assumption of the reliable digital machine model results remains near-universal within parallel and distributed algorithm design \citep{chakradhar2010best}.
@@ -145,15 +145,15 @@ As opposed to strong scaling, where the problem size is held fixed while process
 }
 This approach prevents interference from shifts in processes' workload profiles in observation of the effects of scaling up processor count.
 In order to survey across workload profiles, we tested performance under both a communication-intensive graph coloring solver and a compute-intensive artificial life simulation.
-To survey across hardware configurations, we tested scaling CPU count via threading on a single node and scaling via multiprocessing with each process assigned to a distinct node.
+To survey across hardware configurations, we tested scaling CPU count via threading on a single node and scaling CPU count via multiprocessing with each process assigned to a distinct node.
 
 Second, we sought to more closely characterize variability in message dispatch, transmission, and delivery under the best-effort model.
 Unlike perfect communication, under the best-effort model real-time volatility affects the outcome of computation.
-magnitude and spatiotemporal distribution of variability
+% magnitude and spatiotemporal distribution of variability
 Because real-time processing speed degradations and message latency or loss alters which inputs each particular $i$th computational fragment sees, characterizing these phenomena's distribution across processing components and over time is critical to understanding the actual computation being performed.
 % @CAO: This sentence needs some work -- I'm not sure what you're trying to say here.
 % @MAM: better?
-For example, consistently faster execution or lower messaging latency for some subset of processing elements would violate any uniformity or symmetry assumptions within a simulation.
+For example, consistently faster execution or lower messaging latency for some subset of processing elements could violate uniformity or symmetry assumptions within a simulation.
 It is even possible to imagine reciprocal interactions between real-time best-effort dynamics and simulation state.
 In the case of a positive feedback loop, the magnitude of effects might become extreme.
 For example, in artificial life scenarios, agents may evolve strategies that selectively increase messaging traffic so as to encumber neighboring processing elements or even cause important messages to be dropped.
