@@ -18,8 +18,13 @@
 \csvstyle{myTableStyle}{
   longtable=@{\hspace{-.5\arrayrulewidth}}c@{\hspace{-.5\arrayrulewidth}}|l|l|l|l|l|l|l|l|l|l|l|l|l|l|,
   table head=\caption{
-      Intranode vs. internode ~ \regression.
-    }\label{tab:intranode-vs-internode-\regressionslug} \\
+    Full \regression{} results of quality of service metrics against log processor count for weak scaling experiment (Section \ref{sec:weak-scaling}).
+    Listed results include both piecewise and complete regression.
+    Ordinary least squares regression estimates relationship between independent variable and mean of response variable.
+    Quantile regression estimates relationship between independent variable and median of response variable.
+    Significance level $p < 0.05$ used.
+    Inf or NaN values may occur due to multicollinearity or due to inf or NaN observations.
+  }\label{tab:intranode-vs-internode-\regressionslug} \\
     \toprule%
     \multicolumn{1}{@{\hspace{-.5\arrayrulewidth}}l@{\hspace{-.5\arrayrulewidth}}}{} &%
     \rotcol{ Metric } &%
