@@ -18,9 +18,9 @@ The following section, \ref{sec:quality-of-service-experiments}, details the exp
 We calculate the amount of wall-time elapsed per simulation update cycle (``Simstep Period'') during a snapshot window as
 \begin{align*}
 \frac{
-  \mathrm{update\ count\ after} - \mathrm{update\ count\ before}
+  \mathrm{update\,count\,after} - \mathrm{update\,count\,before}
 }{
-  \mathrm{walltime\ after} - \mathrm{walltime\ before}
+  \mathrm{walltime\,after} - \mathrm{walltime\,before}
 }.
 \end{align*}
 Figure \ref{fig:quality-of-service-metric-definitions-simstep-period} compares a scenario with low simstep period to a scenario with a higher simstep period.
@@ -33,16 +33,16 @@ Figure \ref{fig:quality-of-service-metric-definitions-latency} compares a scenar
 To insulate against imperfect clock synchronization between processes, we estimate one-way wall-time latency from a round-trip measure.
 As part of our instrumentation, each simulation element maintains an independent zero-initialized ``touch counter'' associated with every neighbor simulation element it communicates with.
 Dispatched messages originating from each simulation element are bundled with the value of the unique touch counter associated with the target element's counter.
-When a message is received back to the originating element from the target element, the touch counter is set to $1 + \mathrm{bundled\ touch\ count}$.
+When a message is received back to the originating element from the target element, the touch counter is set to $1 + \mathrm{bundled\,touch\,count}$.
 In this manner, the touch counter increments by two for each successful round trip completed.
 (Because simulation elements are arranged as a toroidal mesh, all interaction between simulation elements is reciprocal.)
 
 We therefore calculate one-way latency during a snapshot window as,
 \begin{align*}
   \frac{
-    \mathrm{update\ count\ after} - \mathrm{update\ count\ before}
+    \mathrm{update\,count\,after} - \mathrm{update\,count\,before}
   }{
-    \min\Big( \mathrm{ touch\ count\ after } - \mathrm{ touch\ count\ before }, 1 \Big)
+    \min\Big( \mathrm{ touch\,count\,after } - \mathrm{ touch\,count\,before }, 1 \Big)
   }.
 \end{align*}
 Note that if no touches elapsed during the snapshot window, we make a best-case assumption that one might elapse immediately after the end of the snapshot window (i.e., we count at least one elapsed touch).
@@ -54,7 +54,7 @@ Note that if no touches elapsed during the snapshot window, we make a best-case 
 Wall-time latency is closely related to simstep latency, except that interpret time in terms of elapsed simulation updates instead of wall time.
 To calculate wall-time latency we apply a conversion to simstep latency based on simstep period,
 \begin{align*}
-  \mathrm{simstep\ latency} \times \mathrm{simstep\ period}.
+  \mathrm{simstep\,latency} \times \mathrm{simstep\,period}.
 \end{align*}
 
 This metric directly tells the real-time performance of message transmission.
@@ -70,9 +70,9 @@ The only condition where messages are dropped is when a send buffer fills.
 So, we can calculate
 \begin{align*}
   \frac{
-    \mathrm{successful\ send\ odometer\ after} - \mathrm{successful\ send odometer\ before}
+    \mathrm{successful\,send\,count\,after} - \mathrm{successful\,send\,count\,before}
   }{
-    \mathrm{attempted\ send\ odometer\ after} - \mathrm{attempted\ send odometer\ before}
+    \mathrm{attempted\,send\,count\,after} - \mathrm{attempted\,send\,count\,before}
   }.
 \end{align*}
 
@@ -83,34 +83,34 @@ We refer to pull attempts that retrieve a message as ``laden.''
 That is, the extent to which independently dispatched messages arrive in bundles rather than as an even stream.
 
 If messages all arrive in independent pull attempts, then clumpiness will be zero.
-At the point where the pigeonhole principle applies ($\mathrm{num\ arriving\ messages} >= \mathrm{num\ pull\ attempts}$), clumpiness will also be zero so long as every pull attempt is laden.
+At the point where the pigeonhole principle applies ($\mathrm{num\,arriving\,messages} >= \mathrm{num\,pull\,attempts}$), clumpiness will also be zero so long as every pull attempt is laden.
 If all messages arrive during a single pull attempt, then clumpiness will approach 1.
 
 We formulate clumpiness as the compliment of steadiness.
 (Measuring clumpiness provides a lower-is-better interpretation consistent with the rest of the quality of service metrics.)
 Steadiness, in turn, stems from three component statistics,
 \begin{align*}
-\mathrm{num\ laden\ pulls\ elapsed} =& \mathrm{laden\ pull\ odometer\ after} \\
-  &- \mathrm{laden\ pull\ odometer\ before} \\
-\mathrm{num\ messages\ received} =& \mathrm{message\ odometer\ after} \\
-  &- \mathrm{message\ odometer\ before} \\
-\mathrm{num\ pulls\ attempted} =& \mathrm{pull\ attempt\ odometer\ after} \\
-  &- \mathrm{pull\ attempt\ odometer\ before}
+\mathrm{num\,laden\,pulls\,elapsed} =& \mathrm{laden\,pull\,count\,after} \\
+  &- \mathrm{laden\,pull\,count\,before} \\
+\mathrm{num\,messages\,received} =& \mathrm{message\,count\,after} \\
+  &- \mathrm{message\,count\,before} \\
+\mathrm{num\,pulls\,attempted} =& \mathrm{pull\,attempt\,count\,after} \\
+  &- \mathrm{pull\,attempt\,count\,before}
 .
 \end{align*}
 
-We combine $\mathrm{num\ messages\ received}$ and $\mathrm{num\ pulls\ attempted}$ to derive,
+We combine $\mathrm{num\,messages\,received}$ and $\mathrm{num\,pulls\,attempted}$ to derive,
 \begin{align*}
-  \mathrm{num\ opportunities\ for\ laden\ pulls} = \\
-   \min\Big(\mathrm{num\ messages\ received}, \mathrm{num\ pulls\ attempted}\Big).
+  \mathrm{num\,opportunities\,for\,laden\,pulls} = \\
+   \min\Big(\mathrm{num\,messages\,received}, \mathrm{num\,pulls\,attempted}\Big).
 \end{align*}
 
 Then, to calculate steadiness,
 \begin{align*}
   \frac{
-    \mathrm{num\ laden\ pulls\ elapsed}
+    \mathrm{num\,laden\,pulls\,elapsed}
   }{
-    \mathrm{num\ opportunities\ for\ laden\ pulls}
+    \mathrm{num\,opportunities\,for\,laden\,pulls}
   }.
 \end{align*}
 
