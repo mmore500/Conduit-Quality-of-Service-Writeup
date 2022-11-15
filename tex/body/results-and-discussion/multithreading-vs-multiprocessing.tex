@@ -48,12 +48,12 @@ Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-s
 Multithreading exhibited higher median clumpiness and greater variance in clumpiness than multiprocessing.
 Under multithreading, clumpiness was nearly 1 within some snapshot windows and less than 0.1 within others.
 Under multiprocessing, clumpiness was consistently less than 0.1.
-Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-clumpiness} show the distributions of clumpiness under both multiprocessing and multithreading.
+Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} show the distributions of clumpiness under both multiprocessing and multithreading.
 Multithreading median clumpiness was 0.54.
 Multiprocessing median clumpiness was 0.03.
 Multithreading and multiprocessing mean clumpinesses were 0.56 and 0.03, respectively.
 
-Regression analysis confirmed a significantly greater clumpiness under both multithreading compared to multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
+Regression analysis confirmed a significantly greater clumpiness under both multithreading compared to multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
 This result plays into the narrative of multithreading providing less consistent quality of service than multiprocessing.
 
 \subsubsection{Delivery Failure Rate}
@@ -62,9 +62,9 @@ We observed a higher proportion of deliveries fail for multiprocessing than for 
 Multiprocessing exhibited both mean and median delivery failure rate of 0.38.
 In individual multiprocessing snapshot windows, we observed a delivery failure rates ranging from less than 0.1 to as high as 0.7.
 We observed no multithreaded delivery failures.
-Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-clumpiness} show the distributions of delivery failure rate for multithreading and multiprocessing.
+Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} show the distributions of delivery failure rate for multithreading and multiprocessing.
 
 Lack of delivery failure under multithreading fit expectation.
 The multithread implementation directly wrote updates to a piece of shared memory, so there was no send buffer to backlog and induce message drops (unlike the multiprocess implementation).
 
-Regression analysis confirmed a significant increase in delivery failure under multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
+Regression analysis confirmed a significant increase in delivery failure under multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).

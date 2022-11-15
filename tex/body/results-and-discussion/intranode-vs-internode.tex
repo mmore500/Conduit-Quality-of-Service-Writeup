@@ -41,18 +41,18 @@ Regression analysis confirmed a significant increase in walltime latency under i
 Delivery clumpiness was low under intranode communication and high under internode communication.
 Under intranode conditions, we observed a mean clumpiness value of 0.014 and a median of 0.002.
 Under internode conditions, we observed mean and median clumpiness values of 0.96.
-Supplementary Figures \ref{fig:intranode-vs-internode-distribution-clumpiness} and \ref{fig:intranode-vs-internode-distribution-clumpiness} show the distributions of clumpiness for intra- and inter-node communication.
-Regression analysis confirmed a significant increase in clumpiness under inter-node communication (Supplementary Figures \ref{fig:intranode-vs-internode-regression-clumpiness}, \ref{fig:intranode-vs-internode-regression-clumpiness}; Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression}).
+Supplementary Figures \ref{fig:intranode-vs-internode-distribution-delivery-clumpiness} and \ref{fig:intranode-vs-internode-distribution-delivery-clumpiness} show the distributions of clumpiness for intra- and inter-node communication.
+Regression analysis confirmed a significant increase in clumpiness under inter-node communication (Supplementary Figures \ref{fig:intranode-vs-internode-regression-delivery-clumpiness}, \ref{fig:intranode-vs-internode-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression}).
 
 \subsubsection{Delivery Failure Rate}
 
 Somewhat counterintuitively, a higher proportion of deliveries failed for intranode communication than for internode communication.
 We observed a delivery failure rate of around 0.3 for intranode communication (mean: 0.33; median: 0.30) and no delivery failures for internode communication (mean: 0.00; median: 0.00).
 In some intranode snapshot windows, we observed a delivery failure rate as high as 0.8.
-Supplementary Figures \ref{fig:intranode-vs-internode-distribution-clumpiness} and \ref{fig:intranode-vs-internode-distribution-clumpiness} show the distributions of delivery failure rate for intra- and inter-node communication.
+Supplementary Figures \ref{fig:intranode-vs-internode-distribution-delivery-clumpiness} and \ref{fig:intranode-vs-internode-distribution-delivery-clumpiness} show the distributions of delivery failure rate for intra- and inter-node communication.
 
 Because of Conduit's current MPI-based implementation, messages only drop when the underlying send buffer fills; queued messages are guaranteed for delivery.
 Slower simstep period under internode allocation could improve stability of the send buffer due to more time, on average, between send attempts.
 Underlying buffering or consolidation by the MPI backend for internode communication might also play a role by allowing data to be moved out of the userspace send buffer more promptly and/or reliably.
 
-Regression analysis confirmed a significant increase in delivery failure under intra-node communication (Supplementary Figures \ref{fig:intranode-vs-internode-regression-clumpiness}, \ref{fig:intranode-vs-internode-regression-clumpiness}; Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression}).
+Regression analysis confirmed a significant increase in delivery failure under intra-node communication (Supplementary Figures \ref{fig:intranode-vs-internode-regression-delivery-clumpiness}, \ref{fig:intranode-vs-internode-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression}).
