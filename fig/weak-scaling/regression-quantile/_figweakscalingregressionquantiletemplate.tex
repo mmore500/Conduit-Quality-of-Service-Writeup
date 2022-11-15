@@ -10,7 +10,7 @@
   \begin{subfigure}[b]{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=weak-scaling/teeplots/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-median+num-processes=16-64-256+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
-    \caption{TODO complete regression effect size}
+    \caption{Estimated regression coefficient for ordinary least squares regression. Zero corresponds to no effect.}
     \label{fig:weak-scaling-regression-quantile-\metricslug-complete-effect-size}
   \end{subfigure}
 
@@ -23,13 +23,14 @@
   \begin{subfigure}[b]{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=weak-scaling/teeplots/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-median+num-processes=64-256+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
-    \caption{TODO partial regression effect size}
+    \caption{Estimated regression coefficient for rightmost partial regression. Zero corresponds to no effect.}
     \label{fig:weak-scaling-regression-quantile-\metricslug-partial-effect-size}
   \end{subfigure}
   \caption{
   Quantile Regressions of \metric{} against log processor count for weak scaling experiment (Section \ref{sec:weak-scaling}).
   Top row shows complete regression and bottom row shows piecewise regression.
   Quantile regression estimates relationship between independent variable and median of response variable.
+  Note that log is base 4, so processor counts correspond to 16, 64, and 256.
   }
   \label{fig:weak-scaling-regression-quantile-\metricslug}
 \end{figure*}

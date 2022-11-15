@@ -10,7 +10,7 @@
   \begin{subfigure}[b]{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=multithreading-vs-multiprocessing/teeplots/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-mean+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
-    \caption{TODO complete ols regression effect size}
+    \caption{Estimated regression coefficient for ordinary least squares regression. Zero corresponds to no effect.}
     \label{fig:multithreading-vs-multiprocessing-regression-ols-\metricslug-complete-effect-size}
   \end{subfigure}
 
@@ -23,7 +23,7 @@
   \begin{subfigure}[b]{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=multithreading-vs-multiprocessing/teeplots/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-median+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
-    \caption{TODO complete quantile regression effect size}
+    \caption{Estimated regression coefficient for quantile regression. Zero corresponds to no effect.}
     \label{fig:multithreading-vs-multiprocessing-regression-quantile-\metricslug-complete-effect-size}
   \end{subfigure}
 
@@ -31,6 +31,7 @@
   Regressions of \metric{} against categorically coded treatment for multithreading vs. multiprocessing experiment (Section \ref{sec:multithreading-vs-multiprocessing}).
   Ordinary least squares regression (top row) estimates relationship between categorical dependent variable and mean of response variable.
   Quantile regression (bottom row) estimates relationship between categorical independent variable and median of response variable.
+  Error bands and bars are 95\% confidence intervals.
   }
   \label{fig:multithreading-vs-multiprocessing-regression-\metricslug}
 \end{figure*}
