@@ -4,20 +4,21 @@ Quality of service experiments executed the graph coloring algorithm described i
 In order to maximize communication intensity, only one graph vertex was assigned per CPU.
 Ten experimental replicates were performed for each condition surveyed.
 Slightly over five minutes of runtime was afforded to each replicate.
-Over five minutes of runtime, snapshots were taken at one minute intervals.
-The first snapshot was taken one minute after the beginning of runtime.
+Over five minutes of runtime, snapshot observations were taken at one minute intervals.
+The first snapshot observation was taken one minute after the beginning of runtime.
 
-Snapshots lasted one second, with the graph coloring algorithm running fully unhampered during the entire snapshot.
+Snapshot observations lasted one second, with the graph coloring algorithm running fully unhampered during the entire snapshot.
 This was accomplished by collecting and recording data via a separate thread.
 That thread collected and recorded a first tranche of snapshot data, spin waited for one second, and then recorded a second tranche.
-Because of underlying system being observed shifts during data collection (somewhat akin to photographic motion blur), some intuitive invariants --- like strictly non-negative delivery failure rates --- do not hold in some cases.
+Because of underlying system running in real-time while being observed, shifts during data collection (somewhat akin to photographic motion blur).
+Therefore, some intuitive invariants --- like strictly non-negative delivery failure rates --- do not hold in some cases.
 However, the magnitude of such violations is generally minor.
 Further, because data collection procedures were consistent across treatments, statistical comparisons between treatments remain sound, even if direct interpretation of reported metrics should be taken with a grain of salt.
 
 Snapshots were performed independently for each process at each timepoint.
 So, for example, for two processes over the five minute window of a single replicate ten snapshots were collected.
 For statistical tests comparing treatments, snapshots were aggregated by replicate by either mean or median, as appropriate.
-For each quality of service statistic we estimate mean --- which captures effects of extreme-magnitude outliers --- and median --- which more closely represents typicalness --- across these window samples.
+For each quality of service statistic we estimate mean --- which captures effects of extreme-magnitude outliers --- and median --- which more better represents typicality --- across these window samples.
 Statistical comparisons across treatment conditions are performed via regression.
 We use ordinary least squares regression to analyze means \citep{geladi1986partial} and quantile regression to analyze medians \citep{koenker2001quantile}.
 For comparisons between dichotomous, categorical treatment conditions, one condition is coded as 0 and the other as 1.
