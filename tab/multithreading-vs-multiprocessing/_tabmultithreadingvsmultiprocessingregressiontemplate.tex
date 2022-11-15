@@ -1,4 +1,5 @@
 \input{lib/importpath.tex}
+\input{lib/replacesinglequote.tex}
 \input{tab/_rotcolmacro.tex}
 
 % adapted from https://tex.stackexchange.com/a/63592
@@ -59,17 +60,17 @@
   \ifthenelse{\equal{\csuse{SignificantEffectSign}}{+}}{\cellcolor{green!25}}{}%
   \ifthenelse{\equal{\csuse{SignificantEffectSign}}{0}}{\cellcolor{gray!25}}{}%
   \csuse{SignificantEffectSign} &%
-  \csuse{CpusPerNode} &%
-  \csuse{NumSimelsPerCpu} &%
-  \csuse{NumProcessesPrettyprint} &%
-  \csuse{AbsoluteEffectSize} &%
-  \csuse{AbsoluteEffectSize95CILowerBound} &%
-  \csuse{AbsoluteEffectSize95CIUpperBound} &%
-  \csuse{RelativeEffectSize} &%
-  \csuse{RelativeEffectSize95CILowerBound} &%
-  \csuse{RelativeEffectSize95CIUpperBound} &%
-  \csuse{n} &%
-  \csuse{p} %
+  \replacesinglequote{\csuse{CpusPerNode}} &%
+  \replacesinglequote{\csuse{NumSimelsPerCpu}} &%
+  \replacesinglequote{\csuse{NumProcessesPrettyprint}} &%
+  \replacesinglequote{\csuse{AbsoluteEffectSize}} &%
+  \replacesinglequote{\csuse{AbsoluteEffectSize95CILowerBound}} &%
+  \replacesinglequote{\csuse{AbsoluteEffectSize95CIUpperBound}} &%
+  \replacesinglequote{\csuse{RelativeEffectSize}} &%
+  \replacesinglequote{\csuse{RelativeEffectSize95CILowerBound}} &%
+  \replacesinglequote{\csuse{RelativeEffectSize95CIUpperBound}} &%
+  \replacesinglequote{\csuse{n}} &%
+  \replacesinglequote{\csuse{p}} %
 }
 
 \end{landscape}

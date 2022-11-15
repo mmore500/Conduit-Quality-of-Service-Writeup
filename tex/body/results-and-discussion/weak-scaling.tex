@@ -9,19 +9,19 @@ To address these questions, we performed weak scaling experiments on 16, 64, and
 To broaden the survey, we tested scaling under four treatments from the Cartesian product of two variables: processors allocated per node and simulation elements assigned per processor.
 For the first variable, we tested scaling on allocations with each processor hosted on an independent node and allocations where each node hosted an average of four processors.
 This allowed us to examine how quality of service fared in homogeneous network conditions, where all communication between processes was inter-node, compared to heteregeneous conditions, where some inter-process communication was inter-node and some was intra-node.
-For the second variable, we tested with 2'048 simulation elements (``simels'') per processor (consistent with the benchmarking experiments performed in Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithread-benchmarks}) and just one simulation element per processor, maximizing communication relative to computation.
+For the second variable, we tested with \numprint{2048} simulation elements (``simels'') per processor (consistent with the benchmarking experiments performed in Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithread-benchmarks}) and just one simulation element per processor, maximizing communication relative to computation.
 
 \subsubsection{Simstep Period}
 
 Supplementary Figures \ref{fig:weak-scaling-distribution-simstep-period-inlet-ns} and \ref{fig:weak-scaling-distribution-simstep-period-outlet-ns} survey the distributions of simstep periods observed within snapshot windows.
-Simstep period registers around \SI{80}{\micro\second} with one simel and around \SI{200}{\micro\second} with 2'048 simels.
+Simstep period registers around \SI{80}{\micro\second} with one simel and around \SI{200}{\micro\second} with \numprint{2048} simels.
 However, on heterogeneous allocations (4 CPUs per node) this metric is more variable, spanning up to an order of magnitude.
-Outlier observations range up to around 10ms with 2'048 simels and up to slightly less than 100ms inlet / 4s outlet with 1 simel.
+Outlier observations range up to around 10ms with \numprint{2048} simels and up to slightly less than 100ms inlet / 4s outlet with 1 simel.
 
 We performed an ordinary least squares (OLS) regression to test how mean simstep period changed with processor count.
 In all cases except one simel per CPU with four CPUs per node, mean simstep period increased significantly with processor count from 16 to 64 to 256.
 However, from 64 to 256 processors mean simstep period only increased significantly with one simel per CPU and one CPU per node.
-Between 64 and 256 processes, mean simstep period actually decreased significantly for runs with 2'048 simels per CPU.
+Between 64 and 256 processes, mean simstep period actually decreased significantly for runs with \numprint{2048} simels per CPU.
 Supplementary Figures \ref{fig:weak-scaling-regression-ols-simstep-period-inlet-ns} and \ref{fig:weak-scaling-regression-ols-simstep-period-outlet-ns} visualize reported OLS regressions.
 Supplementary Tables \ref{tab:weak-scaling-simstep-period-inlet-ns-regression-ols} and \ref{tab:weak-scaling-simstep-period-outlet-ns-regression-ols} provide numerical details on reported OLS regressions.
 
@@ -31,32 +31,32 @@ Supplementary Tables \ref{tab:weak-scaling-simstep-period-inlet-ns-regression-qu
 
 \subsubsection{Walltime Latency}
 
-Walltime latency sits at around \SI{500}{\micro\second} for one-simel runs and around 2ms for 2'048-simel runs.
+Walltime latency sits at around \SI{500}{\micro\second} for one-simel runs and around 2ms for \numprint{2048}-simel runs.
 However, variability is greater for heterogeneous (four CPUs per node) allocations.
 Extreme outliers of up to almost 100ms inlet/2s outlet occur in four CPUs per node, one-simel runs.
-In 256 process, 2'048-simel, one CPU per node runs, outliers of more than 10s occur.
+In 256 process, \numprint{2048}-simel, one CPU per node runs, outliers of more than 10s occur.
 Supplementary Figures \ref{fig:weak-scaling-distribution-latency-walltime-inlet-ns} and \ref{fig:weak-scaling-distribution-latency-walltime-outlet-ns} show the distribution of walltime latencies observed across run conditions.
 
 We performed OLS regressions to test how mean walltime latency changed with processor count.
-Over 16, 64, and 256 processes, mean walltime latency increased significantly with processor count only with 2'048 simels per CPU.
-Between 64 and 256 processes, mean walltime latency increased significantly with processor count only for one CPU per node with 2'048 simels per CPU.
+Over 16, 64, and 256 processes, mean walltime latency increased significantly with processor count only with \numprint{2048} simels per CPU.
+Between 64 and 256 processes, mean walltime latency increased significantly with processor count only for one CPU per node with \numprint{2048} simels per CPU.
 Supplementary Figures \ref{fig:weak-scaling-regression-ols-latency-walltime-inlet-ns} and \ref{fig:weak-scaling-regression-ols-latency-walltime-outlet-ns} show these regressions.
 Supplementary Tables \ref{tab:weak-scaling-latency-walltime-inlet-ns-regression-ols} and \ref{tab:weak-scaling-latency-walltime-outlet-ns-regression-ols} provide numerical details.
 
 Next, we performed quantile regressions to test how processor count affected median walltime latency.
-Over 16, 64, and 256 processes, median walltime latency increased significantly only with 4 CPUs per node and 2'048 simels per CPU.
+Over 16, 64, and 256 processes, median walltime latency increased significantly only with 4 CPUs per node and \numprint{2048} simels per CPU.
 Over 64 and 256 processes, there was no significant relationship between processor count and median walltime latency under any condition.
 Supplementary Figures \ref{fig:weak-scaling-regression-quantile-latency-walltime-inlet-ns} and \ref{fig:weak-scaling-regression-quantile-latency-walltime-outlet-ns} show regressions performed.
 Supplementary Tables \ref{tab:weak-scaling-latency-walltime-inlet-ns-regression-quantile} \ref{tab:weak-scaling-latency-walltime-outlet-ns-regression-quantile} provide numerical details.
 
 \subsubsection{Simstep Latency}
 
-Simstep latency sits around 7 updates for runs with one simel per CPU and around 1.2 updates for runs with 2'048 simels per CPU.
+Simstep latency sits around 7 updates for runs with one simel per CPU and around 1.2 updates for runs with \numprint{2048} simels per CPU.
 For runs with one simel per CPU, outlier snapshot windows reach up to 50 updates underhomogeneous allocations and up to almost 100 updates under heterogeneous allocations.
-The 2'048 simels per CPU, one CPU per node, 256 process condition exhibited outliers of up to almost 8'000 update simstep latency.
+The \numprint{2048} simels per CPU, one CPU per node, 256 process condition exhibited outliers of up to almost \numprint{8000} update simstep latency.
 Supplementary Figures \ref{fig:weak-scaling-distribution-latency-simsteps-inlet} and \ref{fig:weak-scaling-distribution-latency-simsteps-outlet}  show the distribution of simstep latencies observed across run conditions.
 
-Over 16, 64, and 256 processes, mean simstep latency increased with process count only under 1 CPU per node, 2'048 simel per CPU conditions.
+Over 16, 64, and 256 processes, mean simstep latency increased with process count only under 1 CPU per node, \numprint{2048} simel per CPU conditions.
 The same was true over just 64 to 256 processes.
 Supplementary Figures \ref{fig:weak-scaling-regression-ols-latency-simsteps-inlet} and \ref{fig:weak-scaling-regression-ols-latency-simsteps-outlet} show the OLS regressions performed, with
 Supplementary Tables \ref{tab:weak-scaling-latency-simsteps-inlet-regression-ols} and \ref{tab:weak-scaling-latency-simsteps-outlet-regression-ols} providing numerical details.
@@ -67,12 +67,12 @@ Supplementary Figures \ref{fig:weak-scaling-regression-quantile-latency-simsteps
 \subsubsection{Delivery Clumpiness}
 
 For one-simel-per-CPU runs, median delivery clumpiness registered between 0.8 and 0.6.
-On 2'048-simel-per-CPU runs, median delivery clumpiness was lower at around 0.4.
+On \numprint{2048}-simel-per-CPU runs, median delivery clumpiness was lower at around 0.4.
 Supplementary Figure \ref{fig:weak-scaling-distribution-delivery-clumpiness}
 shows the distribution of delivery clumpiness values observed across run conditions.
 
 Using OLS regression, we found no evidence of mean clumpiness worsening with process count increases.
-In fact, over 16, 64, and 256 processes clumpiness significantly decreased with process count in all conditions except four CPUs per node with 2'048 simels per CPU.
+In fact, over 16, 64, and 256 processes clumpiness significantly decreased with process count in all conditions except four CPUs per node with \numprint{2048} simels per CPU.
 Supplementary Figure \ref{fig:weak-scaling-regression-ols-delivery-clumpiness} and Supplementary Table \ref{tab:weak-scaling-delivery-clumpiness-regression-ols} detail regressions performed to test the relationship between mean clumpiness and process count.
 
 Median delivery clumpiness exhibited the same relationships with processor count, tested with quartile regression.
@@ -81,11 +81,11 @@ Supplementary Figure \ref{fig:weak-scaling-regression-quantile-delivery-clumpine
 \subsubsection{Delivery Failure Rate}
 
 Typical delivery failure rate was near-zero, except with one simel per CPU and four CPUs per node where median delivery failure rate was approximately 0.1.
-However, outlier delivery failure rates of up to 0.7 were observed with 1 CPU per node, 2'048 simels per CPU, and 256 processes.
-Outlier delivery failure rates of up to 0.2 were observed with 4 CPUs per node, 2'048 simels per CPU, and 256 processes.
+However, outlier delivery failure rates of up to 0.7 were observed with 1 CPU per node, \numprint{2048} simels per CPU, and 256 processes.
+Outlier delivery failure rates of up to 0.2 were observed with 4 CPUs per node, \numprint{2048} simels per CPU, and 256 processes.
 Supplementary Figure \ref{fig:weak-scaling-distribution-delivery-failure-rate} shows the distribution of delivery failure rates observed across run conditions.
 
-Mean delivery failure rate increased significantly between 64 and 256 processes with 1 CPU per node and 2'048 simels per CPU as well as with 4 CPUs per node an 1 simel per CPU.
+Mean delivery failure rate increased significantly between 64 and 256 processes with 1 CPU per node and \numprint{2048} simels per CPU as well as with 4 CPUs per node an 1 simel per CPU.
 However, the median delivery failure rate only increased significantly with processor count with 4 CPUs per node and 1 simel per CPU.
 
 Supplementary Figure \ref{fig:weak-scaling-regression-ols-delivery-failure-rate} and Supplementary Table \ref{tab:weak-scaling-delivery-failure-rate-regression-ols} detail the OLS regression testing mean delivery failure rate against processor count.
