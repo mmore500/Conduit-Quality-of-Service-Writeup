@@ -9,7 +9,7 @@ To address these questions, we performed weak scaling experiments on 16, 64, and
 To broaden the survey, we tested scaling under four treatments from the Cartesian product of two variables: processors allocated per node and simulation elements assigned per processor.
 For the first variable, we tested scaling on allocations with each processor hosted on an independent node and allocations where each node hosted an average of four processors.
 This allowed us to examine how quality of service fared in homogeneous network conditions, where all communication between processes was inter-node, compared to heteregeneous conditions, where some inter-process communication was inter-node and some was intra-node.
-For the second variable, we tested with 2'048 simulation elements (``simels'') per processor (consistent with the benchmarking experiments performed in Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithreading-benchmarks}) and just one simulation element per processor, maximizing communication relative to computation.
+For the second variable, we tested with 2'048 simulation elements (``simels'') per processor (consistent with the benchmarking experiments performed in Sections \ref{sec:multiprocess-benchmarks} and \ref{sec:multithread-benchmarks}) and just one simulation element per processor, maximizing communication relative to computation.
 
 \subsubsection{Simstep Period}
 

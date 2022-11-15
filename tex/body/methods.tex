@@ -4,9 +4,9 @@
 
 We performed two benchmarks to compare the performance of Conduit's best-effort approach to a traditional synchronous model.
 We tested our benchmarks across both a multithread, shared-memory context and a distributed, multinode context.
-In each hardware context, we assessed performance on two algorithmic contexts: a communication-intensive distributed graph coloring problem (Section \ref{sec:graph_coloring_benchmark}) and a compute-intensive digital evolution simulation (Section \ref{sec:digital_evolution_benchmark}).
+In each hardware context, we assessed performance on two algorithmic contexts: a communication-intensive distributed graph coloring problem (Section \ref{sec:graph-coloring-benchmark}) and a compute-intensive digital evolution simulation (Section \ref{sec:digital_evolution_benchmark}).
 The latter benchmark --- presented in Section \ref{sec:digital_evolution_benchmark} --- grew out of the original work developing the Conduit library to support large-scale experimental systems to study open-ended evolution.
-The former benchmark --- presented in Section \ref{sec:graph_coloring_benchmark} --- complements the first by providing a clear definition of solution quality.
+The former benchmark --- presented in Section \ref{sec:graph-coloring-benchmark} --- complements the first by providing a clear definition of solution quality.
 Metrics to define solution quality in the open-ended digital evolution context remain a topic of active research.
 
 \input{tex/body/methods/digital-evolution-benchmark.tex}
