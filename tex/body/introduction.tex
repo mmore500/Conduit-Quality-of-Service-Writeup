@@ -45,7 +45,7 @@ Even though this approach can shield the collective from most one-off performanc
 Dynamic task scheduling and migration aim to address this shortcoming, redistributing work in order to ``catch up'' delinquent fragments \citep{acun2014parallel}.
 With our double-dutch analogy, we could think of this something like a team coach temporarily benching a jumper who skinned their knee and instructing the other jumpers to pick up their roles in the routine.
 
-In addition to concerns over efficiency, resiliency poses another existential problem to massive HPC systems.
+In addition to concerns over efficiency, resiliency poses another inexorable problem to massive HPC systems.
 In small scales, it can suffice to assume that such failures occur negligibly, with any that do transpire likely to cause an (acceptably rare) global interruption or failure.
 At large scales, however, software crashes and hardware failures become the rule rather than the exception \citep{dongarra2014applied} --- running a simulation to completion could even require so many retries as to be practically infeasible.
 A typical contemporary approach to improve resiliency is checkpointing: the system periodically records global state then, when a failure arises, progress is rolled back to the most recent global known-good state and runtime restarts \citep{hursey2007design}.
@@ -75,6 +75,7 @@ Even if soft errors can be effectively eradicated --- or at least suppressed to 
 However, the assumption of the reliable digital machine model results remains near-universal within parallel and distributed algorithm design \citep{chakradhar2010best}.
 Be it costly or simply a practical impossibility, the worsening burden of synchronization, fault recovery, and error correction begs the question of whether it is viable to maintain, or even to strive to maintain, the reliable digital machine model at scale.
 Indeed, software and hardware that relaxes guarantees of correctness and determinism --- a so-called ``best-effort model'' --- have been shown to improve speed \citep{chakrapani2008probabilistic}, energy efficiency \citep{chakrapani2008probabilistic,bocquet2018memory}, and scalability \citep{meng2009best}.
+Discussion around ``approximate computing'' overlaps significantly with ``best-effort computing,'' although focusing more heavily on algorithm design to shirk non-essential computation (i.e., reducing floating point precision, inexact memoization, etc.) \citep{mittal2016survey}.
 As technology advances, computing is becoming more distributed and we are colliding with physical limits for speed and reliability.
 %Theoretical exploration of constraints distributed systems will face at the asymptote of technological (and even physical) constraints, performed under the banner of ``indefinite scalability'' in \citep{ackley2011pursue}, highlights an essential role --- at large enough scales, essentially a design inevitability --- for best-effort methods.
 %Specifically, this theory finds as necessary asynchronous operation and graceful degradation under hardware failure (in addition to decentralized networking and interchangeable hardware components).
@@ -132,33 +133,34 @@ The Conduit library provides tools to perform best-effort communication in a fle
 Although Conduit currently implements distributed functionality via MPI intrinsics, in future work we will explore lower-level protocols like InfiniBand Unreliable Datagrams \citep{kashyap2006ip, koop2007high}.
 
 Here, we present a set of on-hardware experiments to empirically characterize Conduit's best-effort communication model.
+In order to survey across workload profiles, we tested performance under both a communication-intensive graph coloring solver and a compute-intensive artificial life simulation.
+
 First, we determine whether best-effort communication strategies can benefit performance compared to the traditional perfect communication model.
-We also tested two intermediate, partially synchronized modes: one where the processor pool completed a global barrier (i.e., they aligned at a synchronization point) at predetermined, rigidly scheduled timepoints and another where global barriers occurred on a rolling basis spaced out by fixed-length delays from the end of the last synchronization.%
-\footnote{
-Our motivation for these intermediate synchronization modes was interest in the effect of clearing any potentially-unbounded accumulation of message backlogs on laggard processes.
-}
-We test across processor counts, expecting to see the marginal benefit from best-effort communication increase at higher processor counts.
+We considered two measures of performance: computational steps executed per unit time and solution quality achieved within a fixed-duration run window.
+
+We test compare the best-effort and perfect-computation strategies across processor counts, expecting to see the marginal benefit from best-effort communication increase at higher processor counts.
 We focus on weak scaling, growing overall problem size proportional to processor count.
 Put another way, we hold problem size per processor constant.%
 \footnote{
 As opposed to strong scaling, where the problem size is held fixed while processor count increases.
 }
 This approach prevents interference from shifts in processes' workload profiles in observation of the effects of scaling up processor count.
-In order to survey across workload profiles, we tested performance under both a communication-intensive graph coloring solver and a compute-intensive artificial life simulation.
+
 To survey across hardware configurations, we tested scaling CPU count via threading on a single node and scaling CPU count via multiprocessing with each process assigned to a distinct node.
+In addition to a fully best-effort mode and a perfect communication mode, we also tested two intermediate, partially synchronized modes: one where the processor pool completed a global barrier (i.e., they aligned at a synchronization point) at predetermined, rigidly scheduled timepoints and another where global barriers occurred on a rolling basis spaced out by fixed-length delays from the end of the last synchronization.%
+\footnote{
+Our motivation for these intermediate synchronization modes was interest in the effect of clearing any potentially-unbounded accumulation of message backlogs on laggard processes.
+}
 
 Second, we sought to more closely characterize variability in message dispatch, transmission, and delivery under the best-effort model.
-Unlike perfect communication, under the best-effort model real-time volatility affects the outcome of computation.
-% magnitude and spatiotemporal distribution of variability
-Because real-time processing speed degradations and message latency or loss alters which inputs each particular $i$th computational fragment sees, characterizing these phenomena's distribution across processing components and over time is critical to understanding the actual computation being performed.
-% @CAO: This sentence needs some work -- I'm not sure what you're trying to say here.
-% @MAM: better?
+Unlike perfect communication, real-time volatility affects the outcome of computation under the best-effort model.
+Because real-time processing speed degradations and message latency or loss alters inputs to simulation elements, characterizing these phenomena's distribution across processing components and over time is critical to understanding the actual computation being performed.
 For example, consistently faster execution or lower messaging latency for some subset of processing elements could violate uniformity or symmetry assumptions within a simulation.
 It is even possible to imagine reciprocal interactions between real-time best-effort dynamics and simulation state.
 In the case of a positive feedback loop, the magnitude of effects might become extreme.
 For example, in artificial life scenarios, agents may evolve strategies that selectively increase messaging traffic so as to encumber neighboring processing elements or even cause important messages to be dropped.
 
-We monitor five aspects of real-time behavior, which we refer to as quality of service metrics,
+We monitor five aspects of real-time behavior, which we refer to as quality of service metrics \citep{karakus2017quality},
 \begin{itemize}
   \item wall-time simulation update rate (``simstep period''),
   \item simulation-time message latency,
