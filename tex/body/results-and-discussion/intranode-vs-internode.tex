@@ -11,8 +11,10 @@ In both cases, we used two processes.
 
 Simstep period was significantly slower under internode conditions than under intranode conditions.
 
-When processes shared the same node, simstep period was around \SI{9}{\micro\second} (mean: \SI{9.07}{\micro\second} inlet / \SI{9.04}{\micro\second} outlet; median: \SI{9.11}{\micro\second} inlet / \SI{9.05}{\micro\second}).
-Under internode conditions, simstep period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second} inlet/outlet; median: \SI{14.5}{\micro\second} inlet / \SI{14.4}{\micro\second} outlet).
+% When processes shared the same node, simstep period was around \SI{9}{\micro\second} (mean: \SI{9.07}{\micro\second} inlet / \SI{9.04}{\micro\second} outlet; median: \SI{9.11}{\micro\second} inlet / \SI{9.05}{\micro\second}).
+When processes shared the same node, simstep period was around \SI{9}{\micro\second} (mean: \SI{9.06}{\micro\second}; median: \SI{9.08}{\micro\second}).
+% Under internode conditions, simstep period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second} inlet/outlet; median: \SI{14.5}{\micro\second} inlet / \SI{14.4}{\micro\second} outlet).
+Under internode conditions, simstep period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second}; median: \SI{14.4}{\micro\second}).
 Supplementary Figures \ref{fig:intranode-vs-internode-distribution-simstep-period-inlet-ns} and \ref{fig:intranode-vs-internode-distribution-simstep-period-outlet-ns} depict the distribution of walltime per computational update across intranode and internode conditions.
 
 This result presumably attributes to an increased walltime cost for calls to the MPI implementation backing internode communication compared to the implementation backing intranode communication.
@@ -26,7 +28,8 @@ Both mean and median simstep period increased significantly under internode cond
 Significantly more simulation updates transpired during message transmission under internode condtions compared to intranode conditions.
 
 Supplementary Figures \ref{fig:intranode-vs-internode-distribution-latency-simsteps-inlet} and \ref{fig:intranode-vs-internode-distribution-latency-simsteps-outlet} compares the distributions of simstep latency across these conditions.
-Simstep latency was around 1 update for intranode communication (mean: 1.01 updates inlet / 0.99 updates outlet; median 0.75 updates inlet / outlet) and around 40 updates for internode communication (mean: 41.8 updates inlet / 41.4 updates outlet; median: 37.4 updates inlet / outlet).
+% Simstep latency was around 1 update for intranode communication (mean: 1.01 updates inlet / 0.99 updates outlet; median 0.75 updates inlet / outlet) and around 40 updates for internode communication (mean: 41.8 updates inlet / 41.4 updates outlet; median: 37.4 updates inlet / outlet).
+Simstep latency was around 1 update for intranode communication (mean: 1.00 updates; median 0.75 updates) and around 40 updates for internode communication (mean: 41.6 updates; median: 37.4 updates).
 
 Regression analysis confirms the significant effect of process placement on simstep latency (Supplementary Figures \ref{fig:intranode-vs-internode-regression-latency-simsteps-inlet} and \ref{fig:intranode-vs-internode-regression-latency-simsteps-outlet}).
 Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression} detail numerical results of these regressions.
@@ -35,8 +38,10 @@ Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regr
 
 Significantly more walltime elapsed during message transmission under internode condtions compared to intranode conditions.
 
-Walltime latency was less than \SI{10}{\micro\second} for intranode communication (mean: \SI{7.72}{\micro\second} inlet / \SI{7.69}{\micro\second}; median: \SI{6.95}{\micro\second} inlet / \SI{6.93}{\micro\second}).
-Internode communication had approximately $50\times$ greater walltime latency, at around \SI{500}{\micro\second} (mean: \SI{604}{\micro\second} inlet / \SI{596}{\micro\second} outlet; median: \SI{554}{\micro\second} inlet / \SI{548}{\micro\second} outlet).
+% Walltime latency was less than \SI{10}{\micro\second} for intranode communication (mean: \SI{7.72}{\micro\second} inlet / \SI{7.69}{\micro\second}; median: \SI{6.95}{\micro\second} inlet / \SI{6.93}{\micro\second}).
+Walltime latency was less than \SI{10}{\micro\second} for intranode communication (mean: \SI{7.70}{\micro\second}; median: \SI{6.94}{\micro\second}).
+% Internode communication had approximately $50\times$ greater walltime latency, at around \SI{500}{\micro\second} (mean: \SI{604}{\micro\second} inlet / \SI{596}{\micro\second} outlet; median: \SI{554}{\micro\second} inlet / \SI{548}{\micro\second} outlet).
+Internode communication had approximately $50\times$ greater walltime latency, at around \SI{500}{\micro\second} (mean: \SI{600}{\micro\second}; median: \SI{551}{\micro\second}).
 
 Supplementary Figures \ref{fig:intranode-vs-internode-distribution-latency-walltime-inlet-ns} and \ref{fig:intranode-vs-internode-distribution-latency-walltime-outlet-ns} show the distributions of walltime latency for intra- and inter-node communication.
 Regression analysis confirmed a significant increase in walltime latency under inter-node communication (Supplementary Figures \ref{fig:intranode-vs-internode-regression-latency-walltime-inlet-ns}, \ref{fig:intranode-vs-internode-regression-latency-walltime-outlet-ns}; Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression}).
