@@ -20,8 +20,10 @@ Supplementary Figures \ref{fig:computation-vs-communication-distribution-simstep
 Once added compute work supersedes the light compute work already associated with the graph coloring algorithm update step (at around 64 work units), simstep period appears to scale in direct proportion with compute work.
 
 Indeed, we found a significant positive relationship between both mean and median simstep period and added compute work (Supplementary Figures \ref{fig:computation-vs-communication-regression-simstep-period-inlet-ns} and \ref{fig:computation-vs-communication-regression-simstep-period-outlet-ns}).
-At 0 units of added compute work, mean and median simstep period was 14.7 \SI{14.7}{\micro\second} (both inlet/outlet).
-At \numprint{16777216} units of added compute work, mean simstep period was 614ms inlet/608ms outlet and median simstep period was 506ms inlet/508ms outlet.
+% At 0 units of added compute work, mean and median simstep period was 14.7 \SI{14.7}{\micro\second} (both inlet/outlet).
+At 0 units of added compute work, mean and median simstep period was 14.7 \SI{14.7}{\micro\second}.
+% At \numprint{16777216} units of added compute work, mean simstep period was 614ms inlet/608ms outlet and median simstep period was 506ms inlet/508ms outlet.
+At \numprint{16777216} units of added compute work, mean simstep period was 611ms and median simstep period was 507ms.
 Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} detail numerical results of these regressions.
 
 \subsubsection{Simstep Latency}
@@ -30,7 +32,8 @@ Unsurprisingly, again, we observed a negative relationship between the number of
 Put simply, longer update steps provide more time for messages to transit.
 
 Supplementary Figures \ref{fig:computation-vs-communication-distribution-latency-simsteps-inlet} and \ref{fig:computation-vs-communication-distribution-latency-simsteps-outlet} show the distribution of simstep latency across compute workloads.
-With no added compute work, messages take between 20 and 100 simulation steps to transit (mean: 48.2 updates inlet/47.9 updates outlet; median: 42.5 updates inlet/outlet).
+% With no added compute work, messages take between 20 and 100 simulation steps to transit (mean: 48.2 updates inlet/47.9 updates outlet; median: 42.5 updates inlet/outlet).
+With no added compute work, messages take between 20 and 100 simulation steps to transit (mean: 48.0 updates; median: 42.5 updates).
 At maximum compute work per update, messages arrive at a median 1.00 update latency.
 
 Regression analysis confirms a significant negative relationship between both mean and median log simstep latency and log added compute work (Supplementary Figures \ref{fig:computation-vs-communication-regression-latency-simsteps-inlet} and \ref{fig:computation-vs-communication-regression-latency-simsteps-outlet}).
@@ -42,9 +45,11 @@ Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-square
 
 Effects of log compute work on walltime latency highlight an important caveat in interpretation of this metric.
 
-At \numprint{0}, \numprint{64}, and \numprint{4096} work units, walltime latency measures $\approx 1$ ms (means: \SI{710}{\micro\second}, \SI{794}{\micro\second}, \SI{906}{\micro\second} inlet / \SI{706}{\micro\second}, \SI{782}{\micro\second}, \SI{899}{\micro\second}; medians: \SI{623}{\micro\second}, \SI{639}{\micro\second}, \SI{742}{\micro\second} inlet / \SI{622}{\micro\second}, \SI{642}{\micro\second}, \SI{733}{\micro\second} outlet).
+% At \numprint{0}, \numprint{64}, and \numprint{4096} work units, walltime latency measures $\approx 1$ ms (means: \SI{710}{\micro\second}, \SI{794}{\micro\second}, \SI{906}{\micro\second} inlet / \SI{706}{\micro\second}, \SI{782}{\micro\second}, \SI{899}{\micro\second}; medians: \SI{623}{\micro\second}, \SI{639}{\micro\second}, \SI{742}{\micro\second} inlet / \SI{622}{\micro\second}, \SI{642}{\micro\second}, \SI{733}{\micro\second} outlet).
+At \numprint{0}, \numprint{64}, and \numprint{4096} work units, walltime latency measures $\approx 1$ ms (means: \SI{708}{\micro\second}, \SI{788}{\micro\second}, \SI{902}{\micro\second}; medians: \SI{622}{\micro\second}, \SI{640}{\micro\second}, \SI{738}{\micro\second}).
 However, once simstep period grows to $\approx 10$ ms at \numprint{262144} work units and (an order of magnitude in excess of walltime latency observed at low compute loads), walltime latency increases with added compute work.
-At \numprint{16777216} compute work units, 1.00s inlet / 1.01s outlet median walltime latency is observed.
+% At \numprint{16777216} compute work units, 1.00s inlet / 1.01s outlet median walltime latency is observed.
+At \numprint{16777216} compute work units, 1.00s median walltime latency is observed.
 
 Because our computational model assumes on-demand message delivery with a communication phase only occurring once per simulation update, message transmission speed is fundamentally limited by simulation update period.
 If a message is dispatched while its recipient is busy doing computational work, the soonest it can be received will be when that recipient completes the computational phase of its update.
