@@ -1,5 +1,22 @@
 \section{Results and Discussion}
 
+Sections \ref{sec:multithread-benchmarks} and \ref{sec:multiprocess-benchmarks} compare execution performance under the best-effort communication versus the perfect communication models.
+In particular, both sections investigate how the impact of best-effort communication on performance relates to CPU count scale.
+Section \ref{sec:multithread-benchmarks} covers multithreading and Section \ref{sec:multiprocess-benchmarks} covers multiprocessing.
+
+The next sections investigate how system configuration affects quality of service.
+Specifically, these sections cover the impact of
+\begin{itemize}
+  \item increasing compute workload per simulation update step (Section \ref{sec:computation-vs-communication}),
+  \item within-node versus between-node process placement (Section \ref{sec:intranode-vs-internode}), and
+  \item multithreading versus multiprocessing (Section \ref{sec:multithreading-vs-multiprocessing}).
+\end{itemize}
+
+Section \ref{sec:with-lac-417-vs-sans-lac-417} tests how inclusion of an apparently faulty node (i.e., that provided exceptionally poor quality of service) affects global quality of service.
+
+Section \ref{sec:weak-scaling} tests how quality of service changes with CPU count.
+This analysis fleshes out the performance-centric picture of best-effort scalability established in Sections \ref{sec:multithread-benchmarks} and \ref{sec:multiprocess-benchmarks}.
+
 \input{tex/body/results-and-discussion/multithread-benchmarks.tex}
 
 \input{tex/body/results-and-discussion/multiprocess-benchmarks.tex}
