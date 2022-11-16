@@ -12,10 +12,11 @@ Specifically, these sections cover the impact of
   \item multithreading versus multiprocessing (Section \ref{sec:multithreading-vs-multiprocessing}).
 \end{itemize}
 
-Section \ref{sec:with-lac-417-vs-sans-lac-417} tests how inclusion of an apparently faulty node (i.e., that provided exceptionally poor quality of service) affects global quality of service.
-
 Section \ref{sec:weak-scaling} tests how quality of service changes with CPU count.
 This analysis fleshes out the performance-centric picture of best-effort scalability established in Sections \ref{sec:multithread-benchmarks} and \ref{sec:multiprocess-benchmarks}.
+
+Section \ref{sec:with-lac-417-vs-sans-lac-417} tests how inclusion of an apparently faulty node (i.e., that provided exceptionally poor quality of service) affects global quality of service.
+This experiment provides insight into the robustness of best-effort approaches to single-point failure.
 
 \input{tex/body/results-and-discussion/multithread-benchmarks.tex}
 

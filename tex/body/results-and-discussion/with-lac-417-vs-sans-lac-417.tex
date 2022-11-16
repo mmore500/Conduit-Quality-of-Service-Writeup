@@ -3,6 +3,7 @@
 
 The extreme magnitude of outliers for metrics reported in Section \ref{sec:weak-scaling} prompted further investigation of the conditions under which these outliers arose.
 Closer inspection revealed that the most extreme outliers were all associated with snapshots on a single node: lac-417.
+
 So, we acquired two separate 256 process allocations on the lac cluster: one including lac-417 and one excluding lac-417.
 
 Supplementary Figures \ref{fig:with-lac-417-vs-sans-lac-417-distribution-simstep-period-inlet-ns}, \ref{fig:with-lac-417-vs-sans-lac-417-distribution-simstep-period-outlet-ns}, \ref{fig:with-lac-417-vs-sans-lac-417-distribution-latency-simsteps-inlet}, \ref{fig:with-lac-417-vs-sans-lac-417-distribution-latency-simsteps-outlet}, \ref{fig:with-lac-417-vs-sans-lac-417-distribution-latency-walltime-inlet-ns}, \ref{fig:with-lac-417-vs-sans-lac-417-distribution-latency-walltime-outlet-ns}, \ref{fig:with-lac-417-vs-sans-lac-417-distribution-delivery-clumpiness}, and \ref{fig:with-lac-417-vs-sans-lac-417-distribution-delivery-failure-rate} compare the distributions of quality of service metrics between allocations with and without lac-417.
@@ -13,7 +14,8 @@ Supplementary Figures \ref{fig:with-lac-417-vs-sans-lac-417-regression-simstep-p
 \ref{fig:with-lac-417-vs-sans-lac-417-regression-delivery-failure-rate} chart OLS and quantile regressions of quality of service metrics on job composition.
 Mean walltime latency, simstep latency, and delivery failure rate are all significantly greater with lac-417.
 Surprisingly, mean simstep period is significantly longer without lac-417.
+
 However, there is no significant difference in median value for any quality of service metric between allocations including or excluding lac-417.
-This stability of metric medians within allocations containing lac-417 --- which have significantly different means due to outlier values induced by the presence of lac-417 --- demonstrates how the best-effort system maintains overall quality of service stability despite defective components.
+This stability of metric medians within allocations containing lac-417 --- which have significantly different means due to outlier values induced by the presence of lac-417 --- demonstrates how the best-effort system maintains overall quality of service stability despite defective or degraded components.
 
 Supplementary Tables \ref{tab:with-lac-417-vs-sans-lac-417-ordinary-least-squares-regression} and \ref{tab:with-lac-417-vs-sans-lac-417-quantile-regression} provide numerical details on regressions reported above.

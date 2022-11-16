@@ -2,29 +2,32 @@
 \label{sec:multithreading-vs-multiprocessing}
 
 This section compares best-effort quality of service under multithreading and multiprocessing schemes.
-Hardware configuration was held constant.
-The graph coloring benchmark again serves as our experimental system.
+We hold hardware configuration constant by restricting multiprocessing to cores a single hardware node, as is the case for multithreading.
+However, inter-process communication occurred via MPI calls while inter-thread communication occurring via shared memory access mediated by a C++ \texttt{std::mutex}.
 
-Concurrency was achieved by multiprocessing in one treatment, with inter-process communication mediated via MPI calls.
-with inter-thread communication occurring via shared memory access mediated by a C++ \texttt{std::mutex}.
-Runs under both conditions used two CPUs on the same node.
+The graph coloring benchmark again serves as our experimental system.
+Both treatments used a single pair of CPUs.
 
 \subsubsection{Simstep Period}
 
 Multithreading enabled faster simulation update turnover than multiprocessing.
+
 Under multithreading, simstep period was around \SI{5}{\micro\second} (mean: \SI{4.62}{\micro\second} inlet / \SI{4.60}{\micro\second} outlet; median: \SI{4.64}{\micro\second} inlet / outlet).
 Simstep period for multiprocessing was around \SI{9}{\micro\second} (mean: \SI{9.01}{\micro\second} inlet / \SI{8.98}{\micro\second} outlet; median: \SI{9.07}{\micro\second} inlet / \SI{9.01}{\micro\second} outlet).
 Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-simstep-period-inlet-ns} and \ref{fig:multithreading-vs-multiprocessing-distribution-simstep-period-outlet-ns} depict the distribution of walltime per computational update for both multiprocessing and multithreading.
-This result falls in line with expectations that interaction via shared memory entails lower overhead than via MPI calls.
+This result falls in line with expectations that interaction via shared memory incurs lower overhead than via MPI calls.
 
-Both mean and median simstep period were significantly slower under multiprocessing compared to multithreading.
+Regression analysis showed that both mean and median simstep period were significantly slower under multiprocessing compared to multithreading.
 (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-simstep-period-inlet-ns} and \ref{fig:multithreading-vs-multiprocessing-regression-simstep-period-outlet-ns} visualize these regressions and Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression} detail numerical results.)
 
 \subsubsection{Walltime Latency}
 
+No significant difference in walltime latency was detected between multiprocessing and multithreading.
+
 In the median case, walltime latency was approximately \SI{5}{\micro\second} for multithreading (\SI{5.05}{\micro\second} inlet / \SI{5.08}{\micro\second} outlet) and \SI{8}{\micro\second} for multiprocessing (\SI{7.84}{\micro\second} inlet / \SI{7.80}{\micro\second} outlet).
 However, a pair of extreme outliers among snapshot windows --- with walltime latencies of approximately 12ms --- drove multithreading walltime latency much higher in the mean case (\SI{448}{\micro\second} inlet / \SI{454}{\micro\second} outlet).
 In the mean case, multiprocessing walltime latency was \SI{8.65}{\micro\second} inlet / \SI{8.48}{\micro\second} outlet.
+
 Cache invalidation or mutex contention provide possible explanations for the observed episodes of extreme multithreading latency, although magnitude on the order of milliseconds for such effects is surprising.
 Multithreading appears to provide marginally lower latency service in the median case, but at the cost of vulnerability to extreme high-latency disruptions.
 
@@ -33,9 +36,11 @@ Regression analysis did not detect any significant difference in walltime latenc
 
 \subsubsection{Simstep Latency}
 
+No significant difference in simstep latency was detected between multiprocessing and multithreading.
+
 In the median case, multiprocessing offered marginally lower simstep latency than multithreading.
 Median simstep latency was 0.84 updates inlet/outlet under multiprocessing and 1.10 updates inlet / 1.11 updates outlet under multithreading.
-However, as for walltime latency, extreme magintude outliers ($\approx$ \numprint{2000} simsteps) boosted mean simstep latency for multithreading.
+However, just as for walltime latency, extreme magintude outliers ($\approx$ \numprint{2000} simsteps) boosted mean simstep latency for multithreading.
 Mean simstep latency was 0.95 updates inlet / 0.94 updates outlet under multiprocessing and 77.0 updates inlet / 78.0 updates outlet under multithreading.
 Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-latency-simsteps-inlet} and \ref{fig:multithreading-vs-multiprocessing-distribution-latency-simsteps-outlet} compare the distributions of simstep latency across these conditions.
 
@@ -47,6 +52,7 @@ Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-s
 \subsubsection{Delivery Clumpiness}
 
 Multithreading exhibited higher median clumpiness and greater variance in clumpiness than multiprocessing.
+
 Under multithreading, clumpiness was nearly 1 within some snapshot windows and less than 0.1 within others.
 Under multiprocessing, clumpiness was consistently less than 0.1.
 Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} show the distributions of clumpiness under both multiprocessing and multithreading.
@@ -55,17 +61,16 @@ Multiprocessing median clumpiness was 0.03.
 Multithreading and multiprocessing mean clumpinesses were 0.56 and 0.03, respectively.
 
 Regression analysis confirmed a significantly greater clumpiness under both multithreading compared to multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
-This result plays into the narrative of multithreading providing less consistent quality of service than multiprocessing.
+This result falls in line with other results suggesting that multithreading providing less consistent quality of service than multiprocessing.
 
 \subsubsection{Delivery Failure Rate}
 
 We observed a higher proportion of deliveries fail for multiprocessing than for multithreading.
+(This is as expected; the multithread implementation directly wrote updates to a piece of shared memory, so there was no send buffer to backlog and induce message drops.)
+
 Multiprocessing exhibited both mean and median delivery failure rate of 0.38.
 In individual multiprocessing snapshot windows, we observed a delivery failure rates ranging from less than 0.1 to as high as 0.7.
 We observed no multithreaded delivery failures.
 Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} show the distributions of delivery failure rate for multithreading and multiprocessing.
-
-Lack of delivery failure under multithreading fit expectation.
-The multithread implementation directly wrote updates to a piece of shared memory, so there was no send buffer to backlog and induce message drops (unlike the multiprocess implementation).
 
 Regression analysis confirmed a significant increase in delivery failure under multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
