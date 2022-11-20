@@ -18,11 +18,11 @@ So, supersteps only turn over once the entire pool of processing components have
 Put another way, all processing components stall until the most laggardly component catches up.
 In a game of double dutch with several jumpers, this would be like slowing the tempo to whoever is most slow-footed each particular turn of the rope.
 
-Heterogeneous computational fragments, with some quick to process and others much slower, would result in poor efficiency under a naive approach where each processing element handled just one fragment.
+Heterogeneous computational fragments, with some easy to process and others much slower, would result in poor efficiency under a naive approach where each processing element handled just one fragment.
 Some processing elements with easy tasks would finish early then idle while more difficult tasks carry on.
 To counteract such load imbalances, programmers can allow for ``parallel slack'' by ensuring computational fragments greatly outnumber processing elements or even performing dynamic load balancing at runtime \citep{valiant1990bridging}.
 
-Unfortunately, hardware factors on the underlying processing elements ensure that inherent global superstep jitter will persist: memory access time varies due to cache effects, message delivery time varies due to network conditions, extra processing due to error detection and recovery, delays due to unfavorable process scheduilng by the operating system, etc. \citep{dongarra2014applied}.
+Unfortunately, hardware factors on the underlying processing elements ensure that inherent global superstep jitter will persist: memory access time varies due to cache effects, message delivery time varies due to network conditions, extra processing due to error detection and recovery, delays due to unfavorable process scheduling by the operating system, etc. \citep{dongarra2014applied}.
 Power management concerns on future machines will likely introduce even more variability \citep{gropp2013programming}.
 Worse yet, as we work with more and more processes, the expected magnitude of the worst-sampled jitter grows and grows --- and in lockstep with it, our expected superstep duration.
 In the double dutch analogy, with enough jumpers, at almost every turn of the rope someone will need to stop and tie their shoe.
