@@ -1,5 +1,27 @@
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes,
-or Math in Paper Title or Abstract.
+The processing capacity of high-performance computing (HPC) clusters continues to grow rapidly and enable profound scientific and industrial innovations.
+Exponential advances in HPC hardware enables profound scientific and industrial innovation, but effectively harnessing this burgeoning parallel and distributed compute capacity has become an increasingly difficult challenge.
+One major antagonist of efficiency at scale is overhead from synchronization and error correction required to achieve perfectly reproducible computations at scale.
+As such, ``best-effort'' approaches that improve efficiency by relaxing guarantees of correctness and determinism have emerged as a promising remedy.
+Here, we report on-hardware experiments that empirically explore best-effort communication among parallel and distributed elements within existing, commercially-available hardware.
+
+In a first set of experiments, we test whether best-effort communication strategies can benefit performance compared to the traditional perfect communication model.
+We find that, at high CPU counts, best-effort communication can improve both the number of computational steps executed per unit time and solution quality achieved within a fixed-duration run window.
+Computation-heavy benchmark workloads yielded the strongest scaling efficiency, achieving at 64 processes 92\% the update-rate of single-process execution.
+We observed the greatest relative speedup of $7.8\times$ under communication-heavy workloads.
+
+Because real-time system performance affects computational outcomes under the best-effort model, characterizing the distribution of quality of service across processing components and over time is critical to understanding the actual computation being performed.
+Additionally, a complete picture of scalability under the best-effort model requires analysis of how real-time quality of service fares at scale.
+To answer these questions, we designed and measured a suite of quality of service metrics: simulation update period, message latency, message delivery failure rate, and message delivery coagulation.
+We used weak scaling experiments to test the effect of scale-up on quality of service at 8, 64, and 256 processes.
+Under a lower communication-intensivity task parameterization, we found that all median quality of service metrics were stable when scaling from 64 to 256 process.
+Under maximal communication intensivity, we found only minor --- and, in most cases, nil --- degradation in median quality of service when scaling from 64 to 256 processes.
+
+Resilience constitutes a major motivating factor for best-effort computing.
+In an additional set of experiments, we tested the effect of an apparently faulty compute node on performance and quality of service.
+Despite extreme quality of service degradation measured among that node and its clique, median performance and quality of service remained steady.
+
+We used the Conduit C++ library for best-effort communication to perform reported experiments.
+Development of this library stemmed from a practical need for an abstract, prepackaged framework to facilitate application of best-effort communication.
+We hope that free availability of this library, packaged with built-in tools to measure quality of service metrics, can facilitate broader incorporation of best-effort communication into HPC applications.
 \end{abstract}
