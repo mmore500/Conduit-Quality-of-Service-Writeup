@@ -13,18 +13,17 @@ Because real-time volatility affects the outcome of computation under the best-e
 In order to characterize the real-time dynamics under the best-effort model, we designed and measured a suite of quality of service metrics: simstep period, simstep latency, wall-time latency, delivery failure rate, and delivery clumpiness.
 
 We performed several experiments to validate and characterize these metrics.
-Comparing quality of service between multithreading and multiprocessing, we found that multithreading had lower runtime overhead cost but that multiprocessing reduced delivery erraticity, especially in the mean case.
+Comparing quality of service between multithreading and multiprocessing, we found that multithreading had lower runtime overhead cost but that multiprocessing reduced delivery erraticity, curbing especially extreme poor quality of service outlier events.
 We found better quality of service, especially with respect to latency, for processes occupying the same node.
 Finally, varying the ratio of computational work to communication, we found lower communication intensity associated with less volatile quality of service.
 
 In order for best-effort communication to succeed in facilitating scale-up, median quality of service must stabilize with increasing CPU count.
 Put another way, best-effort communication cannot succeed at scale if communication quality tends toward complete degradation.
 In Section \ref{sec:weak-scaling}, we used weak scaling experiments to test the effect of scale-up on quality of service at 8, 64, and 256 processes.
-Understanding how quality of service scales is the second crucial piece  to understanding how the best-effort approach scales.
-Under a lower communication-insensitivity task parameterization, we found that all median quality of service metrics were stable when scaling from 64 to 256 process.
-Under maximal communication insensitivity, we found in one case that median simstep period degraded from around \SI{80}{\micro\second} to around \SI{85}{\micro\second}.
+Under a lower communication-intensivity task parameterization, we found that all median quality of service metrics were stable when scaling from 64 to 256 process.
+Under maximal communication intensivity, we found in one case that median simstep period degraded from around \SI{80}{\micro\second} to around \SI{85}{\micro\second}.
 In another case, median message delivery failure rate increased from around 7\% to around 9\%.
-Such minor --- and, in most cases, nil --- degradation in quality of service bodes well for the viability of best-effort communication at scale.
+Such minor --- and, in most cases, nil --- degradation in median quality of service despite maximal communication intensivity bodes well for the viability of best-effort communication at scale.
 
 Resilience is a second major motivating factor for best-effort computing.
 In another promising result, we found that the presence of an apparently faulty compute node did not degrade median performance or quality of service.
@@ -34,7 +33,7 @@ Such so-called ``straggler effects'' plague traditional approaches to large-scal
 
 Development of the Conduit library stemmed from a practical need for an abstract, prepackaged interface to support our digital evolution research.
 Because real-time effects are fundamentally application-dependent and arise without any explicit in-program specification (and therefore may be unanticipated) it is important to be able to perform such profiling case-by-case in applications of best-effort communication.
-The instrumentation used in these experiments is written as wrappers around Inlets and Outlets that may be enabled via compile-time configuration switch.
+The instrumentation used in these experiments is written as wrappers around the library's \texttt{Inlet} and \texttt{Outlet} classes that may be enabled via compile-time configuration switch.
 This makes data generation for quality of service analysis trivial to perform in any system built with the Conduit library.
 We hope that making this library and quality of service metrics available to the community can reduce domain expertise and programmability barriers to taking advantage of the best-effort communication model to efficiently leverage burgeoning parallel and distributed computing power.
 
