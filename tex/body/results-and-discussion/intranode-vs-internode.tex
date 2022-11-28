@@ -17,7 +17,7 @@ When processes shared the same node, simstep period was around \SI{9}{\micro\sec
 Under internode conditions, simstep period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second}; median: \SI{14.4}{\micro\second}).
 Supplementary Figures \ref{fig:intranode-vs-internode-distribution-simstep-period-inlet-ns} and \ref{fig:intranode-vs-internode-distribution-simstep-period-outlet-ns} depict the distribution of walltime per computational update across intranode and internode conditions.
 
-This result presumably attributes to an increased walltime cost for calls to the MPI implementation backing internode communication compared to the implementation backing intranode communication.
+This result presumably attributes to an increased walltime cost for calls to the MPI implementation backing internode communication compared to the MPI implementation backing intranode communication.
 Although this effect is clearly detectable, its magnitude is modest given the minimal computational intensity of the simulation update step --- only $\approx 56\%$ more expensive than intranode dispatch.
 
 Both mean and median simstep period increased significantly under internode conditions.
