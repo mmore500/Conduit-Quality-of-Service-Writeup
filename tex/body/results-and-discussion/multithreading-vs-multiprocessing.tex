@@ -31,7 +31,7 @@ In the median case, walltime latency was approximately \SI{5}{\micro\second} for
 % However, a pair of extreme outliers among snapshot windows --- with walltime latencies of approximately 12ms --- drove multithreading walltime latency much higher in the mean case (\SI{448}{\micro\second} inlet / \SI{454}{\micro\second} outlet).
 However, a pair of extreme outliers among snapshot windows --- with walltime latencies of approximately 12ms --- drove multithreading walltime latency much higher in the mean case (\SI{451}{\micro\second}).
 % In the mean case, multiprocessing walltime latency was \SI{8.65}{\micro\second} inlet / \SI{8.48}{\micro\second} outlet.
-In the mean case, multiprocessing walltime latency was \SI{8.56}{\micro\second}.
+In the median case, multiprocessing walltime latency was \SI{8.56}{\micro\second}.
 
 Cache invalidation or mutex contention provide possible explanations for the observed episodes of extreme multithreading latency, although magnitude on the order of milliseconds for such effects is surprising.
 Multithreading appears to provide marginally lower latency service in the median case, but at the cost of vulnerability to extreme high-latency disruptions.
