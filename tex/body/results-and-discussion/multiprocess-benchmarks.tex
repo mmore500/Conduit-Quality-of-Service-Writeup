@@ -9,8 +9,8 @@ Figure \ref{fig:multiprocess_graph_coloring_update_rate} shows per-CPU algorithm
 Unlike the multithreaded benchmark, multiprocess graph coloring exhibits consistent update-rate performance across process counts under asynchronicity mode 4, where inter-CPU communication is entirely disabled.
 This matches the unsurprising expectation that, indeed, with comparable hardware a single process should exhibit the same mean performance as any number of completely decoupled processes.
 
-At 64 processes, best-effort asynchronicity mode 3 exhibits about 63\% the update-rate performance of single-process execution.
-This represents about an $7.8\times$ speedup compared to fully-synchronous mode 0.
+At 64 processes, best-effort asynchronicity mode 3 with the graph coloring benchmark exhibits about 63\% the update-rate performance of single-process execution.
+This represents a $7.8\times$ speedup compared to fully-synchronous mode 0.
 Indeed, best-effort mode 3 enables significantly better per-CPU update rates at 4, 16, and 64 processes ($p < 0.05$, non-overlapping 95\% confidence intervals).
 
 Likewise, shown in Figure \ref{fig:multiprocess_graph_coloring_solution_quality}, best-effort asynchronicity mode 3 yields significantly better graph-coloring results within the allotted time at 4, 16, and 64 processes ($p < 0.05$, non-overlapping 95\% confidence intervals).
