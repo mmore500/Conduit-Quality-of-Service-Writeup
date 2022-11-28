@@ -27,6 +27,7 @@ Several independent messaging layers handle disparate aspects of cell-cell inter
 \end{itemize}
 
 Implementing all cell-cell interaction via Conduit-based messaging channels allows the simulation to be parallelized down to the granularity, potentially, of individual cells.
+These messaging channels allow cells to communicate using the same interface whether they are placed within the same thread, across different threads, or across diffferent processes.
 However, in practice, for this benchmarking we assign 3600 cells to each thread or process.
 Because all cell-cell interactions occur via Conduit-based messaging channels, logically-neighboring cells can interact fully whether or not they are located on the same thread or process (albeit with potential irregularities due to best-effort limitations).
 An alternate approach to evolving large populations might be an island model, where Conduit-based messaging channels would be used solely to exchange genomes between otherwise independent populations \citep{bennett1999building}.
