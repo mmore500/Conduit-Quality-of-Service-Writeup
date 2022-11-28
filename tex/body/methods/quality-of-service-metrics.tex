@@ -79,7 +79,6 @@ So, we can calculate
 \subsubsection{Delivery Clumpiness} \label{sec:delivery-clumpiness-metric}
 
 Delivery clumpiness seeks to quantify the extent to which message arrival is consolidated to a subset of message pull attempts.
-We refer to pull attempts that retrieve a message as ``laden.''
 That is, the extent to which independently dispatched messages arrive in bundles rather than as an even stream.
 
 If messages all arrive in independent pull attempts, then clumpiness will be zero.
@@ -87,7 +86,7 @@ At the point where the pigeonhole principle applies ($\mathrm{num\,arriving\,mes
 If all messages arrive during a single pull attempt, then clumpiness will approach 1.
 
 We formulate clumpiness as the compliment of steadiness.
-(Measuring clumpiness provides a lower-is-better interpretation consistent with the rest of the quality of service metrics.)
+(Reporting clumpiness provides a lower-is-better interpretation consistent with the rest of the quality of service metrics.)
 Steadiness, in turn, stems from three component statistics,
 \begin{align*}
 \mathrm{num\,laden\,pulls\,elapsed} =& \mathrm{laden\,pull\,count\,after} \\
@@ -98,6 +97,8 @@ Steadiness, in turn, stems from three component statistics,
   &- \mathrm{pull\,attempt\,count\,before}
 .
 \end{align*}
+
+Here, we refer to pull attempts that successfully retrieve a message as ``laden.''
 
 We combine $\mathrm{num\,messages\,received}$ and $\mathrm{num\,pulls\,attempted}$ to derive,
 \begin{align*}
