@@ -5,7 +5,7 @@ This section compares best-effort quality of service under multithreading and mu
 We hold hardware configuration constant by restricting multiprocessing to cores a single hardware node, as is the case for multithreading.
 However, inter-process communication occurred via MPI calls while inter-thread communication occurring via shared memory access mediated by a C++ \texttt{std::mutex}.
 
-The graph coloring benchmark again serves as our experimental system.
+The graph coloring benchmark again serves as our experimental model.
 Both treatments used a single pair of CPUs.
 
 \subsubsection{Simstep Period}
