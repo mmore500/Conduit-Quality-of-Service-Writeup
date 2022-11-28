@@ -8,7 +8,7 @@ The probability of selecting each possible color is stored in array associated w
 Before selecting a new color, the stored probability of selecting the current (conflicting) color is decreased by a multiplicative factor $b$.
 We used $b=0.1$, as suggested by Leith et al.
 Likewise, the stored probability of selecting all others is increased by a multiplicative factor.
-Regardless of whether their color changed, nodes transmit their current color to their neighbor.
+Regardless of whether their color changed, nodes always transmit their current color to their neighbor.
 
 Our benchmarks focus on weak scalability, using a fixed problem size of \numprint{2048} graph nodes per thread or process.
 These nodes were arranged in a two-dimensional grid topology where each node had three possible colors and four neighbors.
