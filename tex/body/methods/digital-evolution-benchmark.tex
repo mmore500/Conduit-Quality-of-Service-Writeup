@@ -11,6 +11,11 @@ This cell behavior is controlled by SignalGP event-driven linear genetic program
 Full details of the DISHTINY simulation are available in \citep{moreno2021exploring}.
 
 We use Conduit-based messaging channels to manage all interactions between neighboring cells.
+Conduit models messaging channels as independent objects.
+However, support is provided for behind-the-scenes consolidation of communication along these channels between pairs of processes.
+Pooling joins together exactly one message per messaging channel to create a fixed-size consolidated message.
+Aggregation joins together arbitrarily many messages per channel  to  create a variable-size consolidated message.
+
 During a computational update, each cell advances its internal state and pushes information about its current state to neighbor cells.
 Several independent messaging layers handle disparate aspects of cell-cell interaction, including
 \begin{itemize}
