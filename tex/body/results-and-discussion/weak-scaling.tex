@@ -26,7 +26,7 @@ Outlier observations range up to around 10ms with \numprint{2048} simels and up 
 \input{fig/weak-scaling/regression-ols/simstep-period-inlet-ns.tex}
 
 We performed an ordinary least squares (OLS) regression to test how mean simstep period changed with processor count.
-In all cases except one simel per CPU with four CPUs per node, mean simstep period increased significantly with processor count from 16 to 64 to 256.
+In all cases except one simel per CPU with four CPUs per node, mean simstep period increased significantly with processor count from 16 to 64 to 256 CPUs.
 However, from 64 to 256 processors mean simstep period only increased significantly with one simel per CPU and one CPU per node.
 Between 64 and 256 processes, mean simstep period actually decreased significantly for runs with \numprint{2048} simels per CPU.
 Figure \ref{fig:weak-scaling-regression-ols-simstep-period-inlet-ns} and Supplementary Figure \ref{fig:weak-scaling-regression-ols-simstep-period-outlet-ns} visualize reported OLS regressions.
