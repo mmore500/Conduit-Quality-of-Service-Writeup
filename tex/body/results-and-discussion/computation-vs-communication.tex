@@ -17,7 +17,7 @@ For each treatment, measurements were made on a pair of processes split across d
 Unsurprisingly, we found a direct relationship between per-update computational workload and the walltime required per computational update.
 
 Supplementary Figures \ref{fig:computation-vs-communication-distribution-simstep-period-inlet-ns} and \ref{fig:computation-vs-communication-distribution-simstep-period-outlet-ns} depict the distribution of walltime per computational update across snapshots.
-Once added compute work supersedes the light compute work already associated with the graph coloring algorithm update step (at around 64 work units), simstep period appears to scale in direct proportion with compute work.
+Once added compute work supersedes the light compute work already associated with the graph coloring algorithm update step (at around 64 work units), simstep period scales in direct proportion with compute work.
 
 Indeed, we found a significant positive relationship between both mean and median simstep period and added compute work (Supplementary Figures \ref{fig:computation-vs-communication-regression-simstep-period-inlet-ns} and \ref{fig:computation-vs-communication-regression-simstep-period-outlet-ns}).
 % At 0 units of added compute work, mean and median simstep period was 14.7 \SI{14.7}{\micro\second} (both inlet/outlet).
