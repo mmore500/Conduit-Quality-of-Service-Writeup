@@ -1,3 +1,6 @@
 \pragmaonce
 
-\providecommand\rotcol[1]{ \multicolumn{1}{@{}@{}}{} \adjustbox{angle=60,lap=\width}{\rule{0.45\textwidth}{0.8pt}} \hfill \makebox[3ex]{\adjustbox{angle=60,lap=\width}{\bfseries \hspace{1ex} #1}} \hfill }
+\providecommand\rotcol[1]{ \multicolumn{1}{@{}@{}}{} \adjustbox{angle=60,lap=\width}{\rule{0.4\textwidth}{0.8pt}} \hfill \makebox[3ex]{\adjustbox{angle=60,lap=\width}{\bfseries \hspace{1ex} #1}} \hfill }
+
+% could try to wrap long titles
+% \providecommand\rotcol[1]{ \multicolumn{1}{@{}@{}}{} \adjustbox{angle=60,lap=\width}{\rule{0.45\textwidth}{0.8pt}} \hfill \makebox[3ex]{\adjustbox{angle=60,lap=\width}{\bfseries \hspace{1ex} \begin{minipage}[b]{2in}\raggedright #1\end{minipage}}} \hfill }
