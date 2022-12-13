@@ -1,7 +1,7 @@
 \begin{figure*}
   \centering
 
-  \begin{subfigure}[b]{0.5\textwidth}
+  \begin{subfigure}[b]{0.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=weak-scaling/teeplots/\metricslug/col=cpus-per-node+marker=+regression=quantile-regression+row=num-simels-per-cpu+transform=snapshot_diffs-groupby_exec_instance-median+viz=facet-unsplit-regression+x=log-num-processes+y=\metricslug+ext=}
     \caption{
@@ -10,14 +10,15 @@
     }
     \label{fig:weak-scaling-regression-quantile-\metricslug-complete-regression}
   \end{subfigure}%
-  \begin{subfigure}[b]{0.5\textwidth}
+  \hfill%
+  \begin{subfigure}[b]{0.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=weak-scaling/teeplots/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-median+num-processes=16-64-256+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
     \caption{Estimated regression coefficient for ordinary least squares regression. Zero corresponds to no effect.}
     \label{fig:weak-scaling-regression-quantile-\metricslug-complete-effect-size}
   \end{subfigure}
 
-  \begin{subfigure}[b]{0.5\textwidth}
+  \begin{subfigure}[b]{0.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=weak-scaling/teeplots/\metricslug/col=cpus-per-node+marker=+regression=quantile-regression+row=num-simels-per-cpu+transform=snapshot_diffs-groupby_exec_instance-median+viz=facet-split-regression+x=log-num-processes+y=\metricslug+ext=}
     \caption{
@@ -26,7 +27,8 @@
     }
     \label{fig:weak-scaling-regression-quantile-\metricslug-partial-regression}
   \end{subfigure}%
-  \begin{subfigure}[b]{0.5\textwidth}
+  \hfill%
+  \begin{subfigure}[b]{0.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{submodule/conduit-binder/binder/date=2021+project=72k5n/a=weak-scaling/teeplots/\metricslug/col=cpus-per-node+estimated-statistic=\metricslug-median+num-processes=64-256+row=num-simels-per-cpu+transform=fit_regression+viz=lambda+y=absolute-effect-size+ext=}
     \caption{Estimated regression coefficient for rightmost partial regression. Zero corresponds to no effect.}
