@@ -30,7 +30,7 @@ Figure \ref{fig:quality-of-service-metric-definitions-simstep-period} compares a
 This metric reports the number of simulation iterations that elapse between message dispatch and message delivery.
 Figure \ref{fig:quality-of-service-metric-definitions-latency} compares a scenario with low latency to a scenario with a higher latency.
 
-To prevent interfering effects of imperfect clock synchronization between processes, we estimate one-way wall-time latency from a round-trip measure.
+To prevent interfering effects of imperfect clock synchronization, we estimate one-way wall-time latency from a round-trip measure.
 As part of our instrumentation, each simulation element maintains an independent zero-initialized ``touch counter'' for each neighbor simulation element it communicates with.
 Dispatched messages are bundled with the current value touch counter associated with the target element.
 Every message received sets the corresponding touch counter to $1 + \mathrm{bundled\,touch\,count}$.
