@@ -5,9 +5,9 @@ In this algorithm, nodes begin by randomly choosing a color.
 Each computational update, nodes test for any neighbor with the same color.
 If and only if a conflicting neighbor is detected, nodes randomly select another color.
 The probability of selecting each possible color is stored in array associated with each node.
-Before selecting a new color, the stored probability of selecting the current (conflicting) color is decreased by a multiplicative factor $b$.
+Before selecting a new color, the stored probability of selecting the current (conflicting) color is decreased by a multiplicative factor $1 - b$.
 We used $b=0.1$, as suggested by Leith et al.
-Likewise, the stored probability of selecting all others is increased by a multiplicative factor.
+Tandem adjustments increase the probability of selecting all other channels.
 Regardless of whether their color changed, nodes always transmit their current color to their neighbor.
 
 Our benchmarks focus on weak scalability, using a fixed problem size of \numprint{2048} graph nodes per thread or process.

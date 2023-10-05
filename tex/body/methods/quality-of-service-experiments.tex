@@ -10,10 +10,10 @@ The first snapshot observation was taken one minute after the beginning of runti
 Snapshot observations lasted one second, with the graph coloring algorithm running fully unhampered during the entire snapshot.
 This was accomplished by collecting and recording data via a separate thread.
 That thread collected and recorded a first tranche of snapshot data, spin waited for one second, and then recorded a second tranche.
-Because the underlying system runns in real-time while being observed, state changes can occur during data collection (somewhat akin to photographic motion blur).
-Therefore, some intuitive invariants --- like strictly non-negative delivery failure rates --- do not hold in some cases.
+Because the underlying system runs in real-time while being observed, state changes can occur during data collection (somewhat akin to photographic motion blur).
+Therefore, violations of intuitive invariants --- like strictly non-negative delivery failure rates --- occur in some cases.
 However, the magnitude of such violations is generally minor.
-Further, because data collection procedures were consistent across treatments, statistical comparisons between treatments remain sound, even if direct interpretation of reported metrics should be taken with a grain of salt.
+Further, because data collection procedures were consistent across treatments, statistical comparisons between treatments nevertheless remain sound.
 
 Snapshots were performed independently for each process at each timepoint.
 So, for example, for two processes over the five minute window of a single replicate ten snapshots were collected.

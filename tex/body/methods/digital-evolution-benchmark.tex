@@ -19,7 +19,7 @@ Aggregation joins together arbitrarily many messages per channel  to  create a v
 During a computational update, each cell advances its internal state and pushes information about its current state to neighbor cells.
 Several independent messaging layers handle disparate aspects of cell-cell interaction, including
 \begin{itemize}
-  \item Cell spawn messages, which contain arbitrary-length genomes (seeded at 100 12-byte instructions with a hard cap of 1000 instructions). These are handled every 16 updates and use Conduit's built-in aggregation support for inter-process transfer.
+  \item Cell spawn messages, which contain variable-length genomes (seeded at 100 12-byte instructions with a hard cap of 1000 instructions). These are handled every 16 updates and use Conduit's built-in aggregation support for inter-process transfer.
   \item Resource transfer messages, consisting of a 4-byte float value. These are handled every update and use Conduit's built-in pooling support for inter-process transfer.
   \item Cell-cell communication messages, consisting of arbitrarily many 20-byte packets dispatched by genetic program execution. These are handled every 16 updates and use Conduit's built-in aggregation support for inter-process transfer.
   \item Environmental state messages, consisting of a 216-byte struct of data. These are handled every 8 updates and use conduit's built-in pooling support for inter-process transfer.
