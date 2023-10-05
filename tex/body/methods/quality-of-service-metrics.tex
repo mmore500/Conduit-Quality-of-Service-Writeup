@@ -2,7 +2,7 @@
 
 \input{fig/quality-of-service-metric-definitions.tex}
 
-The best-effort communication model eschews effort to insulate of computation from real-time message delivery dynamics.
+The best-effort communication model eschews effort to insulate computation from real-time message delivery dynamics.
 Because these dynamics are difficult to predict \textit{a priori} and can bias computation, thorough, empirical runtime measurements are necessary to understand results of such computation.
 To this end, we developed a suite of quality of service metrics.
 Figure \ref{fig:quality-of-service-metric-definitions} provides space-time diagrams illustrating the metrics presented in this section.
@@ -30,12 +30,12 @@ Figure \ref{fig:quality-of-service-metric-definitions-simstep-period} compares a
 This metric reports the number of simulation iterations that elapse between message dispatch and message delivery.
 Figure \ref{fig:quality-of-service-metric-definitions-latency} compares a scenario with low latency to a scenario with a higher latency.
 
-To insulate against imperfect clock synchronization between processes, we estimate one-way wall-time latency from a round-trip measure.
-As part of our instrumentation, each simulation element maintains an independent zero-initialized ``touch counter'' associated with every neighbor simulation element it communicates with.
-Dispatched messages originating from each simulation element are bundled with the value of the unique touch counter associated with the target element's counter.
-When a message is received back to the originating element from the target element, the touch counter is set to $1 + \mathrm{bundled\,touch\,count}$.
+To prevent interfering effects of imperfect clock synchronization, we estimate one-way wall-time latency from a round-trip measure.
+As part of our instrumentation, each simulation element maintains an independent zero-initialized ``touch counter'' for each neighbor simulation element it communicates with.
+Dispatched messages are bundled with the current value touch counter associated with the target element.
+Every message received sets the corresponding touch counter to $1 + \mathrm{bundled\,touch\,count}$.
 In this manner, the touch counter increments by two for each successful round trip completed.
-(Because simulation elements are arranged as a toroidal mesh, all interaction between simulation elements is reciprocal.)
+(Because simulation elements are arranged as a toroidal mesh in all experiments, interaction between simulation elements is always reciprocal.)
 
 We therefore calculate one-way latency during a snapshot window as,
 \begin{align*}
@@ -45,13 +45,13 @@ We therefore calculate one-way latency during a snapshot window as,
     \min\Big( \mathrm{ touch\,count\,after } - \mathrm{ touch\,count\,before }, 1 \Big)
   }.
 \end{align*}
-Note that if no touches elapsed during the snapshot window, we make a best-case assumption that one might elapse immediately after the end of the snapshot window (i.e., we count at least one elapsed touch).
+Note that, in the case where no touches elapse, we bound our latency measure to snapshot duration.
 
 %TODO reference @rodsan's derivation and proof
 
 \subsubsection{Wall-time Latency} \label{sec:simulation-time-latency-metric}
 
-Wall-time latency is closely related to simstep latency, except that interpret time in terms of elapsed simulation updates instead of wall time.
+Wall-time latency is closely related to simstep latency, simply denominating in elapsed real time instead of elapsed simulation steps.
 To calculate wall-time latency we apply a conversion to simstep latency based on simstep period,
 \begin{align*}
   \mathrm{simstep\,latency} \times \mathrm{simstep\,period}.
@@ -60,7 +60,7 @@ To calculate wall-time latency we apply a conversion to simstep latency based on
 This metric directly tells the real-time performance of message transmission.
 Although it directly follows from the interaction between simstep period and wall-time latency, it complements simstep latency's convenient interpretation in terms of potential simulation mechanics (e.g., simulation elements tending to see data from two updates ago versus from ten).
 
-In addition to simstep latency, Figure \ref{fig:quality-of-service-metric-definitions-latency} is also representative of wall-time latency --- the difference being interpretation of $y$ axis in terms of wall-time instead of elapsed simulation updates.
+In addition to simstep latency, Figure \ref{fig:quality-of-service-metric-definitions-latency} is also representative of wall-time latency --- simply interpreting the $y$ axis in terms of wall-time instead of elapsed simulation updates.
 
 \subsubsection{Delivery Failure Rate} \label{sec:delivery-failure-rate-metric}
 
@@ -78,11 +78,11 @@ So, we can calculate
 
 \subsubsection{Delivery Clumpiness} \label{sec:delivery-clumpiness-metric}
 
-Delivery clumpiness seeks to quantify the extent to which message arrival is consolidated to a subset of message pull attempts.
-That is, the extent to which independently dispatched messages arrive in bundles rather than as an even stream.
+Delivery clumpiness quantifies the extent to which message arrival is consolidated to a subset of message pull attempts.
+That is, the extent to which independently dispatched messages arrive in batches rather than as an even stream.
 
 If messages all arrive in independent pull attempts, then clumpiness will be zero.
-At the point where the pigeonhole principle applies ($\mathrm{num\,arriving\,messages} >= \mathrm{num\,pull\,attempts}$), clumpiness will also be zero so long as every pull attempt is laden.
+At the point where the pigeonhole principle applies (i.e., $\mathrm{num\,arriving\,messages} >= \mathrm{num\,pull\,attempts}$), clumpiness will also be zero so long as every pull attempt is laden.
 If all messages arrive during a single pull attempt, then clumpiness will approach 1.
 
 We formulate clumpiness as the compliment of steadiness.
@@ -115,5 +115,5 @@ Then, to calculate steadiness,
   }.
 \end{align*}
 
-Finally, we find delivery clumpiness as $1 - \mathrm{steadiness}$.
+Delivery clumpiness follows as $1 - \mathrm{steadiness}$.
 Figure \ref{fig:quality-of-service-metric-definitions-clumpiness} compares a scenario with low clumpiness to a scenario with higher clumpiness.

@@ -3,9 +3,9 @@
 
 This section compares best-effort quality of service under multithreading and multiprocessing schemes.
 We hold hardware configuration constant by restricting multiprocessing to cores a single hardware node, as is the case for multithreading.
-However, inter-process communication occurred via MPI calls while inter-thread communication occurring via shared memory access mediated by a C++ \texttt{std::mutex}.
+However, inter-process communication occurred via MPI calls while inter-thread communication occurred via shared memory access mediated by a C++ \texttt{std::mutex}.
 
-The graph coloring benchmark again serves as our experimental model.
+Experiments again applied the graph coloring benchmark.
 Both treatments used a single pair of CPUs.
 
 \subsubsection{Simstep Period}
@@ -29,7 +29,7 @@ No significant difference in walltime latency was detected between multiprocessi
 % In the median case, walltime latency was approximately \SI{5}{\micro\second} for multithreading (\SI{5.05}{\micro\second} inlet / \SI{5.08}{\micro\second} outlet) and \SI{8}{\micro\second} for multiprocessing (\SI{7.84}{\micro\second} inlet / \SI{7.80}{\micro\second} outlet).
 In the median case, walltime latency was approximately \SI{5}{\micro\second} for multithreading and \SI{8}{\micro\second} for multiprocessing.
 % However, a pair of extreme outliers among snapshot windows --- with walltime latencies of approximately 12ms --- drove multithreading walltime latency much higher in the mean case (\SI{448}{\micro\second} inlet / \SI{454}{\micro\second} outlet).
-However, a pair of extreme outliers among snapshot windows --- with walltime latencies of approximately 12ms --- drove multithreading walltime latency much higher in the mean case (\SI{451}{\micro\second}).
+However, a pair of extreme outliers among snapshot windows --- with walltime latencies of approximately 12ms --- drove multithreading walltime latency much higher in the mean case, to \SI{451}{\micro\second}.
 % In the mean case, multiprocessing walltime latency was \SI{8.65}{\micro\second} inlet / \SI{8.48}{\micro\second} outlet.
 In the median case, multiprocessing walltime latency was \SI{8.56}{\micro\second}.
 
