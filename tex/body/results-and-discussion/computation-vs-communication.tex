@@ -53,7 +53,7 @@ It should be noted, however, that distinctions in latency below the simulation u
 % At \numprint{0}, \numprint{64}, and \numprint{4096} work units, walltime latency measures consistently at $\approx 1$ ms (means: \SI{710}{\micro\second}, \SI{794}{\micro\second}, \SI{906}{\micro\second} inlet / \SI{706}{\micro\second}, \SI{782}{\micro\second}, \SI{899}{\micro\second}; medians: \SI{623}{\micro\second}, \SI{639}{\micro\second}, \SI{742}{\micro\second} inlet / \SI{622}{\micro\second}, \SI{642}{\micro\second}, \SI{733}{\micro\second} outlet).
 For \numprint{0}, \numprint{64}, and \numprint{4096} work units, walltime latency measures $\approx 1$ ms (means: \SI{708}{\micro\second}, \SI{788}{\micro\second}, \SI{902}{\micro\second}; medians: \SI{622}{\micro\second}, \SI{640}{\micro\second}, \SI{738}{\micro\second}).
 At higher computational loads, simstep period surpasses 1ms.
-At \numprint{262144} work units, simulation update time reaches $\approx 8ms$ and, correspondingly, measured walltime latency registers slightly more than 50% longer at $\approx 13ms$ (mean: 13.2ms, median 13.1ms).
+At \numprint{262144} work units, simulation update time reaches $\approx 8ms$ and, correspondingly, measured walltime latency registers slightly more than 50\% longer at $\approx 13ms$ (mean: 13.2ms, median 13.1ms).
 So, true latency likely falls well below simulation update time.
 At the highest computational workload, measured walltime latency stretches to the full one second snapshot window.
 % At \numprint{16777216} compute work units, 1.00s inlet / 1.01s outlet median walltime latency is observed.
