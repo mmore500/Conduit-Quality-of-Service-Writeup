@@ -63,7 +63,7 @@ Unfortunately, this could potentially require forwarding all messaging traffic b
 Efforts to ensure resiliency beyond single-node failures currently appear unnecessary \citep[p. 12]{ni2016mitigation}.
 Even though LFLR saves the cost of global spin-down and spin-up, all processes will potentially have to wait for work lost since the last checkpoint to be recompleted, although in some cases this could be helped along by tapping idle hardware to take over delinquent work from the failed process and help catch it up \citep{dongarra2014applied}.
 
-Still more insidious to the reliable digital machine model, though, are soft errors --- events where corruption of data in memory occurs, usually do to environmental interference (i.e., ``cosmic rays'') \citep{karnik2004characterization}.
+Still more insidious to the reliable digital machine model, though, are soft errors --- events where corruption of data in memory occurs, usually due to environmental interference (i.e., ``cosmic rays'') \citep{karnik2004characterization}.
 Further miniaturization and voltage reduction, which are assumed as a likely vehicle for continuing advances in hardware efficiency and performance, could conceivably worsen susceptibility to such errors \citep{dongarra2014applied,kajmakovic2020challenges}.
 What makes soft errors so dangerous is their potential indetectability.
 Unlike typical hardware or software failures, which result in an explicit, observable outcome (i.e., an error code, an exception, or even just a crash), soft errors can transpire silently and lead to incorrect computational results without leaving anyone the wiser.
