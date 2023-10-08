@@ -1,23 +1,21 @@
 \begin{abstract}
-Exponential advances in HPC hardware enables profound scientific and industrial innovation, but performance overhead from synchronization and error recovery has become increasingly challenging.
-``Best-effort'' approaches that improve efficiency by relaxing guarantees of correctness and determinism have emerged as a promising remedy.
-Here, we test the performance and scalability of fully-asynchronous, best-effort communication on existing, commercially-available HPC hardware.
+By bringing arbitrary mechanistic scenarios within the realm of empiricism, the advent of digital electronic computing precipitated coalescence of artificial life as a discipline.
+Since, hardware innovations have exponentiated capacity, but regimented underlying structure of computation (e.g., CPU cache, heterogeneous clusters, GPU, TPU, FPGA, etc.).
+Consequently, algorithmic design of artificial life simulation often reflects capabilities of underlying physical hardware.
+Execution results, however, overwhelmingly remain hardware-independent, a paradigm broadly common across high-performance computing (HPC).
+Mainline HPC's march past exascale, though, has strained such integrity, sparking a raft of strategies to mitigate component failures at scale.
+Despite these efforts, the sustainability at scale of entirely abstracting execution from its underlying substrate has come into some question.
 
-A first set of experiments tested whether best-effort communication strategies can benefit performance compared to the traditional perfect communication model.
+Artificial life is uniquely poised for headway in the alternative, ``best-effort'' computing, due to particular tolerance for malleability in simulation content.
+Indeed, in express departure from conventional HPC, ambitious best-effort pursuits have arisen around the problem of open-ended evolution.
+Here, we bridge back to conventional HPC, introducing a framework for fully-asynchronous, best-effort communication on existing  HPC hardware and performing experiments to assess its performance and scalability.
+Supporting software is made freely available as a standalone, general-purpose library to facilitate adoption of best-effort approaches into HPC applications.
+
 At high CPU counts, best-effort communication improved both the number of computational steps executed per unit time and the solution quality achieved within a fixed-duration run window.
-Computation-heavy benchmark workloads yielded the strongest scaling efficiency, achieving at 64 processes 92\% the update-rate of single-process execution.
-We observed a relative speedup of up to $7.8\times$ under communication-heavy workloads.
-
-Under the best-effort model, characterizing the distribution of quality of service across processing components and over time is critical to understanding the actual computation being performed.
-Additionally, a complete picture of scalability under the best-effort model requires analysis of how such quality of service fares at scale.
-To answer these questions, we designed and measured a suite of quality of service metrics: simulation update period, message latency, message delivery failure rate, and message delivery coagulation.
-Under a lower communication-intensivity benchmark parameterization, we found that median values for all quality of service metrics were stable when scaling from 64 to 256 process.
-Under maximal communication intensivity, we found only minor --- and, in most cases, nil --- degradation in median quality of service.
-
-In an additional set of experiments, we tested the effect of an apparently faulty compute node on performance and quality of service.
-Despite extreme quality of service degradation among that node and its clique, median performance and quality of service remained stable.
-
-We used the Conduit C++ library for best-effort communication to perform reported experiments.
-Development of this library stemmed from a practical need for an general-purpose, prepackaged framework for best-effort communication.
-We hope that free availability of this library, which includes built-in tools to measure quality of service metrics, can facilitate broader incorporation of best-effort communication into HPC applications.
+Compute-intensive workloads yielded the strongest scaling efficiency, achieved 92\% efficiency at 64 processes compared to single-process execution.
+However, under communication-intensive conditions saw the greatest relative performance effect, with asynchronous approaches $7.8\times$ faster.
+Investigating the distribution of best-effort disruptions across hardware configurations and among cooperating processing components over time, median real-time simulation update rate, message latency, message delivery failure, and message delivery coagulation remained stable when scaling from 64 to 256 processes computate-intensive workload.
+Under maximal communication intensity, we found only minor degradation in median quality of service.
+A set of follow-up experiments tested resilience to an apparently faulty compute node encountered within benchmarking allocations.
+Promisingly, despite extreme quality of service degradation among that node and its clique, median performance and quality of service remained stable.
 \end{abstract}
