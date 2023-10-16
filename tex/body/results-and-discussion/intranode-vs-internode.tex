@@ -7,31 +7,31 @@ The graph coloring benchmark again serves as our experimental substrate.
 For this experiment, processes were either assigned to the same node or were assigned to different nodes.
 In both cases, we used two processes.
 
-\subsubsection{Simstep Period}
+\subsubsection{Update Period}
 
-Simstep period was significantly slower under internode conditions than under intranode conditions.
+Update period was significantly slower under internode conditions than under intranode conditions.
 
-% When processes shared the same node, simstep period was around \SI{9}{\micro\second} (mean: \SI{9.07}{\micro\second} inlet / \SI{9.04}{\micro\second} outlet; median: \SI{9.11}{\micro\second} inlet / \SI{9.05}{\micro\second}).
-When processes shared the same node, simstep period was around \SI{9}{\micro\second} (mean: \SI{9.06}{\micro\second}; median: \SI{9.08}{\micro\second}).
-% Under internode conditions, simstep period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second} inlet/outlet; median: \SI{14.5}{\micro\second} inlet / \SI{14.4}{\micro\second} outlet).
-Under internode conditions, simstep period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second}; median: \SI{14.4}{\micro\second}).
+% When processes shared the same node, update period was around \SI{9}{\micro\second} (mean: \SI{9.07}{\micro\second} inlet / \SI{9.04}{\micro\second} outlet; median: \SI{9.11}{\micro\second} inlet / \SI{9.05}{\micro\second}).
+When processes shared the same node, update period was around \SI{9}{\micro\second} (mean: \SI{9.06}{\micro\second}; median: \SI{9.08}{\micro\second}).
+% Under internode conditions, update period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second} inlet/outlet; median: \SI{14.5}{\micro\second} inlet / \SI{14.4}{\micro\second} outlet).
+Under internode conditions, update period was around \SI{14}{\micro\second} (mean: \SI{14.5}{\micro\second}; median: \SI{14.4}{\micro\second}).
 Supplementary Figures \ref{fig:intranode-vs-internode-distribution-simstep-period-inlet-ns} and \ref{fig:intranode-vs-internode-distribution-simstep-period-outlet-ns} depict the distribution of walltime per computational update across intranode and internode conditions.
 
 This result presumably attributes to an increased walltime cost for calls to the MPI implementation backing internode communication compared to the MPI implementation backing intranode communication.
 Although this effect is clearly detectable, its magnitude is modest given the minimal computational intensity of the simulation update step --- only $\approx 56\%$ more expensive than intranode dispatch.
 
-Both mean and median simstep period increased significantly under internode conditions.
+Both mean and median update period increased significantly under internode conditions.
 (Supplementary Figures \ref{fig:intranode-vs-internode-regression-simstep-period-inlet-ns} and \ref{fig:intranode-vs-internode-regression-simstep-period-outlet-ns} visualize these regressions and Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression} detail numerical results.)
 
-\subsubsection{Simstep Latency}
+\subsubsection{Updates Latency}
 
 Significantly more simulation updates transpired during message transmission under internode condtions compared to intranode conditions.
 
-Supplementary Figures \ref{fig:intranode-vs-internode-distribution-latency-simsteps-inlet} and \ref{fig:intranode-vs-internode-distribution-latency-simsteps-outlet} compares the distributions of simstep latency across these conditions.
-% Simstep latency was around 1 update for intranode communication (mean: 1.01 updates inlet / 0.99 updates outlet; median 0.75 updates inlet / outlet) and around 40 updates for internode communication (mean: 41.8 updates inlet / 41.4 updates outlet; median: 37.4 updates inlet / outlet).
-Simstep latency was around 1 update for intranode communication (mean: 1.00 updates; median 0.75 updates) and around 40 updates for internode communication (mean: 41.6 updates; median: 37.4 updates).
+Supplementary Figures \ref{fig:intranode-vs-internode-distribution-latency-simsteps-inlet} and \ref{fig:intranode-vs-internode-distribution-latency-simsteps-outlet} compares the distributions of updates latency across these conditions.
+% Updates latency was around 1 update for intranode communication (mean: 1.01 updates inlet / 0.99 updates outlet; median 0.75 updates inlet / outlet) and around 40 updates for internode communication (mean: 41.8 updates inlet / 41.4 updates outlet; median: 37.4 updates inlet / outlet).
+Updates latency was around 1 update for intranode communication (mean: 1.00 updates; median 0.75 updates) and around 40 updates for internode communication (mean: 41.6 updates; median: 37.4 updates).
 
-Regression analysis confirms the significant effect of process placement on simstep latency (Supplementary Figures \ref{fig:intranode-vs-internode-regression-latency-simsteps-inlet} and \ref{fig:intranode-vs-internode-regression-latency-simsteps-outlet}).
+Regression analysis confirms the significant effect of process placement on updates latency (Supplementary Figures \ref{fig:intranode-vs-internode-regression-latency-simsteps-inlet} and \ref{fig:intranode-vs-internode-regression-latency-simsteps-outlet}).
 Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression} detail numerical results of these regressions.
 
 \subsubsection{Walltime Latency}
@@ -64,7 +64,7 @@ In some intranode snapshot windows, we observed a delivery failure rate as high 
 Supplementary Figures \ref{fig:intranode-vs-internode-distribution-delivery-clumpiness} and \ref{fig:intranode-vs-internode-distribution-delivery-clumpiness} show the distributions of delivery failure rate for intra- and inter-node communication.
 
 Because of Conduit's current MPI-based implementation, messages only drop when the underlying send buffer fills; queued messages are guaranteed for delivery.
-Slower simstep period under internode allocation could improve stability of the send buffer due to more time, on average, between send attempts.
+Slower update period under internode allocation could improve stability of the send buffer due to more time, on average, between send attempts.
 Underlying buffering or consolidation by the MPI backend for internode communication might also play a role by allowing data to be moved out of the userspace send buffer more promptly.
 
 Regression analysis confirmed a significant increase in delivery failure under intra-node communication (Supplementary Figures \ref{fig:intranode-vs-internode-regression-delivery-clumpiness}, \ref{fig:intranode-vs-internode-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:intranode-vs-internode-ordinary-least-squares-regression} and \ref{tab:intranode-vs-internode-quantile-regression}).

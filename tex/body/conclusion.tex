@@ -10,7 +10,7 @@ We observed the greatest relative speedup under distributed communication-heavy 
 In the case of the graph coloring benchmark, we found that best-effort communication can help achieve tangibly better solution quality within a fixed time constraint.
 
 Because real-time volatility affects the outcome of computation under the best-effort model, raw execution speed performance does not suffice to fully understand the consequences of the best-effort communication model.
-In order to characterize the real-time dynamics under the best-effort model, we designed and measured a suite of quality of service metrics: simstep period, simstep latency, wall-time latency, delivery failure rate, and delivery bunching.
+In order to characterize the real-time dynamics under the best-effort model, we designed and measured a suite of quality of service metrics: update period, updates latency, wall-time latency, delivery failure rate, and delivery bunching.
 
 We performed several experiments to validate and characterize these metrics.
 Comparing quality of service between multithreading and multiprocessing, we found that multithreading had lower runtime overhead cost but that multiprocessing reduced delivery erraticity, curbing especially extreme poor quality of service outlier events.
@@ -21,7 +21,7 @@ In order for best-effort communication to succeed in facilitating scale-up, medi
 Put another way, best-effort communication cannot succeed at scale if communication quality tends toward complete degradation.
 In Section \ref{sec:weak-scaling}, we used weak scaling experiments to test the effect of scale-up on quality of service at 8, 64, and 256 processes.
 Under a lower communication-intensivity task parameterization, we found that all median quality of service metrics were stable when scaling from 64 to 256 process.
-Under maximal communication intensivity, we found in one case that median simstep period degraded from around \SI{80}{\micro\second} to around \SI{85}{\micro\second}.
+Under maximal communication intensivity, we found in one case that median update period degraded from around \SI{80}{\micro\second} to around \SI{85}{\micro\second}.
 In another case, median message delivery failure rate increased from around 7\% to around 9\%.
 Such minor --- and, in most cases, nil --- degradation in median quality of service despite maximal communication intensivity bodes well for the viability of best-effort communication at scale.
 

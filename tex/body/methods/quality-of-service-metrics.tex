@@ -8,14 +8,14 @@ To this end, we developed a suite of quality of service metrics.
 Figure \ref{fig:quality-of-service-metric-definitions} provides space-time diagrams illustrating the metrics presented in this section.
 
 For the purposes of these metrics, we assume that simulations proceed in an iterative fashion with alternating compute and communication phases.
-For short, we refer to a single compute-communication cycle as a ``simstep.''
+For short, we refer to a single compute-communication cycle as a ``update.''
 We derive formulas for metrics in terms of independent observations preceding and succeeding a ``snapshot'' window, during which the simulation and any associated best-effort communication proceeds unimpeded.
 Snapshot observations are taken at one minute intervals over the course of each of our a replicate experiments.
 The following section, \ref{sec:quality-of-service-experiments}, details the experimental apparatus used to generate quality of service metrics reported in this work.
 
-\subsubsection{Simstep Period} \label{sec:simstep-period-metric}
+\subsubsection{Update Period} \label{sec:simstep-period-metric}
 
-We calculate the amount of wall-time elapsed per simulation update cycle (``Simstep Period'') during a snapshot window as
+We calculate the amount of wall-time elapsed per simulation update cycle (``Update Period'') during a snapshot window as
 \begin{align*}
 \frac{
   \mathrm{update\,count\,after} - \mathrm{update\,count\,before}
@@ -23,9 +23,9 @@ We calculate the amount of wall-time elapsed per simulation update cycle (``Sims
   \mathrm{walltime\,after} - \mathrm{walltime\,before}
 }.
 \end{align*}
-Figure \ref{fig:quality-of-service-metric-definitions-simstep-period} compares a scenario with low simstep period to a scenario with a higher simstep period.
+Figure \ref{fig:quality-of-service-metric-definitions-simstep-period} compares a scenario with low update period to a scenario with a higher update period.
 
-\subsubsection{Simstep Latency} \label{sec:wall-time-latency-metric}
+\subsubsection{Updates Latency} \label{sec:wall-time-latency-metric}
 
 This metric reports the number of simulation iterations that elapse between message dispatch and message delivery.
 Figure \ref{fig:quality-of-service-metric-definitions-latency} compares a scenario with low latency to a scenario with a higher latency.
@@ -51,16 +51,16 @@ Note that, in the case where no touches elapse, we bound our latency measure to 
 
 \subsubsection{Wall-time Latency} \label{sec:simulation-time-latency-metric}
 
-Wall-time latency is closely related to simstep latency, simply denominating in elapsed real time instead of elapsed simulation steps.
-To calculate wall-time latency we apply a conversion to simstep latency based on simstep period,
+Wall-time latency is closely related to updates latency, simply denominating in elapsed real time instead of elapsed simulation steps.
+To calculate wall-time latency we apply a conversion to updates latency based on update period,
 \begin{align*}
-  \mathrm{simstep\,latency} \times \mathrm{simstep\,period}.
+  \mathrm{update\,latency} \times \mathrm{update\,period}.
 \end{align*}
 
 This metric directly tells the real-time performance of message transmission.
-Although it directly follows from the interaction between simstep period and wall-time latency, it complements simstep latency's convenient interpretation in terms of potential simulation mechanics (e.g., simulation elements tending to see data from two updates ago versus from ten).
+Although it directly follows from the interaction between update period and wall-time latency, it complements updates latency's convenient interpretation in terms of potential simulation mechanics (e.g., simulation elements tending to see data from two updates ago versus from ten).
 
-In addition to simstep latency, Figure \ref{fig:quality-of-service-metric-definitions-latency} is also representative of wall-time latency --- simply interpreting the $y$ axis in terms of wall-time instead of elapsed simulation updates.
+In addition to updates latency, Figure \ref{fig:quality-of-service-metric-definitions-latency} is also representative of wall-time latency --- simply interpreting the $y$ axis in terms of wall-time instead of elapsed simulation updates.
 
 \subsubsection{Delivery Failure Rate} \label{sec:delivery-failure-rate-metric}
 

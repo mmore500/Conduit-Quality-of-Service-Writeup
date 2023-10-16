@@ -8,18 +8,18 @@ However, inter-process communication occurred via MPI calls while inter-thread c
 Experiments again applied the graph coloring benchmark.
 Both treatments used a single pair of CPUs.
 
-\subsubsection{Simstep Period}
+\subsubsection{Update Period}
 
 Multithreading enabled faster simulation update turnover than multiprocessing.
 
-% Under multithreading, simstep period was around \SI{5}{\micro\second} (mean: \SI{4.62}{\micro\second} inlet / \SI{4.60}{\micro\second} outlet; median: \SI{4.64}{\micro\second} inlet / outlet).
-Under multithreading, simstep period was around \SI{5}{\micro\second} (mean: \SI{4.60}{\micro\second}; median: \SI{4.64}{\micro\second}).
-% Simstep period for multiprocessing was around \SI{9}{\micro\second} (mean: \SI{9.01}{\micro\second} inlet / \SI{8.98}{\micro\second} outlet; median: \SI{9.07}{\micro\second} inlet / \SI{9.01}{\micro\second} outlet).
-Simstep period for multiprocessing was around \SI{9}{\micro\second} (mean: \SI{9.00}{\micro\second}; median: \SI{9.04}{\micro\second}).
+% Under multithreading, update period was around \SI{5}{\micro\second} (mean: \SI{4.62}{\micro\second} inlet / \SI{4.60}{\micro\second} outlet; median: \SI{4.64}{\micro\second} inlet / outlet).
+Under multithreading, update period was around \SI{5}{\micro\second} (mean: \SI{4.60}{\micro\second}; median: \SI{4.64}{\micro\second}).
+% Update period for multiprocessing was around \SI{9}{\micro\second} (mean: \SI{9.01}{\micro\second} inlet / \SI{8.98}{\micro\second} outlet; median: \SI{9.07}{\micro\second} inlet / \SI{9.01}{\micro\second} outlet).
+Update period for multiprocessing was around \SI{9}{\micro\second} (mean: \SI{9.00}{\micro\second}; median: \SI{9.04}{\micro\second}).
 Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-simstep-period-inlet-ns} and \ref{fig:multithreading-vs-multiprocessing-distribution-simstep-period-outlet-ns} depict the distribution of walltime per computational update for both multiprocessing and multithreading.
 This result falls in line with expectations that interaction via shared memory incurs lower overhead than via MPI calls.
 
-Regression analysis showed that both mean and median simstep period were significantly slower under multiprocessing compared to multithreading.
+Regression analysis showed that both mean and median update period were significantly slower under multiprocessing compared to multithreading.
 (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-simstep-period-inlet-ns} and \ref{fig:multithreading-vs-multiprocessing-regression-simstep-period-outlet-ns} visualize these regressions and Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression} detail numerical results.)
 
 \subsubsection{Walltime Latency}
@@ -39,21 +39,21 @@ Multithreading appears to provide marginally lower latency service in the median
 Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-latency-walltime-inlet-ns} and \ref{fig:multithreading-vs-multiprocessing-distribution-latency-walltime-outlet-ns} show the distributions of walltime latency for multithread and multiprocess runs.
 Regression analysis did not detect any significant difference in walltime latency between multithreading and multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-latency-walltime-inlet-ns}, \ref{fig:multithreading-vs-multiprocessing-regression-latency-walltime-outlet-ns}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
 
-\subsubsection{Simstep Latency}
+\subsubsection{Updates Latency}
 
-No significant difference in simstep latency was detected between multiprocessing and multithreading.
+No significant difference in updates latency was detected between multiprocessing and multithreading.
 
-In the median case, multiprocessing offered marginally lower simstep latency than multithreading.
-% Median simstep latency was 0.84 updates inlet/outlet under multiprocessing and 1.10 updates inlet / 1.11 updates outlet under multithreading.
-Median simstep latency was 0.84 updates under multiprocessing and 1.10 updates under multithreading.
-However, just as for walltime latency, extreme magintude outliers ($\approx$ \numprint{2000} simsteps) boosted mean simstep latency for multithreading.
-% Mean simstep latency was 0.95 updates inlet / 0.94 updates outlet under multiprocessing and 77.0 updates inlet / 78.0 updates outlet under multithreading.
-Mean simstep latency was 0.94 updates under multiprocessing and 78.0 updates under multithreading.
-Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-latency-simsteps-inlet} and \ref{fig:multithreading-vs-multiprocessing-distribution-latency-simsteps-outlet} compare the distributions of simstep latency across these conditions.
+In the median case, multiprocessing offered marginally lower updates latency than multithreading.
+% Median updates latency was 0.84 updates inlet/outlet under multiprocessing and 1.10 updates inlet / 1.11 updates outlet under multithreading.
+Median updates latency was 0.84 updates under multiprocessing and 1.10 updates under multithreading.
+However, just as for walltime latency, extreme magintude outliers ($\approx$ \numprint{2000} updates) boosted mean updates latency for multithreading.
+% Mean updates latency was 0.95 updates inlet / 0.94 updates outlet under multiprocessing and 77.0 updates inlet / 78.0 updates outlet under multithreading.
+Mean updates latency was 0.94 updates under multiprocessing and 78.0 updates under multithreading.
+Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-latency-simsteps-inlet} and \ref{fig:multithreading-vs-multiprocessing-distribution-latency-simsteps-outlet} compare the distributions of updates latency across these conditions.
 
-Direct measurements of simstep period and walltime latency suggest that faster simstep period, rather than slower walltime latency, explain the marginally higher simstep latency under multithreading.
+Direct measurements of update period and walltime latency suggest that faster update period, rather than slower walltime latency, explain the marginally higher updates latency under multithreading.
 
-Regression analysis detected no significant effect of threading versus processing on simstep latency in both the mean and median cases (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-latency-simsteps-inlet} and \ref{fig:multithreading-vs-multiprocessing-regression-latency-simsteps-outlet}).
+Regression analysis detected no significant effect of threading versus processing on updates latency in both the mean and median cases (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-latency-simsteps-inlet} and \ref{fig:multithreading-vs-multiprocessing-regression-latency-simsteps-outlet}).
 Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression} detail numerical results of these regressions.
 
 \subsubsection{Delivery Bunching}
