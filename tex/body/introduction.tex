@@ -157,7 +157,7 @@ Our motivation for these intermediate synchronization modes was interest in the 
 
 Second, we sought to more closely characterize variability in message dispatch, transmission, and delivery under the best-effort model.
 Unlike perfect communication, real-time volatility affects the outcome of computation under the best-effort model.
-Because real-time processing speed degradations and message latency or loss alters inputs to simulation elements, characterizing the distribution of these phenomena across processing components and over time is critical to understanding the actual computation being performed.
+Because real-time processing speed degradations and message latency or loss alters inputs to simulation units, characterizing the distribution of these phenomena across processing components and over time is critical to understanding the actual computation being performed.
 For example, consistently faster execution or lower messaging latency for some subset of processing elements could violate uniformity or symmetry assumptions within a simulation.
 It is even possible to imagine reciprocal interactions between real-time best-effort dynamics and simulation state.
 In the case of a positive feedback loop, the magnitude of effects might become extreme.
@@ -179,7 +179,7 @@ We compare
   \item within-node versus between-node process placement, and
   \item multithreading versus multiprocessing.
 \end{itemize}
-We perform these experiments using a graph coloring solver configured to maximize communication relative to computation (i.e., just one simulation element per CPU) in order to maximize sensitivity of quality of service to the runtime manipulations.
+We perform these experiments using a graph coloring solver configured to maximize communication relative to computation (i.e., just one simulation unit per CPU) in order to maximize sensitivity of quality of service to the runtime manipulations.
 
 Finally, we extend our understanding of performance scaling from the preceding experiments by analyzing how each quality of service metric fares as problem size and processor count grow together, a ``weak scaling'' experiment.
 This analysis would detect a scenario where raw performance remains stable under weak scaling, but quality of service (and, therefore, potentially quality of computation) degrades.

@@ -31,11 +31,11 @@ This metric reports the number of simulation iterations that elapse between mess
 Figure \ref{fig:quality-of-service-metric-definitions-latency} compares a scenario with low latency to a scenario with a higher latency.
 
 To prevent interfering effects of imperfect clock synchronization, we estimate one-way wall-time latency from a round-trip measure.
-As part of our instrumentation, each simulation element maintains an independent zero-initialized ``touch counter'' for each neighbor simulation element it communicates with.
-Dispatched messages are bundled with the current value touch counter associated with the target element.
+As part of our instrumentation, each simulation unit maintains an independent zero-initialized ``touch counter'' for each neighbor simulation unit it communicates with.
+Dispatched messages are bundled with the current value touch counter associated with the target unit.
 Every message received sets the corresponding touch counter to $1 + \mathrm{bundled\,touch\,count}$.
 In this manner, the touch counter increments by two for each successful round trip completed.
-(Because simulation elements are arranged as a toroidal mesh in all experiments, interaction between simulation elements is always reciprocal.)
+(Because simulation units are arranged as a toroidal mesh in all experiments, interaction between simulation units is always reciprocal.)
 
 We therefore calculate one-way latency during a snapshot window as,
 \begin{align*}
@@ -58,7 +58,7 @@ To calculate wall-time latency we apply a conversion to updates latency based on
 \end{align*}
 
 This metric directly tells the real-time performance of message transmission.
-Although it directly follows from the interaction between update period and wall-time latency, it complements updates latency's convenient interpretation in terms of potential simulation mechanics (e.g., simulation elements tending to see data from two updates ago versus from ten).
+Although it directly follows from the interaction between update period and wall-time latency, it complements updates latency's convenient interpretation in terms of potential simulation mechanics (e.g., simulation units tending to see data from two updates ago versus from ten).
 
 In addition to updates latency, Figure \ref{fig:quality-of-service-metric-definitions-latency} is also representative of wall-time latency --- simply interpreting the $y$ axis in terms of wall-time instead of elapsed simulation updates.
 
