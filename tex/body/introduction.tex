@@ -3,11 +3,11 @@
 The roots of scientific understanding lie in juxtaposition of abstract models with the natural world \citep{banzhaf2016defining}.
 Modality and structure of these models vary tremendously, but all relate axiomatic formulations to consequent implications.
 Verbal models relate abstractions through qualitative logic.
-Mathematical models interface quantified entities through geometric, algebraic, analytic, combinatoric, and other formal devices.
+Mathematical models interface quantified entities through geometric, algebraic, analytic, combinatorial, and other formal devices.
 Crucially, symbolic representations allow mathematical approaches to resolve sophisticated relationships through compact, closed-form descriptions.
-Finally, physical models extend back into the natural world, constructing tangible analogs, generally as footholds for exploration of verbal and mathematical models (i.e., downscaled or stripped down).
+Finally, physical models extend back into the natural world, constructing tangible analogs, generally as footholds for exploration of verbal and mathematical models (i.e., down-scaled or stripped down).
 
-Digital electronic processing ushered in computational models, largely unrealized up to that point. 
+Digital electronic processing ushered in computational models, largely unrealized up to that point.
 Such models reify vast layers --- today, trillions --- of exactly prescribed interactions.
 This capability grants entirely new avenues to study collective behavior of complex systems.
 Although alike in telling outcomes consequent to axiomatic suppositions, the scope of some computational models, however, can erode their descriptiveness in elucidating intermediate mechanistic steps.
@@ -36,20 +36,20 @@ Difficulty largely boils down to two quagmires:
 Although subject of many fruitful mitigation efforts, costs nonetheless mount in performance overhead and engineering effort.
 More insidious, still, are soft errors --- faults, such as lost messages or corrupted memory, that transpire silently \citep{karnik2004characterization}.
 Further miniaturization and voltage reduction, which are assumed as a likely vehicle for continuing advances in hardware efficiency and performance, could conceivably worsen susceptibility to such errors \citep{dongarra2014applied,kajmakovic2020challenges}.
-Vanishingly rare at the scale of single-processor computing and generally mitigable through redundancy (e.g., duplicate execution or error correction codes \citep{vankeirsbilck2015soft,sridharan2015memory}), countermeasures must ramp up with scale as occurence accelerates to non-trivial rates \citep{sridharan2015memory,scoles2018cosmic}.
+Vanishingly rare at the scale of single-processor computing and generally mitigable through redundancy (e.g., duplicate execution or error correction codes \citep{vankeirsbilck2015soft,sridharan2015memory}), countermeasures must ramp up with scale as occurrence accelerates to non-trivial rates \citep{sridharan2015memory,scoles2018cosmic}.
 
 The worsening marginal costs of synchronization, fault recovery, and error correction beg the question whether it is viable to maintain, or even strive to maintain, the reliable digital machine model at scale \citep{dongarra2014applied}.
 Indeed, software and hardware that concede some incorrectness or indeterminism --- the ``best-effort model'' --- have been shown to improve speed \citep{chakrapani2008probabilistic}, energy efficiency \citep{chakrapani2008probabilistic,bocquet2018memory}, and scalability \citep{meng2009best}.
 Discussion around ``approximate computing'' overlaps significantly with ``best-effort computing,'' although focusing more heavily on using algorithm design to sidestep non-essential computation (i.e., reduced floating point precision, inexact memoization, etc.) \citep{mittal2016survey}.
 However, best-effort computing stands distinct in breach of execution's adherenece to idealization.
 The intrusion of extraneous influence into programmed execution relaxes best-effort simulation into a sort of liminally physical model.
-Across this material rubicon, the best-effort proposition presents as starkly exotic. 
+In this light, the best-effort proposition appears starkly exotic.
 In an alternate framing, however, this step simply represents further pragmatic compromise with the physical reality of computational hardware --- with the difference of kind manifested as spillover from constraining aspects of program specification to eroding the specifiable purview.
 
 The suitability of best-effort approaches varies from application to application.
 Real-time control systems that cannot afford to pause or retry, by necessity, fall into the best-effort category \citep{rahmati2011computing, rhodes2020real}.
 Other domains are clear cut against departure from the reliable digital machine model --- for example, due to regulatory issues \citep{dongarra2014applied}.
-However, a subset of HPC applications can tolerate occasional flaws, or even fundamentally nondetermism, in computation \citep{chakradhar2010best}.
+However, a subset of HPC applications can tolerate occasional flaws, or even fundamentally nondeterminism, in computation \citep{chakradhar2010best}.
 Optimization domains, typically having no singular ``correct'' outcome, make an obvious fit;
 those, especially, leveraging heuristics or pseudo-stochastic methods that tend to exploit noise rather than destabilize due to it \citep{chakrapani2008probabilistic,chakradhar2010best}.
 In this vein, best-effort applications to stochastic gradient descent for artificial neural network applications have proven fruitful \citep{dean2012large,zhao2019elastic,niu2011hogwild,noel2014dogwild,rhodes2020real}.
@@ -57,10 +57,10 @@ Even within directly representational simulation, however, notable success has s
 (Noted, such work categorizes as ``approximate'' rather than ``best-effort.'')
 
 The pliability of artificial life behooves best-effort strategy.
-As artificial life already brings together purely-computational, explicitly-physical (i.e., robotics) and purely-physical (i.e., biochemical) modeling modalities, the blurred nature of best-effort commputational models make a natural fit.
+As artificial life already brings together purely-computational, explicitly-physical (i.e., robotics) and purely-physical (i.e., biochemical) modeling modalities, the blurred nature of best-effort computational models make a natural fit.
 Indeed, best-effort, real-time computing approaches have already made several notable appearances in artificial life work.
 Tom Ray's Network Tierra pushed cyber-physical model hybridization to the logical extreme.
-This prject instantiated populations across an at-will federation of distributed simulation endpoints, with individuals migrating across peer-to-peer internet connections.
+This project instantiated populations across an at-will federation of distributed simulation endpoints, with individuals migrating across peer-to-peer internet connections.
 Exposure of simulation dynamics to external factors was, in fact, an explicit aim rather than an engineering compromise;
 influence of human-driven fluctuations in internet traffic and server load due to seasonality, day/night cycles, etc. on evolved behaviors was highlighted of key interest \citep{ray1995proposal}.
 
@@ -75,7 +75,7 @@ Suggestions to this end appear elsewhere \citep{channon2019maximum,banzhaf2016de
 \subsection{Scale in Context}
 
 A reference point is instructive to discussing scope in artificial life simulation.
-Take as an exammple the Avida digital evolution platform, a popular software system for evolutionary experiments with self-replicating computer programs.
+Take as an example the Avida digital evolution platform, a popular software system for evolutionary experiments with self-replicating computer programs.
 In this system, a population of ten thousand digital organisms can undergo approximately twenty thousand generations per day \citep{ofria2009artificial}.
 This equates to about two hundred million individual replication cycles.
 Each flask in the Lenski Long-Term Evolution Experiment hosts a similar number of replication cycles; with an effective population size of 30 million \textit{E. coli} that undergo a bit more than 6.6 doublings per day, the bacteria experience about 180 million replication events per day \citep{good2017dynamics}.
@@ -83,15 +83,15 @@ As another point of commparison, in Ratcliff’s work studying the evolution of 
 
 Although colloquialised as ``worlds,'' with serial processing power the scope of typical artificial life simulation aligns, in naive terms, near a laboratory flask.
 Of course, such a comparison neglects profound incommensurabilities between Avidians and bacteria or yeast.
-Natural organisms have vastly more genetic content and phenotypicß state, as well as more and more diverse interactions with the environment and with other cells.
+Natural organisms have vastly more genetic content and phenotypic state, as well as more and more diverse interactions with the environment and with other cells.
 
 Since the field's inception, artificial life has ridden a steady current of microprocessor innovation.
 As improvements in serial processing dried up around the turn of the century \citep{sutter2005free}, parallel and distributed became ascendant.
-As a result, it has becomme routine to dispatch independent instantiations of simulation runs across hardware units.
+As a result, it has become routine to dispatch independent instantiations of simulation runs across hardware units.
 In scientific contexts, this practice yields replicate datasets that provide statistical power to answer research questions \citep{dolson2017spatial}.
 In applied contexts, this practice yields many converged populations that can be scavenged for the best solutions overall \citep{hornby2006automated}.
 Another established practice is to use ``island models'' where individuals are transplanted between populations residing across distributed hardware \citep{gorges1990explicit}.
-Notably, asynchronous approaches are commmon and effective in these models \citep{abdelhafez2019performance}.
+Notably, asynchronous approaches are common and effective in these models \citep{abdelhafez2019performance}.
 
 Koza and collaborators’ genetic programming work with a 1,000-CPU Beowulf cluster typifies the island model approach \citep{bennett1999building}.
 In recent years, Sentient Technologies spearheaded evolutionary computation projects on an unprecedented computational scale, comprising over a million CPUs and capable of a peak performance of 9 petaflops \citep{miikkulainen2019evolving}.
@@ -150,7 +150,7 @@ As opposed to strong scaling, where the problem size is held fixed while process
 This approach prevents interference from shifts in processes' workload profiles in observation of the effects of scaling up processor count.
 
 To survey across hardware configurations, we tested scaling CPU count via threading on a single node and scaling CPU count via multiprocessing with each process assigned to a distinct node.
-In addition to a fully best-effort mode and a perfect communication mode, we also tested two intermediate, partially synchronized modes: one where the processor pool completed a global barrier (i.e., they aligned at a synchronization point) at predetermined, rigidly scheduled timepoints and another where global barriers occurred on a rolling basis spaced out by fixed-length delays from the end of the last synchronization.%
+In addition to a fully best-effort mode and a perfect communication mode, we also tested two intermediate, partially synchronized modes: one where the processor pool completed a global barrier (i.e., they aligned at a synchronization point) at predetermined, rigidly scheduled time points and another where global barriers occurred on a rolling basis spaced out by fixed-length delays from the end of the last synchronization.%
 \footnote{
 Our motivation for these intermediate synchronization modes was interest in the effect of clearing any potentially-unbounded accumulation of message backlogs on laggard processes.
 }
