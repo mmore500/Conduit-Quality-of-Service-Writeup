@@ -47,7 +47,7 @@ Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-square
 Effects of compute work on walltime latency highlight an important caveat in interpretation of this metric: sensitivity in measuring walltime latency is limited by the simulation update pace.
 If a message is dispatched while its recipient is busy, the soonest it can be received will be when that recipient completes the computational phase of its update.
 Then, a full computational update will elapse before touch count propagates in a return message.
-So, even approaching instantaneous message delivery, a lower floor of $\approx 1.5 \times$ simstep period should be expected for the walltime latency measure. 
+So, even approaching instantaneous message delivery, a lower floor of $\approx 1.5 \times$ simstep period should be expected for the walltime latency measure.
 It should be noted, however, that distinctions in latency below the simulation update rate largely lack practical significance with respect to simullation outcomes.
 
 % At \numprint{0}, \numprint{64}, and \numprint{4096} work units, walltime latency measures consistently at $\approx 1$ ms (means: \SI{710}{\micro\second}, \SI{794}{\micro\second}, \SI{906}{\micro\second} inlet / \SI{706}{\micro\second}, \SI{782}{\micro\second}, \SI{899}{\micro\second}; medians: \SI{623}{\micro\second}, \SI{639}{\micro\second}, \SI{742}{\micro\second} inlet / \SI{622}{\micro\second}, \SI{642}{\micro\second}, \SI{733}{\micro\second} outlet).
@@ -63,16 +63,16 @@ Supplementary Figures \ref{fig:computation-vs-communication-distribution-latency
 Supplementary Figures \ref{fig:computation-vs-communication-regression-latency-walltime-inlet-ns} and \ref{fig:computation-vs-communication-regression-latency-walltime-outlet-ns} summarize regression between walltime latency and added compute work.
 Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} detail numerical results of those regressions.
 
-\subsubsection{Delivery Clumpiness}
+\subsubsection{Delivery Bunching}
 
-We observed a significant negative relationship between computation workload and delivery clumpiness.
+We observed a significant negative relationship between computation workload and delivery bunching.
 
-At low computational intensity, we observed clumpiness greater than 0.95, meaning that fewer than 5\% of pull requests were laden with fresh messages (at 0 compute work mean: 0.96, median 0.96).
-However, at high computational intensity clumpiness reached 0, indicating that messages arrived as a steady stream (at \numprint{16777216} compute work mean: 0.00, median 0.00).
-Presumably, the reduction in clumpiness is due to increased real-time separation between dispatched messages.
+At low computational intensity, we observed bunching greater than 0.95, meaning that fewer than 5\% of pull requests were laden with fresh messages (at 0 compute work mean: 0.96, median 0.96).
+However, at high computational intensity bunching reached 0, indicating that messages arrived as a steady stream (at \numprint{16777216} compute work mean: 0.00, median 0.00).
+Presumably, the reduction in bunching is due to increased real-time separation between dispatched messages.
 
-Supplementary Figure \ref{fig:computation-vs-communication-distribution-delivery-clumpiness} shows the effect of computational workload on the distribution of observed clumpinesses.
-We found a significant negative relationship between both mean and median clumpiness and computational intensity.
+Supplementary Figure \ref{fig:computation-vs-communication-distribution-delivery-clumpiness} shows the effect of computational workload on the distribution of observed bunching values.
+We found a significant negative relationship between both mean and median bunching and computational intensity.
 Supplementary Figure \ref{fig:computation-vs-communication-regression-delivery-clumpiness} visualizes these regressions and Supplementary Tables \ref{tab:computation-vs-communication-ordinary-least-squares-regression} and \ref{tab:computation-vs-communication-quantile-regression} provide numerical details.
 
 \subsubsection{Delivery Failure Rate}

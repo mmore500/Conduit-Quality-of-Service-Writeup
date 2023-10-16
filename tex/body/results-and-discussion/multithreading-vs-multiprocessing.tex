@@ -56,18 +56,18 @@ Direct measurements of simstep period and walltime latency suggest that faster s
 Regression analysis detected no significant effect of threading versus processing on simstep latency in both the mean and median cases (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-latency-simsteps-inlet} and \ref{fig:multithreading-vs-multiprocessing-regression-latency-simsteps-outlet}).
 Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression} detail numerical results of these regressions.
 
-\subsubsection{Delivery Clumpiness}
+\subsubsection{Delivery Bunching}
 
-Multithreading exhibited higher median clumpiness and greater variance in clumpiness than multiprocessing.
+Multithreading exhibited higher median bunching and greater variance in bunching than multiprocessing.
 
-Under multithreading, clumpiness was nearly 1 within some snapshot windows and less than 0.1 within others.
-Under multiprocessing, clumpiness was consistently less than 0.1.
-Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} show the distributions of clumpiness under both multiprocessing and multithreading.
-Multithreading median clumpiness was 0.54.
-Multiprocessing median clumpiness was 0.03.
-Multithreading and multiprocessing mean clumpinesses were 0.56 and 0.03, respectively.
+Under multithreading, bunching was nearly 1 within some snapshot windows and less than 0.1 within others.
+Under multiprocessing, bunching was consistently less than 0.1.
+Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} and \ref{fig:multithreading-vs-multiprocessing-distribution-delivery-clumpiness} show the distributions of bunching under both multiprocessing and multithreading.
+Multithreading median bunching was 0.54.
+Multiprocessing median bunching was 0.03.
+Multithreading and multiprocessing mean bunching values were 0.56 and 0.03, respectively.
 
-Regression analysis confirmed a significantly greater clumpiness under both multithreading compared to multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
+Regression analysis confirmed a significantly greater bunching under both multithreading compared to multiprocessing (Supplementary Figures \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}, \ref{fig:multithreading-vs-multiprocessing-regression-delivery-clumpiness}; Supplementary Tables \ref{tab:multithreading-vs-multiprocessing-ordinary-least-squares-regression} and \ref{tab:multithreading-vs-multiprocessing-quantile-regression}).
 % This result falls in line with other results suggesting that multithreading providing less consistent quality of service than multiprocessing.
 
 \subsubsection{Delivery Failure Rate}

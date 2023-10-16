@@ -79,21 +79,21 @@ Supplementary Tables \ref{tab:weak-scaling-latency-simsteps-inlet-regression-ols
 For median simstep latency, however, there was no condition where latency increased significantly with process count.
 Figure \ref{fig:weak-scaling-regression-quantile-latency-simsteps-inlet} and Supplementary Figure \ref{fig:weak-scaling-regression-quantile-latency-simsteps-outlet} show the quantile regressions performed, with Supplementary Tables \ref{tab:weak-scaling-latency-simsteps-inlet-regression-quantile} and \ref{tab:weak-scaling-latency-simsteps-outlet-regression-quantile} providing numerical details.
 
-\subsubsection{Delivery Clumpiness}
+\subsubsection{Delivery Bunching}
 
-For one-simel-per-CPU runs, median delivery clumpiness registered between 0.8 and 0.6.
-On \numprint{2048}-simel-per-CPU runs, median delivery clumpiness was lower at around 0.4.
+For one-simel-per-CPU runs, median delivery bunching registered between 0.8 and 0.6.
+On \numprint{2048}-simel-per-CPU runs, median delivery bunching was lower at around 0.4.
 Supplementary Figure \ref{fig:weak-scaling-distribution-delivery-clumpiness}
-shows the distribution of delivery clumpiness values observed across run conditions.
+shows the distribution of delivery bunching values observed across run conditions.
 
 \input{fig/weak-scaling/regression-ols/delivery-clumpiness.tex}
 
-Using OLS regression, we found no evidence of mean clumpiness worsening with increased process count.
-In fact, over 16, 64, and 256 processes clumpiness significantly decreased with process count in all conditions except four CPUs per node with \numprint{2048} simels per CPU.
-Figure \ref{fig:weak-scaling-regression-ols-delivery-clumpiness} and Supplementary Table \ref{tab:weak-scaling-delivery-clumpiness-regression-ols} detail regressions performed to test the relationship between mean clumpiness and process count.
+Using OLS regression, we found no evidence of mean bunching worsening with increased process count.
+In fact, over 16, 64, and 256 processes bunching significantly decreased with process count in all conditions except four CPUs per node with \numprint{2048} simels per CPU.
+Figure \ref{fig:weak-scaling-regression-ols-delivery-clumpiness} and Supplementary Table \ref{tab:weak-scaling-delivery-clumpiness-regression-ols} detail regressions performed to test the relationship between mean bunching and process count.
 
-Median delivery clumpiness exhibited the same relationships with processor count, tested with quartile regression.
-Supplementary Figure \ref{fig:weak-scaling-regression-quantile-delivery-clumpiness} and Supplementary Table \ref{tab:weak-scaling-delivery-clumpiness-regression-quantile} detail regressions between median clumpiness and process count.
+Median delivery bunching exhibited the same relationships with processor count, tested with quartile regression.
+Supplementary Figure \ref{fig:weak-scaling-regression-quantile-delivery-clumpiness} and Supplementary Table \ref{tab:weak-scaling-delivery-clumpiness-regression-quantile} detail regressions between median bunching and process count.
 
 \subsubsection{Delivery Failure Rate}
 
