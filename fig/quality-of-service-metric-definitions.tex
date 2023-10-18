@@ -1,29 +1,63 @@
 \begin{figure*}
   \centering
-  \begin{subfigure}[b]{0.5\textwidth}
+
+  % First row of images
+  \adjustbox{valign=t}{%
+  \begin{subfigure}[t]{0.47\textwidth}
     \centering
     \includegraphics[width=\linewidth]{img/quality-of-service-metric-definitions/clumpiness.pdf}
+  \end{subfigure}%
+  }
+  \hfill
+  \adjustbox{valign=t}{%
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{img/quality-of-service-metric-definitions/delivery-failure-rate.pdf}
+  \end{subfigure}%
+  }
+
+  \vspace{5pt}
+  % Captions for first row
+  \begin{subfigure}[t]{0.47\textwidth}
     \caption{Bunching}
     \label{fig:quality-of-service-metric-definitions-clumpiness}
   \end{subfigure}%
-  \begin{subfigure}[b]{0.5\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{img/quality-of-service-metric-definitions/delivery-failure-rate.pdf}
+  \hfill
+  \begin{subfigure}[t]{0.47\textwidth}
     \caption{Delivery Failure Rate}
     \label{fig:quality-of-service-metric-definitions-delivery-failure-rate}
   \end{subfigure}
-  \begin{subfigure}[b]{0.5\textwidth}
+
+  \vspace{10pt}
+
+  % Second row of images
+  \adjustbox{valign=t}{%
+  \begin{subfigure}[t]{0.47\textwidth}
     \centering
     \includegraphics[width=\linewidth]{img/quality-of-service-metric-definitions/latency.pdf}
+  \end{subfigure}%
+  }
+  \hfill
+  \adjustbox{valign=t}{%
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{img/quality-of-service-metric-definitions/simstep-period.pdf}
+  \end{subfigure}%
+  }
+
+  \vspace{5pt}
+
+  % Captions for second row
+  \begin{subfigure}[t]{0.47\textwidth}
     \caption{Latency}
     \label{fig:quality-of-service-metric-definitions-latency}
   \end{subfigure}%
-  \begin{subfigure}[b]{0.5\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{img/quality-of-service-metric-definitions/simstep-period.pdf}
+  \hfill
+  \begin{subfigure}[t]{0.47\textwidth}
     \caption{Update Period}
     \label{fig:quality-of-service-metric-definitions-simstep-period}
-  \end{subfigure}%
+  \end{subfigure}
+
   \caption{
   Quality of service metrics.
   Each illustration is a space-time diagram, with $A$ and $B$ representing independent processes.
