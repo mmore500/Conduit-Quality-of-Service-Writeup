@@ -1,6 +1,6 @@
 \definecolor{deeppeach}{rgb}{1.0, 0.8, 0.64}
 
-\newcommand{\mcell}[1]{\makecell{~\\[-1.05cm]\makebox[0pt]{#1}}}
+\newcommand{\mcell}[1]{\makecell{~\\[-0.75cm]\makebox[0pt]{#1}}}
 \newcommand{\graytext}[1]{\color{gray} #1}
 \newcommand{\bluetext}[1]{\bf \cellcolor{blue!25} #1}
 \newcommand{\redtext}[1]{\bf \cellcolor{red!25} #1}
@@ -8,7 +8,7 @@
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
 \newcolumntype{G}{>{\columncolor{deeppeach!25}\centering\arraybackslash}m{0.08\linewidth}}
 \newcolumntype{S}{>{\columncolor{gray!15}\centering\arraybackslash}M{0.10\linewidth}}
-\newcommand\setrowheight{\rule{0pt}{1cm}}
+\newcommand\setrowheight{\rule{0pt}{0.67cm}}
 \newcolumntype{g}{>{\columncolor{gray!25}\centering\arraybackslash}c}
 
 \begin{table*}[h!]
@@ -34,144 +34,189 @@
         \rotatebox{60}{\textit{+ faulty hw}} \\
         \hline\hline
         \setrowheight
-        \multirow[b]{3}{*}{\rotatebox[origin=c]{90}{Updatee Period}} &
-            & \mcell{$\Delta$ median} &
-            \mcell{XX} &
-            \bluetext{\mcell{-XX\%}} &
-            \redtext{\mcell{\texttt{+}XX\%}} &
-            \graytext{\mcell{+XX\%}} &
-            \mcell{XX} &
-            \mcell{XX\%} \\ \setrowheight
+        \multirow[b]{4}{*}{\rotatebox[origin=c]{90}{Update Period}} &
+            & \mcell{median} &
+            \mcell{XX ns} &
+            \bluetext{\mcell{$\Delta$-XX\%}} &
+            \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+            \graytext{\mcell{$\Delta$+XX\%}} &
+            \mcell{2.0 ms} &
+            \graytext{\mcell{$\Delta$-0.5\%}} \\ \setrowheight
 
         &
-            & \mcell{\% outliers} &
+            & \mcell{$\sim \mathrm{MAD}$} &
             \mcell{XX\%} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\ \setrowheight
+            \mcell{3.9\%} &
+            \graytext{\mcell{4.0\%}} \\ \setrowheight
 
-        & \multirow[t]{3}{*}{\includegraphics[height=3cm]{img/quality-of-service-metric-definitions/simstep-period-right.pdf}} &
-            \mcell{$\sim \mathrm{MAD}$} &
+            &
+                & \mcell{mean} &
+                \mcell{XX ns} &
+                \bluetext{\mcell{$\Delta$-XX\%}} &
+                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\mcell{$\Delta$+XX\%}} &
+                \mcell{2.0 ms} &
+                \bluetext{\mcell{$\Delta$-0.7*\%}} \\ \setrowheight
+
+        & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/simstep-period-right.pdf}} &
+            \mcell{\% outliers} &
             \mcell{XX\%} &
             \bluetext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\
+            \mcell{2.9\%} &
+            \graytext{\mcell{2.7\%}} \\
         \hline
         \setrowheight
-        \multirow[t]{3}{*}{\rotatebox[origin=c]{90}{Walltime Latency~~~~~~~~~~~~~~}} &
-            & \mcell{$\Delta$ median} &
-            \mcell{XX} &
-            \bluetext{\mcell{-XX\%}} &
-            \redtext{\mcell{\texttt{+}XX\%}} &
-            \graytext{\mcell{+XX\%}} &
-            \mcell{XX} &
-            \mcell{XX\%} \\ \setrowheight
+        \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Walltime Latency~~~~~~~~~~~~~~~~~~~}} &
+            & \mcell{median} &
+            \mcell{XX ns} &
+            \bluetext{\mcell{$\Delta$-XX\%}} &
+            \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+            \graytext{\mcell{$\Delta$+XX\%}} &
+            \mcell{2.3 ms} &
+            \graytext{\mcell{$\Delta$-0.3\%}} \\ \setrowheight
 
         &
-            & \mcell{\% outliers} &
+            & \mcell{$\sim \mathrm{MAD}$} &
             \mcell{XX\%} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\ \setrowheight
+            \mcell{12\%} &
+            \graytext{\mcell{11\%}} \\ \setrowheight
 
-        & \multirow[t]{3}{*}{\includegraphics[height=3cm]{img/quality-of-service-metric-definitions/latency-right.pdf}} &
-            \mcell{$\sim \mathrm{MAD}$} &
+            &
+                & \mcell{mean} &
+                \mcell{XX ns} &
+                \bluetext{\mcell{$\Delta$-XX\%}} &
+                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\mcell{$\Delta$+XX\%}} &
+                \mcell{2.4 ms} &
+                \redtext{\mcell{$\Delta$+446\%***}} \\ \setrowheight
+
+        & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/latency-right.pdf}} &
+            \mcell{\% outliers} &
             \mcell{XX\%} &
             \bluetext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\
+            \mcell{1.8\%} &
+            \graytext{\mcell{2.1\%}} \\
         \hline
         \setrowheight
-        \multirow[t]{3}{*}{\rotatebox[origin=c]{90}{Updates Latency~~~~~~~~~~~~~~}} &
-            & \mcell{$\Delta$ median} &
-            \mcell{XX} &
-            \bluetext{\mcell{-XX\%}} &
-            \redtext{\mcell{\texttt{+}XX\%}} &
-            \graytext{\mcell{+XX\%}} &
-            \mcell{XX} &
-            \mcell{XX\%} \\ \setrowheight
+        \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Updates Latency~~~~~~~~~~~~~~~~~~~}} &
+            & \mcell{median} &
+            \mcell{XX updates} &
+            \bluetext{\mcell{$\Delta$-XX\%}} &
+            \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+            \graytext{\mcell{$\Delta$+XX\%}} &
+            \mcell{1.2 updates} &
+            \graytext{\mcell{$\Delta$+0.4\%}} \\ \setrowheight
 
         &
-            & \mcell{\% outliers} &
+            & \mcell{$\sim \mathrm{MAD}$} &
             \mcell{XX\%} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\ \setrowheight
+            \mcell{12\%} &
+            \redtext{\mcell{13\%*}} \\ \setrowheight
 
-        & \multirow[t]{3}{*}{\includegraphics[height=3cm]{img/quality-of-service-metric-definitions/latency-right.pdf}} &
-            \mcell{$\sim \mathrm{MAD}$} &
+            &
+                & \mcell{mean} &
+                \mcell{XX updates} &
+                \bluetext{\mcell{$\Delta$-XX\%}} &
+                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\mcell{$\Delta$+XX\%}} &
+                \mcell{1.2 updates} &
+                \redtext{\mcell{$\Delta$+448\%***}} \\ \setrowheight
+
+        & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/latency-right.pdf}} &
+            \mcell{\% outliers} &
             \mcell{XX\%} &
             \bluetext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\
+            \mcell{1.9\%} &
+            \redtext{\mcell{2.3\%**}} \\
         \hline
         \setrowheight
-        \multirow[b]{3}{*}{\rotatebox[origin=c]{90}{Bunching}} &
-            & \mcell{$\Delta$ median} &
+        \multirow[b]{4}{*}{\rotatebox[origin=c]{90}{Bunching}} &
+            & \mcell{median} &
             \mcell{XX} &
-            \bluetext{\mcell{-XX\%}} &
-            \redtext{\mcell{\texttt{+}XX\%}} &
-            \graytext{\mcell{+XX\%}} &
-            \mcell{XX} &
-            \mcell{XX\%} \\ \setrowheight
+            \bluetext{\mcell{$\Delta$-XX\%}} &
+            \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+            \graytext{\mcell{$\Delta$+XX\%}} &
+            \mcell{0.32} &
+            \graytext{\mcell{$\Delta$-0.5\%}} \\ \setrowheight
 
         &
-            & \mcell{\% outliers} &
+            & \mcell{$\sim \mathrm{MAD}$} &
             \mcell{XX\%} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\ \setrowheight
+            \mcell{24\%} &
+            \graytext{\mcell{24\%}} \\ \setrowheight
 
-        & \multirow[t]{3}{*}{\includegraphics[height=3cm]{img/quality-of-service-metric-definitions/clumpiness-right.pdf}} &
-            \mcell{$\sim \mathrm{MAD}$} &
+            &
+                & \mcell{mean} &
+                \mcell{XX} &
+                \bluetext{\mcell{$\Delta$-XX\%}} &
+                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\mcell{$\Delta$+XX\%}} &
+                \mcell{0.32} &
+                \graytext{\mcell{$\Delta$-0.6\%}} \\ \setrowheight
+
+        & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/clumpiness-right.pdf}} &
+            \mcell{\% outliers} &
             \mcell{XX\%} &
             \bluetext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\
+            \mcell{0.03\%} &
+            \redtext{\mcell{0.5\%***}} \\
         \hline
         \setrowheight
-        \multirow[t]{3}{*}{\rotatebox[origin=c]{90}{Delivery Fail Rate~~~~~~~~~~~~~~}} &
-            & \mcell{$\Delta$ median} &
+        \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Delivery Fail Rate~~~~~~~~~~~~~~~~~~}} &
+            & \mcell{median} &
             \mcell{XX} &
-            \bluetext{\mcell{-XX\%}} &
-            \redtext{\mcell{\texttt{+}XX\%}} &
-            \graytext{\mcell{+XX\%}} &
-            \mcell{XX} &
-            \mcell{XX\%} \\ \setrowheight
+            \bluetext{\mcell{$\Delta$-XX\%}} &
+            \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+            \graytext{\mcell{$\Delta$+XX\%}} &
+            \mcell{0} &
+            \graytext{\mcell{0}} \\ \setrowheight
 
         &
-            & \mcell{\% outliers} &
+            & \mcell{$\sim \mathrm{MAD}$} &
             \mcell{XX\%} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\ \setrowheight
+            \mcell{0\%} &
+            \graytext{\mcell{0\%}} \\ \setrowheight
 
-        & \multirow[t]{3}{*}{\includegraphics[height=3cm]{img/quality-of-service-metric-definitions/delivery-failure-rate-right.pdf}} &
-            \mcell{$\sim \mathrm{MAD}$} &
+            &
+                & \mcell{mean} &
+                \mcell{XX} &
+                \bluetext{\mcell{$\Delta$-XX\%}} &
+                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\mcell{$\Delta$+XX\%}} &
+                \mcell{0} &
+                \redtext{\mcell{0.003\%**}} \\ \setrowheight
+
+        & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/delivery-failure-rate-right.pdf}} &
+            \mcell{\% outliers} &
             \mcell{XX\%} &
             \bluetext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
             \graytext{\mcell{XX\%}} &
-            \mcell{XX\%} &
-            \mcell{XX\%} \\
+            \mcell{2.5\%} &
+            \bluetext{\mcell{0.7\%***}} \\
         \hline
 
     \end{tabular}
