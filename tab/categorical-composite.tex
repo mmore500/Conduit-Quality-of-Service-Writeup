@@ -5,6 +5,28 @@
 \newcommand{\bluetext}[1]{\bf \cellcolor{blue!25} #1}
 \newcommand{\redtext}[1]{\bf \cellcolor{red!25} #1}
 
+% Define a new pattern for spaced crosshatches
+\pgfdeclarepatternformonly{my north east lines}{\pgfqpoint{-1pt}{-1pt}}{\pgfqpoint{10pt}{10pt}}{\pgfqpoint{6pt}{6pt}}%
+{
+  \pgfsetlinewidth{0.4pt}
+  \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+  \pgfpathlineto{\pgfqpoint{3.1pt}{3.1pt}}
+  \pgfusepath{stroke}
+}
+
+\newcommand{\crosshatchedcell}[1][9pt]{%
+  \begin{tikzpicture}[baseline,overlay]
+    \node[anchor=south west, inner sep=0pt, outer sep=0pt, minimum width=\linewidth + 1.5em, minimum height=0.67cm, pattern=my north east lines, pattern color=black!20] at (-0.2,0) {};
+  \end{tikzpicture}%
+}
+
+% \newcommand{\crosshatchedcell}{%
+%   \begin{tikzpicture}[baseline,overlay]
+%     \node[anchor=south west, inner sep=0pt, outer sep=0pt, minimum width=\linewidth + 1.5em, minimum height=0.67cm, pattern=north east lines, pattern color=black!20] at (-0.2,0) {};
+%   \end{tikzpicture}%
+% }
+
+
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
 \newcolumntype{G}{>{\columncolor{deeppeach!25}\centering\arraybackslash}m{0.08\linewidth}}
 \newcolumntype{S}{>{\columncolor{gray!15}\centering\arraybackslash}M{0.10\linewidth}}
@@ -50,25 +72,25 @@
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
             \mcell{3.9\%} &
-            \graytext{\mcell{4.0\%}} \\ \setrowheight
+            \graytext{\mcell{4.0\%}} \\ \noalign{\vskip-0.7pt} \cdashline{3-9} \noalign{\vskip0.7pt}  \setrowheight
 
             &
-                & \mcell{mean} &
-                \mcell{XX ns} &
-                \bluetext{\mcell{$\Delta$-XX\%}} &
-                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
-                \graytext{\mcell{$\Delta$+XX\%}} &
-                \mcell{2.0 ms} &
-                \bluetext{\mcell{$\Delta$-0.7*\%}} \\ \setrowheight
+                & \crosshatchedcell\mcell{mean} &
+                \crosshatchedcell\mcell{XX ns} &
+                \bluetext{\crosshatchedcell\mcell{$\Delta$-XX\%}} &
+                \redtext{\crosshatchedcell\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\crosshatchedcell\mcell{$\Delta$+XX\%}} &
+                \crosshatchedcell\mcell{2.0 ms} &
+                \bluetext{\crosshatchedcell\mcell{$\Delta$-0.7*\%}}  \\ \setrowheight
 
         & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/simstep-period-right.pdf}} &
-            \mcell{\% outliers} &
-            \mcell{XX\%} &
-            \bluetext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \mcell{2.9\%} &
-            \graytext{\mcell{2.7\%}} \\
+            \crosshatchedcell\mcell{\% outliers} &
+            \crosshatchedcell\mcell{XX\%} &
+            \bluetext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \crosshatchedcell\mcell{2.9\%} &
+            \graytext{\crosshatchedcell\mcell{2.7\%}} \\
         \hline
         \setrowheight
         \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Walltime Latency~~~~~~~~~~~~~~~~~~~}} &
@@ -87,25 +109,25 @@
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
             \mcell{12\%} &
-            \graytext{\mcell{11\%}} \\ \setrowheight
+            \graytext{\mcell{11\%}} \\ \noalign{\vskip-0.7pt} \cdashline{3-9} \noalign{\vskip0.7pt} \setrowheight
 
             &
-                & \mcell{mean} &
-                \mcell{XX ns} &
-                \bluetext{\mcell{$\Delta$-XX\%}} &
-                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
-                \graytext{\mcell{$\Delta$+XX\%}} &
-                \mcell{2.4 ms} &
-                \redtext{\mcell{$\Delta$+446\%***}} \\ \setrowheight
+                & \crosshatchedcell\mcell{mean} &
+                \crosshatchedcell\mcell{XX ns} &
+                \bluetext{\crosshatchedcell\mcell{$\Delta$-XX\%}} &
+                \redtext{\crosshatchedcell\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\crosshatchedcell\mcell{$\Delta$+XX\%}} &
+                \crosshatchedcell\mcell{2.4 ms} &
+                \redtext{\crosshatchedcell\mcell{$\Delta$+446\%***}} \\ \setrowheight
 
         & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/latency-right.pdf}} &
-            \mcell{\% outliers} &
-            \mcell{XX\%} &
-            \bluetext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \mcell{1.8\%} &
-            \graytext{\mcell{2.1\%}} \\
+            \crosshatchedcell\mcell{\% outliers} &
+            \crosshatchedcell\mcell{XX\%} &
+            \bluetext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \crosshatchedcell\mcell{1.8\%} &
+            \graytext{\crosshatchedcell\mcell{2.1\%}} \\
         \hline
         \setrowheight
         \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Updates Latency~~~~~~~~~~~~~~~~~~~}} &
@@ -124,25 +146,25 @@
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
             \mcell{12\%} &
-            \redtext{\mcell{13\%*}} \\ \setrowheight
+            \redtext{\mcell{13\%*}} \\ \noalign{\vskip-0.7pt} \cdashline{3-9} \noalign{\vskip0.7pt} \setrowheight
 
             &
-                & \mcell{mean} &
-                \mcell{XX updates} &
-                \bluetext{\mcell{$\Delta$-XX\%}} &
-                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
-                \graytext{\mcell{$\Delta$+XX\%}} &
-                \mcell{1.2 updates} &
-                \redtext{\mcell{$\Delta$+448\%***}} \\ \setrowheight
+                & \crosshatchedcell\mcell{mean} &
+                \crosshatchedcell\mcell{XX updates} &
+                \bluetext{\crosshatchedcell\mcell{$\Delta$-XX\%}} &
+                \redtext{\crosshatchedcell\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\crosshatchedcell\mcell{$\Delta$+XX\%}} &
+                \crosshatchedcell\mcell{1.2 updates} &
+                \redtext{\crosshatchedcell\mcell{$\Delta$+448\%***}} \\ \setrowheight
 
         & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/latency-right.pdf}} &
-            \mcell{\% outliers} &
-            \mcell{XX\%} &
-            \bluetext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \mcell{1.9\%} &
-            \redtext{\mcell{2.3\%**}} \\
+            \crosshatchedcell\mcell{\% outliers} &
+            \crosshatchedcell\mcell{XX\%} &
+            \bluetext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \crosshatchedcell\mcell{1.9\%} &
+            \redtext{\crosshatchedcell\mcell{2.3\%**}} \\
         \hline
         \setrowheight
         \multirow[b]{4}{*}{\rotatebox[origin=c]{90}{Bunching}} &
@@ -161,25 +183,25 @@
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
             \mcell{24\%} &
-            \graytext{\mcell{24\%}} \\ \setrowheight
+            \graytext{\mcell{24\%}} \\ \noalign{\vskip-0.7pt} \cdashline{3-9} \noalign{\vskip0.7pt} \setrowheight
 
             &
-                & \mcell{mean} &
-                \mcell{XX} &
-                \bluetext{\mcell{$\Delta$-XX\%}} &
-                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
-                \graytext{\mcell{$\Delta$+XX\%}} &
-                \mcell{0.32} &
-                \graytext{\mcell{$\Delta$-0.6\%}} \\ \setrowheight
+                & \crosshatchedcell\mcell{mean} &
+                \crosshatchedcell\mcell{XX} &
+                \bluetext{\crosshatchedcell\mcell{$\Delta$-XX\%}} &
+                \redtext{\crosshatchedcell\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\crosshatchedcell\mcell{$\Delta$+XX\%}} &
+                \crosshatchedcell\mcell{0.32} &
+                \graytext{\crosshatchedcell\mcell{$\Delta$-0.6\%}} \\ \setrowheight
 
         & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/clumpiness-right.pdf}} &
-            \mcell{\% outliers} &
-            \mcell{XX\%} &
-            \bluetext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \mcell{0.03\%} &
-            \redtext{\mcell{0.5\%***}} \\
+            \crosshatchedcell\mcell{\% outliers} &
+            \crosshatchedcell\mcell{XX\%} &
+            \bluetext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \crosshatchedcell\mcell{0.03\%} &
+            \redtext{\crosshatchedcell\mcell{0.5\%***}} \\
         \hline
         \setrowheight
         \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Delivery Fail Rate~~~~~~~~~~~~~~~~~~}} &
@@ -198,25 +220,25 @@
             \graytext{\mcell{XX\%}} &
             \redtext{\mcell{XX\%}} &
             \mcell{0\%} &
-            \graytext{\mcell{0\%}} \\ \setrowheight
+            \graytext{\mcell{0\%}} \\ \noalign{\vskip-0.7pt} \cdashline{3-9} \noalign{\vskip0.7pt} \setrowheight
 
             &
-                & \mcell{mean} &
-                \mcell{XX} &
-                \bluetext{\mcell{$\Delta$-XX\%}} &
-                \redtext{\mcell{$\Delta$\texttt{+}XX\%}} &
-                \graytext{\mcell{$\Delta$+XX\%}} &
-                \mcell{0} &
-                \redtext{\mcell{0.003\%**}} \\ \setrowheight
+                & \crosshatchedcell\mcell{mean} &
+                \crosshatchedcell\mcell{XX} &
+                \bluetext{\crosshatchedcell\mcell{$\Delta$-XX\%}} &
+                \redtext{\crosshatchedcell\mcell{$\Delta$\texttt{+}XX\%}} &
+                \graytext{\crosshatchedcell\mcell{$\Delta$+XX\%}} &
+                \crosshatchedcell\mcell{0} &
+                \redtext{\crosshatchedcell\mcell{0.003\%**}} \\ \setrowheight
 
         & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/delivery-failure-rate-right.pdf}} &
-            \mcell{\% outliers} &
-            \mcell{XX\%} &
-            \bluetext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \graytext{\mcell{XX\%}} &
-            \mcell{2.5\%} &
-            \bluetext{\mcell{0.7\%***}} \\
+            \crosshatchedcell\mcell{\% outliers} &
+            \crosshatchedcell\mcell{XX\%} &
+            \bluetext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \graytext{\crosshatchedcell\mcell{XX\%}} &
+            \crosshatchedcell\mcell{2.5\%} &
+            \bluetext{\crosshatchedcell\mcell{0.7\%***}} \\
         \hline
 
     \end{tabular}
