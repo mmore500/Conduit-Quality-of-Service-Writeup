@@ -38,7 +38,7 @@
     \begin{tabular}{
         c
         g
-        |S|
+        |S||
         G
         M{0.08\linewidth}
         M{0.08\linewidth}
@@ -81,7 +81,7 @@
                 \redtext{\crosshatchedcell\mcell{$\Delta$\texttt{+}XX\%}} &
                 \graytext{\crosshatchedcell\mcell{$\Delta$+XX\%}} &
                 \crosshatchedcell\mcell{2.0 ms} &
-                \bluetext{\crosshatchedcell\mcell{$\Delta$-0.7*\%}}  \\ \setrowheight
+                \bluetext{\crosshatchedcell\mcell{$\Delta$-0.7\%*}}  \\ \setrowheight
 
         & \multirow[t]{4}{*}{\includegraphics[height=2.8cm]{img/quality-of-service-metric-definitions/simstep-period-right.pdf}} &
             \crosshatchedcell\mcell{\% outliers} &
@@ -91,7 +91,7 @@
             \graytext{\crosshatchedcell\mcell{XX\%}} &
             \crosshatchedcell\mcell{2.9\%} &
             \graytext{\crosshatchedcell\mcell{2.7\%}} \\
-        \hline
+        \Xhline{4\arrayrulewidth}
         \setrowheight
         \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Walltime Latency~~~~~~~~~~~~~~~~~~~}} &
             & \mcell{median} &
@@ -128,7 +128,7 @@
             \graytext{\crosshatchedcell\mcell{XX\%}} &
             \crosshatchedcell\mcell{1.8\%} &
             \graytext{\crosshatchedcell\mcell{2.1\%}} \\
-        \hline
+        \Xhline{4\arrayrulewidth}
         \setrowheight
         \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Updates Latency~~~~~~~~~~~~~~~~~~~}} &
             & \mcell{median} &
@@ -165,7 +165,7 @@
             \graytext{\crosshatchedcell\mcell{XX\%}} &
             \crosshatchedcell\mcell{1.9\%} &
             \redtext{\crosshatchedcell\mcell{2.3\%**}} \\
-        \hline
+        \Xhline{4\arrayrulewidth}
         \setrowheight
         \multirow[b]{4}{*}{\rotatebox[origin=c]{90}{Bunching}} &
             & \mcell{median} &
@@ -202,7 +202,7 @@
             \graytext{\crosshatchedcell\mcell{XX\%}} &
             \crosshatchedcell\mcell{0.03\%} &
             \redtext{\crosshatchedcell\mcell{0.5\%***}} \\
-        \hline
+        \Xhline{4\arrayrulewidth}
         \setrowheight
         \multirow[t]{4}{*}{\rotatebox[origin=c]{90}{Delivery Fail Rate~~~~~~~~~~~~~~~~~~}} &
             & \mcell{median} &
@@ -242,6 +242,16 @@
         \hline
 
     \end{tabular}
-    \caption{TODO}
+    \caption{%
+      Best-effort communication quality of service (QOS) outcomes under experimental treatments, with 10 independent replicates per condition.
+      Each QOS metric is described through four statistics.
+      For each metric, the first two statistics (unhatched rows) describe typical QOS value and variance among typical QOS values.
+      The second two statistics (hatched rows) describe outlier-inclusive QOS value and variance.
+      Significantly degraded QOS outcomes are colored red, improved outcomes are blue, and baselines for comparison are peach.
+      Significance denoted $* = p < 0.05$, $** = p < 0.005$, $*** = p < 0.0005$.
+      QOS with no significant difference from baseline are grayed out.
+      Statistic definitions are as follows, (1) median: median of replicate median observations, tested with quantile regression; (2) $\sim$MAD: median of relative median absolute deviance by replicate, tested with Mann-Whitney U; (3) mean: median of replicate observation means, tested with quantile regression; (4) percent outliers: percent outliers based on IQR definition, tested with chi-square contingency test.
+      Values reported relative to baseline denoted $\Delta \texttt{+}x\%$ or $\Delta \texttt{-}x\%$.
+    }
     \label{tab:categorical-composite}
 \end{table*}
